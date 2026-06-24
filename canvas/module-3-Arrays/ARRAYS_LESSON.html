@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Module 3: Arrays (1D and 2D)</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+
+    <!-- HEADER -->
+    <div style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); color: white; padding: 40px 30px; text-align: center; border-radius: 8px; margin-bottom: 30px;">
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 700;">PROG2 Module 3</h1>
+        <h2 style="font-size: 1.6rem; margin: 0 0 20px 0; font-weight: 500;">Arrays (1D and 2D)</h2>
+        <p style="font-size: 1.1rem; margin: 0; font-weight: 300;">Collections • Lists • Matrices • Data Organization</p>
+    </div>
+
+    <!-- LEARNING OBJECTIVES -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">Learning Objectives</h3>
+        <p style="font-size: 1rem; color: #555; margin-bottom: 15px;">After completing this lesson, you will be able to:</p>
+        <ul style="font-size: 1rem; color: #555; line-height: 2; margin: 0; padding-left: 20px;">
+            <li>Understand what arrays are and why they're useful</li>
+            <li>Declare and initialize 1D arrays</li>
+            <li>Access and modify array elements using indices</li>
+            <li>Understand array bounds and indexing</li>
+            <li>Work with 2D arrays (matrices)</li>
+            <li>Iterate through arrays with loops</li>
+            <li>Apply arrays to real-world problems</li>
+        </ul>
+    </div>
+
+    <!-- WHAT ARE ARRAYS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">What Are Arrays?</h3>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #2E7D32;"><strong>Definition:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #388E3C;">An array is a collection of variables of the SAME TYPE stored in CONSECUTIVE MEMORY LOCATIONS. Each element is accessed by its INDEX (position).</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Why Use Arrays?</h4>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #F5F5F5;">
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #4CAF50;">Benefit</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #4CAF50;">Explanation</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><strong>Store Multiple Values</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Instead of 100 variables, use 1 array of 100 elements</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><strong>Easy to Process</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Use loops to process all elements with minimal code</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><strong>Indexed Access</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Access any element instantly using its index</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><strong>Organize Data</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Keep related data together in one structure</td>
+            </tr>
+        </table>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Array Visualization</h4>
+        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Example: Array of 5 integers named <code style="background: #263238; color: #AED581; padding: 2px 6px;">numbers</code></p>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.8;">
+Array Name: numbers
+Index:      [0]  [1]  [2]  [3]  [4]
+Value:      | 10 | 20 | 30 | 40 | 50 |
+
+numbers[0] = 10
+numbers[1] = 20
+numbers[2] = 30
+numbers[3] = 40
+numbers[4] = 50
+</pre>
+    </div>
+
+    <!-- ONE-DIMENSIONAL ARRAYS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">One-Dimensional (1D) Arrays</h3>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Declaration & Initialization</h4>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>Method 1: Declare with Size (uninitialized)</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int numbers[5];  // Creates array of 5 integers
+                      // Values are garbage/undefined initially</pre>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>Method 2: Declare and Initialize</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int numbers[5] = {10, 20, 30, 40, 50};
+// OR
+int numbers[] = {10, 20, 30, 40, 50};  // Size inferred</pre>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>Method 3: Declare with 0s</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int numbers[5] = {0};  // All elements initialized to 0</pre>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Accessing Array Elements</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int grades[5] = {85, 90, 78, 92, 88};
+
+printf("%d\n", grades[0]);  // Output: 85 (first element)
+printf("%d\n", grades[2]);  // Output: 78 (third element)
+printf("%d\n", grades[4]);  // Output: 88 (last element)
+
+grades[1] = 95;  // Change second element to 95
+printf("%d\n", grades[1]);  // Output: 95
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Important: Array Indexing Starts at 0</h4>
+        <div style="background: #FFF3E0; border-left: 4px solid #FF9800; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #E65100;"><strong>⚠️ Critical Point:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #F57C00;">First element is at index 0, NOT 1. An array of size 5 has indices 0, 1, 2, 3, 4 (not 1, 2, 3, 4, 5)</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Processing with Loops</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int scores[5] = {85, 90, 78, 92, 88};
+
+// Print all elements
+for (int i = 0; i < 5; i++) {
+    printf("Score %d: %d\n", i, scores[i]);
+}
+
+// Calculate sum
+int sum = 0;
+for (int i = 0; i < 5; i++) {
+    sum = sum + scores[i];
+}
+printf("Total: %d\n", sum);  // Output: 433
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Real Example: Student Grades</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+#include &lt;stdio.h&gt;
+
+int main() {
+    int grades[4] = {85, 92, 78, 88};
+    int size = 4;
+    int sum = 0;
+
+    // Sum all grades
+    for (int i = 0; i < size; i++) {
+        sum = sum + grades[i];
+    }
+
+    int average = sum / size;
+    printf("Average: %d\n", average);  // Output: 85
+
+    return 0;
+}
+</pre>
+    </div>
+
+    <!-- TWO-DIMENSIONAL ARRAYS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">Two-Dimensional (2D) Arrays</h3>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #2E7D32;"><strong>Definition:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #388E3C;">A 2D array is an array of arrays. It has ROWS and COLUMNS, like a table or spreadsheet.</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Declaration & Initialization</h4>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>Method 1: Basic Declaration</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int matrix[3][4];  // 3 rows, 4 columns (3×4 matrix)</pre>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>Method 2: Declaration with Initialization</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int matrix[2][3] = {
+    {1, 2, 3},
+    {4, 5, 6}
+};</pre>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">2D Array Visualization</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.8;">
+Declaration: int matrix[3][4];
+
+      Col 0  Col 1  Col 2  Col 3
+Row 0  [ ]    [ ]    [ ]    [ ]
+Row 1  [ ]    [ ]    [ ]    [ ]
+Row 2  [ ]    [ ]    [ ]    [ ]
+
+Example with values:
+int matrix[3][4] = {
+    {1,  2,  3,  4},
+    {5,  6,  7,  8},
+    {9, 10, 11, 12}
+};
+
+      Col 0  Col 1  Col 2  Col 3
+Row 0  1      2      3      4
+Row 1  5      6      7      8
+Row 2  9     10     11     12
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Accessing 2D Array Elements</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int matrix[3][4] = {
+    {1,  2,  3,  4},
+    {5,  6,  7,  8},
+    {9, 10, 11, 12}
+};
+
+printf("%d\n", matrix[0][0]);  // Output: 1 (Row 0, Col 0)
+printf("%d\n", matrix[1][2]);  // Output: 7 (Row 1, Col 2)
+printf("%d\n", matrix[2][3]);  // Output: 12 (Row 2, Col 3)
+
+matrix[1][1] = 99;  // Change element at Row 1, Col 1
+printf("%d\n", matrix[1][1]);  // Output: 99
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Processing 2D Arrays with Nested Loops</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int matrix[3][4] = {
+    {1,  2,  3,  4},
+    {5,  6,  7,  8},
+    {9, 10, 11, 12}
+};
+
+// Print all elements
+for (int i = 0; i < 3; i++) {           // Loop through rows
+    for (int j = 0; j < 4; j++) {       // Loop through columns
+        printf("%d ", matrix[i][j]);
+    }
+    printf("\n");
+}
+
+// Output:
+// 1 2 3 4
+// 5 6 7 8
+// 9 10 11 12
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Real Example: Student Test Scores by Subject</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+#include &lt;stdio.h&gt;
+
+int main() {
+    // 3 students, 4 test scores each
+    int scores[3][4] = {
+        {85, 90, 78, 92},    // Student 1
+        {88, 76, 82, 91},    // Student 2
+        {92, 89, 95, 87}     // Student 3
+    };
+
+    // Calculate average for each student
+    for (int i = 0; i < 3; i++) {
+        int sum = 0;
+        for (int j = 0; j < 4; j++) {
+            sum = sum + scores[i][j];
+        }
+        int average = sum / 4;
+        printf("Student %d average: %d\n", i + 1, average);
+    }
+
+    return 0;
+}
+
+// Output:
+// Student 1 average: 86
+// Student 2 average: 84
+// Student 3 average: 90
+</pre>
+    </div>
+
+    <!-- ARRAY BOUNDS & MEMORY -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">Array Bounds & Memory Safety</h3>
+
+        <div style="background: #FFEBEE; border-left: 4px solid #F44336; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #D32F2F;"><strong>⚠️ Critical Warning:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #F44336;">C does NOT check array bounds! Accessing an index outside the array causes undefined behavior.</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Example of Out-of-Bounds Access</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int numbers[5] = {10, 20, 30, 40, 50};
+
+printf("%d\n", numbers[4]);   // OK - last element
+printf("%d\n", numbers[5]);   // DANGER! Out of bounds
+printf("%d\n", numbers[10]);  // DANGER! Way out of bounds
+printf("%d\n", numbers[-1]);  // DANGER! Negative index
+
+// These don't cause compile errors, but create runtime problems!
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Best Practices</h4>
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ DO: Use loop conditions carefully</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">for (int i = 0; i < 5; i++) {  // i goes from 0 to 4 (safe)
+    printf("%d\n", numbers[i]);
+}</pre>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ DO: Store array size in a variable</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int size = 5;
+int numbers[5] = {10, 20, 30, 40, 50};
+
+for (int i = 0; i < size; i++) {  // Use size variable
+    printf("%d\n", numbers[i]);
+}</pre>
+        </div>
+
+        <div style="background: #FFEBEE; border-left: 4px solid #F44336; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #D32F2F;"><strong>✗ DON'T: Hard-code indices without checking</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">printf("%d\n", numbers[10]);  // Danger! No bounds checking</pre>
+        </div>
+    </div>
+
+    <!-- COMMON MISTAKES -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">Common Array Mistakes</h3>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Mistake 1: Forgetting 0-Based Indexing</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int arr[5] = {10, 20, 30, 40, 50};
+printf("%d\n", arr[1]);  // Thinks: "first element"
+// Output: 20 (actually second)</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int arr[5] = {10, 20, 30, 40, 50};
+printf("%d\n", arr[0]);  // First element
+// Output: 10 (correct)</pre>
+            </div>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 25px;">Mistake 2: Loop Condition Off-by-One</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int arr[5] = {10, 20, 30, 40, 50};
+for (int i = 1; i <= 5; i++) {  // Misses first, accesses invalid
+    printf("%d\n", arr[i]);
+}</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int arr[5] = {10, 20, 30, 40, 50};
+for (int i = 0; i < 5; i++) {  // 0 to 4 (all valid)
+    printf("%d\n", arr[i]);
+}</pre>
+            </div>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 25px;">Mistake 3: Confusing Rows and Columns in 2D Arrays</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int matrix[3][4];
+// Declared as 3 rows, 4 columns
+for (int i = 0; i < 4; i++) {   // Outer: iterate 4 times
+    for (int j = 0; j < 3; j++) { // Inner: iterate 3 times (backwards!)
+        // This accesses wrong indices
+    }
+}</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int matrix[3][4];
+// Declared as 3 rows, 4 columns
+for (int i = 0; i < 3; i++) {   // Outer: iterate rows (3)
+    for (int j = 0; j < 4; j++) { // Inner: iterate columns (4)
+        // Correct iteration
+    }
+}</pre>
+            </div>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 25px;">Mistake 4: Using size() on Static Arrays</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int arr[5] = {10, 20, 30, 40, 50};
+int size = sizeof(arr);  // Don't do this!
+// This won't work as expected</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int arr[5] = {10, 20, 30, 40, 50};
+int size = 5;  // Define size explicitly
+// Or use: int size = sizeof(arr)/sizeof(arr[0]);</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARRAY APPLICATIONS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">Real-World Applications</h3>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Application 1: Find Maximum in Array</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int numbers[5] = {12, 45, 23, 67, 34};
+int max = numbers[0];  // Assume first is max
+
+for (int i = 1; i < 5; i++) {
+    if (numbers[i] > max) {
+        max = numbers[i];
+    }
+}
+
+printf("Maximum: %d\n", max);  // Output: 67
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Application 2: Search in 2D Matrix</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+int target = 5;
+int found = 0;
+
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+        if (matrix[i][j] == target) {
+            printf("Found %d at position [%d][%d]\n", target, i, j);
+            found = 1;
+        }
+    }
+}
+
+if (!found) {
+    printf("Element not found\n");
+}
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Application 3: Sum Diagonal of Matrix</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+int sum = 0;
+
+// Main diagonal: [0][0], [1][1], [2][2], etc.
+for (int i = 0; i < 3; i++) {
+    sum = sum + matrix[i][i];
+}
+
+printf("Diagonal sum: %d\n", sum);  // Output: 15 (1+5+9)
+</pre>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #4CAF50; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #4CAF50; padding-bottom: 10px;">Key Takeaways</h3>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ Arrays store multiple values of the same type</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">Much better than 100 separate variables for 100 numbers</p>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ Arrays use 0-based indexing</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">First element is at index 0, not 1. Array of size N has indices 0 to N-1</p>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ 1D arrays are lists, 2D arrays are matrices (tables)</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">Use nested loops to process 2D arrays (row by row)</p>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ C doesn't check array bounds</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">Out-of-bounds access is YOUR responsibility to prevent</p>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ Use loops to process arrays efficiently</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">Loops make it easy to handle 10 elements or 10,000 with the same code</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); color: white; padding: 30px; text-align: center; border-radius: 8px; margin-top: 30px;">
+        <p style="font-size: 1.1rem; margin: 0; font-weight: 500;">Master arrays and organize your data like a pro! 🎯</p>
+        <p style="font-size: 0.95rem; margin: 10px 0 0 0; opacity: 0.9;">Practice with different sizes and dimensions to build solid array fundamentals.</p>
+    </div>
+
+</body>
+</html>

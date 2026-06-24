@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Module 2: Relational and Logical Operations</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+
+    <!-- HEADER -->
+    <div style="background: linear-gradient(135deg, #FF6B35 0%, #D84315 100%); color: white; padding: 40px 30px; text-align: center; border-radius: 8px; margin-bottom: 30px;">
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 700;">PROG2 Module 2</h1>
+        <h2 style="font-size: 1.6rem; margin: 0 0 20px 0; font-weight: 500;">Relational and Logical Operations</h2>
+        <p style="font-size: 1.1rem; margin: 0; font-weight: 300;">Comparison • Boolean Logic • Decision Making</p>
+    </div>
+
+    <!-- LEARNING OBJECTIVES -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #FF6B35; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #FF6B35; padding-bottom: 10px;">Learning Objectives</h3>
+        <p style="font-size: 1rem; color: #555; margin-bottom: 15px;">After completing this lesson, you will be able to:</p>
+        <ul style="font-size: 1rem; color: #555; line-height: 2; margin: 0; padding-left: 20px;">
+            <li>Understand relational operators and how they compare values</li>
+            <li>Use logical operators to combine conditions</li>
+            <li>Understand boolean values (true/false)</li>
+            <li>Apply operator precedence in complex expressions</li>
+            <li>Write conditional statements with multiple conditions</li>
+            <li>Trace execution of programs with logical operations</li>
+        </ul>
+    </div>
+
+    <!-- WHAT ARE RELATIONAL OPERATORS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #FF6B35; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #FF6B35; padding-bottom: 10px;">Relational Operators</h3>
+
+        <div style="background: #FFF3E0; border-left: 4px solid #FF6B35; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #E65100;"><strong>Definition:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #F57C00;">Relational operators compare two values and return a boolean result (true or false, represented as 1 or 0 in C).</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Six Basic Relational Operators</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr style="background: #F5F5F5;">
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #FF6B35; width: 20%;">Operator</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #FF6B35; width: 30%;">Name</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #FF6B35; width: 30%;">Example</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #FF6B35; width: 20%;">Result (if a=5, b=3)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">==</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Equal to</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">a == b</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">false (0)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">!=</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Not equal to</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">a != b</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">true (1)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">&lt;</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Less than</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">a &lt; b</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">false (0)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">&lt;=</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Less than or equal</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">a &lt;= b</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">false (0)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">&gt;</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Greater than</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">a &gt; b</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">true (1)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">&gt;=</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Greater than or equal</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">a &gt;= b</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">true (1)</td>
+            </tr>
+        </table>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Real-World Example</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 16;
+
+    if (age >= 18) {
+        printf("You can vote\n");
+    } else {
+        printf("You cannot vote yet\n");
+    }
+
+    return 0;
+}</pre>
+    </div>
+
+    <!-- LOGICAL OPERATORS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #FF6B35; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #FF6B35; padding-bottom: 10px;">Logical Operators</h3>
+
+        <div style="background: #FFF3E0; border-left: 4px solid #FF6B35; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #E65100;"><strong>Definition:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #F57C00;">Logical operators combine multiple conditions to create more complex boolean expressions.</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">The Three Logical Operators</h4>
+
+        <!-- AND Operator -->
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>1. AND Operator (&&)</strong></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;"><strong>Purpose:</strong> Returns true ONLY if BOTH conditions are true</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;"><strong>Syntax:</strong> <code style="background: #263238; color: #AED581; padding: 2px 6px;">condition1 && condition2</code></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;"><strong>Truth Table:</strong></p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tr style="background: #F5F5F5;">
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">Condition 1</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">Condition 2</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">Result</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #4CAF50;"><strong>T</strong></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #F44336;">F</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #F44336;">F</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #F44336;">F</td>
+                </tr>
+            </table>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;"><strong>Example:</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int age = 20;
+int hasLicense = 1;
+
+if (age >= 18 && hasLicense == 1) {
+    printf("You can drive\n");  // TRUE - both conditions met
+}</pre>
+        </div>
+
+        <!-- OR Operator -->
+        <div style="background: #E3F2FD; border-left: 4px solid #2196F3; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #1565C0;"><strong>2. OR Operator (||)</strong></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;"><strong>Purpose:</strong> Returns true if AT LEAST ONE condition is true</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;"><strong>Syntax:</strong> <code style="background: #263238; color: #AED581; padding: 2px 6px;">condition1 || condition2</code></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;"><strong>Truth Table:</strong></p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tr style="background: #F5F5F5;">
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">Condition 1</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">Condition 2</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">Result</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #4CAF50;"><strong>T</strong></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #4CAF50;"><strong>T</strong></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #4CAF50;"><strong>T</strong></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #F44336;">F</td>
+                </tr>
+            </table>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;"><strong>Example:</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int isWeekend = 1;
+int isHoliday = 0;
+
+if (isWeekend || isHoliday) {
+    printf("No work today!\n");  // TRUE - at least one is true
+}</pre>
+        </div>
+
+        <!-- NOT Operator -->
+        <div style="background: #FCE4EC; border-left: 4px solid #E91E63; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #C2185B;"><strong>3. NOT Operator (!)</strong></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;"><strong>Purpose:</strong> Reverses/negates a boolean value</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;"><strong>Syntax:</strong> <code style="background: #263238; color: #AED581; padding: 2px 6px;">!condition</code></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;"><strong>Truth Table:</strong></p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <tr style="background: #F5F5F5;">
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">Condition</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; font-weight: bold;">NOT Condition</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">T</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #F44336;"><strong>F</strong></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #DDD; padding: 8px;">F</td>
+                    <td style="border: 1px solid #DDD; padding: 8px; color: #4CAF50;"><strong>T</strong></td>
+                </tr>
+            </table>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;"><strong>Example:</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int isRaining = 0;
+
+if (!isRaining) {
+    printf("Let's play outside!\n");  // TRUE - it's NOT raining
+}</pre>
+        </div>
+    </div>
+
+    <!-- OPERATOR PRECEDENCE -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #FF6B35; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #FF6B35; padding-bottom: 10px;">Operator Precedence & Hierarchy</h3>
+
+        <div style="background: #FFF3E0; border-left: 4px solid #FF6B35; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #E65100;"><strong>Key Concept:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #F57C00;">Operators have an order of evaluation. Knowing precedence helps you predict what complex expressions will do.</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Order of Operations (Highest to Lowest Priority)</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr style="background: #F5F5F5;">
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #FF6B35; width: 15%;">Priority</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #FF6B35; width: 25%;">Operators</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #FF6B35; width: 60%;">Description</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">1 (Highest)</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">!</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">NOT operator (evaluated first)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">2</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">*, /, %</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Multiplication, division, modulo</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">3</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">+, -</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Addition, subtraction</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">4</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">&lt;, &lt;=, &gt;, &gt;=</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Relational operators (comparison)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">5</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">==, !=</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Equality operators</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">6</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">&&</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">AND operator (evaluated before OR)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">7 (Lowest)</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 6px;">||</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">OR operator (evaluated last)</td>
+            </tr>
+        </table>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Precedence Example</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int a = 5, b = 10, c = 15;
+
+// Evaluate: a < b && b < c || a > c
+// Step 1: Evaluate relational operators first
+//   a < b = true (5 < 10)
+//   b < c = true (10 < 15)
+//   a > c = false (5 > 15)
+// Step 2: Evaluate && (AND has higher precedence than OR)
+//   true && true = true
+// Step 3: Evaluate || (OR)
+//   true || false = true
+// RESULT: true
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Use Parentheses for Clarity</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+// Hard to read - relies on precedence knowledge
+if (a > 5 && b < 20 || c == 0) { }
+
+// Easy to read - explicitly shows intent
+if ((a > 5 && b < 20) || (c == 0)) { }
+</pre>
+    </div>
+
+    <!-- MULTIPLE OPERATIONS EXAMPLES -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #FF6B35; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #FF6B35; padding-bottom: 10px;">Real-World Examples: Multiple Operations</h3>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Example 1: Age Validation</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int age = 22;
+
+// Check if age is valid (between 0 and 150)
+if (age > 0 && age < 150) {
+    printf("Valid age\n");
+} else {
+    printf("Invalid age\n");
+}
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Example 2: Grade Assignment</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+int score = 85;
+
+// Determine grade: A if 90+, B if 80-89, C if 70-79, etc.
+if (score >= 90) {
+    printf("Grade: A\n");
+} else if (score >= 80 && score < 90) {
+    printf("Grade: B\n");
+} else if (score >= 70 && score < 80) {
+    printf("Grade: C\n");
+} else {
+    printf("Grade: F\n");
+}
+</pre>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Example 3: Login Validation</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+char username[20] = "john";
+char password[20] = "secret123";
+int isAdmin = 0;
+
+// User can log in if they have correct credentials AND are not banned
+// OR if they are an admin
+if ((username[0] == 'j' && password[0] == 's') || isAdmin == 1) {
+    printf("Login successful\n");
+} else {
+    printf("Login failed\n");
+}
+</pre>
+    </div>
+
+    <!-- COMMON MISTAKES -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #FF6B35; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #FF6B35; padding-bottom: 10px;">Common Mistakes</h3>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Mistake 1: Using = Instead of ==</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">if (age = 18) {  // = assigns, doesn't compare!
+    printf("You are 18\n");
+}</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">if (age == 18) {  // == compares values
+    printf("You are 18\n");
+}</pre>
+            </div>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 25px;">Mistake 2: Forgetting AND When Checking Ranges</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">if (score > 70 < 100) {  // Incorrect syntax
+    printf("In range\n");
+}</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">if (score > 70 && score < 100) {  // Use &&
+    printf("In range\n");
+}</pre>
+            </div>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 25px;">Mistake 3: Using AND When OR Is Needed</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">// "Give me a book OR a movie"
+// BUT using AND means BOTH needed
+if (hasBook && hasMovie) {
+    printf("Entertainment available\n");
+}</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">// Either a book OR a movie (or both)
+if (hasBook || hasMovie) {
+    printf("Entertainment available\n");
+}</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #FF6B35; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #FF6B35; padding-bottom: 10px;">Key Takeaways</h3>
+
+        <div style="background: #FFF3E0; border-left: 4px solid #FF6B35; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #E65100;"><strong>✓ Relational operators compare values (==, !=, <, >, <=, >=)</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #F57C00;">They return true (1) or false (0) based on the comparison</p>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ AND (&&) requires BOTH conditions to be true</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">Use && to check multiple conditions that must all be satisfied</p>
+        </div>
+
+        <div style="background: #E3F2FD; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #1565C0;"><strong>✓ OR (||) requires AT LEAST ONE condition to be true</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #1976D2;">Use || when any of the conditions being satisfied is enough</p>
+        </div>
+
+        <div style="background: #FCE4EC; border-left: 4px solid #E91E63; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #C2185B;"><strong>✓ NOT (!) reverses boolean values</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #D81B60;">Use ! to check when something is NOT true</p>
+        </div>
+
+        <div style="background: #F3E5F5; border-left: 4px solid #9C27B0; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #6A1B9A;"><strong>✓ Remember operator precedence</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #7B1FA2;">NOT → comparison → AND → OR. Use parentheses for clarity!</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="background: linear-gradient(135deg, #FF6B35 0%, #D84315 100%); color: white; padding: 30px; text-align: center; border-radius: 8px; margin-top: 30px;">
+        <p style="font-size: 1.1rem; margin: 0; font-weight: 500;">Master these operators and unlock powerful decision-making in your code! 🎯</p>
+        <p style="font-size: 0.95rem; margin: 10px 0 0 0; opacity: 0.9;">Practice with complex conditions and trace through the logic step-by-step.</p>
+    </div>
+
+</body>
+</html>
