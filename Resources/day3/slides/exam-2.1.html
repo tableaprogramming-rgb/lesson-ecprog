@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 3 - Exam Question 2.1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { margin: 20px 0; font-size: 0.55em; }
+        .reveal code { padding: 2px 6px; }
+        .reveal table { margin: 20px auto; font-size: 0.75em; }
+        .reveal table th, .reveal table td { padding: 6px; border: 1px solid #666; }
+        .reveal table th { background: rgba(100, 200, 255, 0.3); }
+        .slide-container { display: flex; flex-direction: column; gap: 15px; height: 100%; }
+        .slide-header { text-align: center; flex-shrink: 0; }
+        .slide-header h3 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.85em; }
+        .slide-header p { margin: 0; font-size: 0.6em; line-height: 1.2; }
+        .slide-content { display: flex; gap: 20px; align-items: flex-start; justify-content: center; flex: 1; }
+        .slide-footer { text-align: center; flex-shrink: 0; font-size: 0.7em; }
+        .code-column { width: 50%; text-align: left; flex-shrink: 0; }
+        .code-column pre { margin: 0 !important; padding: 12px !important; width: 100%; line-height: 1.0 !important; font-size: 0.48em !important; }
+        .code-column code { line-height: 1.0 !important; }
+        .info-column { width: 50%; text-align: left; font-size: 0.7em; flex-shrink: 0; }
+        .output-section { background: rgba(0, 0, 0, 0.5); border: 1px solid #4CAF50; padding: 6px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        .output-section h4 { margin: 0 0 4px 0; color: #ffaa00; font-size: 0.75em; }
+        .output-section pre { margin: 0; color: #4CAF50; font-size: 0.65em; line-height: 1.2; }
+        .task-box { background: rgba(100, 150, 255, 0.2); border: 2px solid #66aaff; padding: 12px; border-radius: 5px; margin: 8px 0; }
+        .task-box h4 { color: #66aaff; margin: 0 0 8px 0; font-size: 0.85em; }
+        .task-box ol { margin-left: 20px; color: #ddd; font-size: 0.8em; line-height: 1.5; }
+        .info-box { margin-bottom: 10px; padding: 8px; background: rgba(100, 100, 100, 0.2); border-left: 3px solid #888; border-radius: 3px; }
+        .info-box h4 { margin: 0 0 4px 0; color: #ffaa00; font-size: 0.8em; }
+        .info-box p { margin: 0; font-size: 0.7em; line-height: 1.2; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1em; cursor: pointer; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
+        .home-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
+        .home-button:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">🏠 Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1>Exam Question 2.1</h1>
+                <h3>Leap Year Logic Error</h3>
+                <p style="margin-top: 60px; font-size: 0.9em;">25 Points - Challenge</p>
+            </section>
+
+            <!-- SLIDE 2: CONTEXT -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 20px;">The Context</h2>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 0.9em; line-height: 1.6;">
+                    <p style="margin: 15px 0;"><strong style="color: #ffdd00;">Goal:</strong> Determine if a year is a leap year</p>
+                    <p style="margin: 15px 0; padding: 12px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #ffaa00;">
+                        <strong>Leap Year Rules:</strong><br>
+                        • Divisible by 400? → Leap year ✓<br>
+                        • Divisible by 100 (but not 400)? → NOT leap year ✗<br>
+                        • Divisible by 4 (but not 100)? → Leap year ✓<br>
+                        • Otherwise? → NOT leap year ✗
+                    </p>
+                    <p style="margin: 15px 0;"><strong style="color: #ffdd00;">Test Cases:</strong></p>
+                    <table style="font-size: 0.85em;">
+                        <tr><th>Year</th><th>Should Be</th></tr>
+                        <tr><td>2000</td><td>✓ Leap (div by 400)</td></tr>
+                        <tr><td>1900</td><td>✗ NOT leap (div by 100)</td></tr>
+                        <tr><td>2020</td><td>✓ Leap (div by 4)</td></tr>
+                        <tr><td>2019</td><td>✗ NOT leap</td></tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: BUGGY CODE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">The Buggy Code</h2>
+                        <h3>What does this code actually do?</h3>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int year = 1900;
+
+    if (year % 4 == 0 ||
+        year % 100 != 0 ||
+        year % 400 == 0) {
+        printf("Leap year\n");
+    } else {
+        printf("Not a leap\n");
+    }
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column">
+                            <div class="output-section">
+                                <h4>Test Results</h4>
+                                <pre>2000: Leap year ✓
+1900: Leap year ✗
+2020: Leap year ✓
+2019: Not a leap ✓</pre>
+                            </div>
+                            <div class="info-box" style="background: rgba(255, 100, 100, 0.2); border-left-color: #ff6666; margin-top: 10px;">
+                                <h4 style="color: #ff8888;">Problem:</h4>
+                                <p>Year 1900 should print "Not a leap" but prints "Leap year"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">This one is tricky! Complex logic needed.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: YOUR TASK -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 15px;">Your Task (25 Points)</h2>
+                <div class="task-box">
+                    <h4>Complete the following:</h4>
+                    <ol>
+                        <li><strong>Find the bug:</strong> What's wrong with the if condition?</li>
+                        <li><strong>Analyze:</strong> Why does 1900 incorrectly print "Leap year"?</li>
+                        <li><strong>Trace 1900:</strong> Test each part of the condition and show the OR result</li>
+                        <li><strong>Write the fix:</strong> Rewrite the complete if condition correctly</li>
+                        <li><strong>Verify:</strong> Test your fixed condition with all 4 cases above</li>
+                    </ol>
+                </div>
+                <div style="text-align: center; margin-top: 20px; font-size: 0.85em; color: #aaa;">
+                    <p><strong>Remember:</strong> Show all your work on your exam answer sheet</p>
+                    <p>Include traces for each test case</p>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: HINT -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 20px;">Think About:</h2>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 0.9em; line-height: 1.8;">
+                    <p style="margin: 12px 0; padding: 10px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 1:</strong> For year 1900: Is it divisible by 4? By 100? By 400?
+                    </p>
+                    <p style="margin: 12px 0; padding: 10px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 2:</strong> The current condition uses OR. What does that mean?
+                    </p>
+                    <p style="margin: 12px 0; padding: 10px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 3:</strong> A leap year needs EITHER (div by 400) OR (div by 4 AND NOT by 100)
+                    </p>
+                    <p style="margin: 12px 0; padding: 10px; background: rgba(100, 200, 100, 0.2); border-left: 3px solid #66ff66;">
+                        <strong>Fix Hint:</strong> Think about the two ways a year can be a leap year. Use parentheses to group conditions.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

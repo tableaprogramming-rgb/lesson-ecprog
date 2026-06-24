@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 8 Afternoon - Debugging Exercises</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a1a; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #FF6B35 0%, #D84315 100%); color: white; padding: 40px 30px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; font-weight: 700; }
+        .header p { font-size: 1.1em; opacity: 0.95; }
+        .nav-bar { background: #F5F5F5; padding: 15px 30px; border-bottom: 1px solid #DDD; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .nav-bar a { color: #FF6B35; text-decoration: none; font-weight: bold; }
+        .nav-bar .master-link { display: inline-block; padding: 8px 18px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white !important; border-radius: 20px; font-size: 0.9em; text-decoration: none; font-weight: bold; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); }
+        .nav-bar .master-link:hover { box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5); }
+        .content { padding: 40px 30px; }
+        .section { margin-bottom: 50px; }
+        .section h2 { color: #FF6B35; font-size: 1.8em; margin-bottom: 20px; border-bottom: 3px solid #FF6B35; padding-bottom: 10px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .info-box { background: #F9F9F9; padding: 20px; border-radius: 5px; border-left: 4px solid #FF6B35; }
+        .info-box h3 { color: #FF6B35; font-size: 1.1em; margin-bottom: 10px; }
+        .info-box p { font-size: 0.95em; line-height: 1.6; color: #555; }
+        .exercise-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .exercise-card { background: white; border: 2px solid #FF6B35; border-radius: 5px; padding: 20px; text-align: center; transition: all 0.3s ease; cursor: pointer; }
+        .exercise-card:hover { background: #FFF3E0; transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3); }
+        .exercise-card .num { color: #FF6B35; font-size: 2em; font-weight: bold; margin-bottom: 10px; }
+        .exercise-card .title { font-size: 0.9em; color: #333; line-height: 1.4; margin-bottom: 10px; }
+        .exercise-card .difficulty { font-size: 0.8em; color: #999; }
+        .exercise-card a { text-decoration: none; color: #FF6B35; font-weight: bold; display: inline-block; margin-top: 10px; }
+        .exercise-card a:hover { text-decoration: underline; }
+        .difficulty-easy { color: #4CAF50; }
+        .difficulty-medium { color: #FF9800; }
+        .difficulty-hard { color: #F44336; }
+        .key-concepts { background: #F9F9F9; padding: 20px; border-radius: 5px; margin-bottom: 30px; }
+        .key-concepts h3 { color: #FF6B35; margin-bottom: 15px; }
+        .concept-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .concept-item { padding: 10px; background: white; border-radius: 3px; border-left: 3px solid #FF6B35; }
+        .concept-item strong { color: #FF6B35; }
+        .footer { background: #F5F5F5; padding: 20px 30px; text-align: center; color: #666; font-size: 0.9em; border-top: 1px solid #DDD; margin-top: 40px; }
+        .buttons { text-align: center; margin: 30px 0; }
+        .btn { display: inline-block; padding: 12px 25px; margin: 10px; background: #FF6B35; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: all 0.3s ease; }
+        .btn:hover { background: #D84315; text-decoration: none; }
+        .btn-secondary { background: #2196F3; }
+        .btn-secondary:hover { background: #1976D2; }
+        @media (max-width: 900px) {
+            .exercise-grid { grid-template-columns: repeat(2, 1fr); }
+            .info-grid { grid-template-columns: 1fr; }
+            .concept-list { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .exercise-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 1.6em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PROG2 - Day 8 Afternoon</h1>
+            <p>Debugging 2D Arrays: Find and Fix the Bugs!</p>
+        </div>
+
+        <div class="nav-bar">
+            <a href="../../index.html" class="master-link">← Master Index</a>
+            <a href="../../day8/slides/index.html">← Back to Day 8 Morning</a>
+        </div>
+
+        <div class="content">
+            <!-- Overview Section -->
+            <div class="section">
+                <h2>Session Overview</h2>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <h3>🎯 Learning Goal</h3>
+                        <p>Master debugging techniques by identifying and fixing common 2D array bugs. Each exercise teaches a specific debugging pattern.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>⏱️ Session Timeline</h3>
+                        <p><strong>Total Time:</strong> 50 minutes<br><strong>Per Exercise:</strong> 5-6 minutes<br><strong>Focus:</strong> Progressive difficulty</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>📚 Exercise Breakdown</h3>
+                        <p><strong>Easy (D1-D2):</strong> 2 exercises<br><strong>Medium (D3-D5):</strong> 3 exercises<br><strong>Hard (D6-D8):</strong> 3 exercises</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>🏆 Bonus Challenge</h3>
+                        <p>Find all <strong>5 bugs</strong> in one complex program. Tests your ability to spot multiple issues simultaneously.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Concepts -->
+            <div class="section">
+                <h2>Debugging Skills You'll Learn</h2>
+                <div class="key-concepts">
+                    <div class="concept-list">
+                        <div class="concept-item"><strong>Off-by-One Errors:</strong> Loop bounds and array access</div>
+                        <div class="concept-item"><strong>Function Parameters:</strong> Proper array dimension specification</div>
+                        <div class="concept-item"><strong>Variable Initialization:</strong> Avoiding garbage values</div>
+                        <div class="concept-item"><strong>Loop Logic:</strong> Nesting and efficiency</div>
+                        <div class="concept-item"><strong>Index Usage:</strong> Row/column convention</div>
+                        <div class="concept-item"><strong>Type Conversion:</strong> Integer vs. floating-point division</div>
+                        <div class="concept-item"><strong>Control Flow:</strong> Conditional logic and flags</div>
+                        <div class="concept-item"><strong>Complex Bugs:</strong> Multiple issues in one program</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercises -->
+            <div class="section">
+                <h2>Debugging Exercises</h2>
+                <div class="exercise-grid">
+                    <!-- Exercise 1 -->
+                    <div class="exercise-card">
+                        <div class="num">D1</div>
+                        <div class="title">Off-by-One Error in Loops</div>
+                        <div class="difficulty"><span class="difficulty-easy">⭐ Easy</span></div>
+                        <a href="debug-1.html">Start Exercise</a>
+                    </div>
+
+                    <!-- Exercise 2 -->
+                    <div class="exercise-card">
+                        <div class="num">D2</div>
+                        <div class="title">Wrong Function Parameter</div>
+                        <div class="difficulty"><span class="difficulty-easy">⭐ Easy</span></div>
+                        <a href="debug-2.html">Start Exercise</a>
+                    </div>
+
+                    <!-- Exercise 3 -->
+                    <div class="exercise-card">
+                        <div class="num">D3</div>
+                        <div class="title">Uninitialized Variable</div>
+                        <div class="difficulty"><span class="difficulty-medium">⭐⭐ Medium</span></div>
+                        <a href="debug-3.html">Start Exercise</a>
+                    </div>
+
+                    <!-- Exercise 4 -->
+                    <div class="exercise-card">
+                        <div class="num">D4</div>
+                        <div class="title">Wrong Loop Nesting</div>
+                        <div class="difficulty"><span class="difficulty-medium">⭐⭐ Medium</span></div>
+                        <a href="debug-4.html">Start Exercise</a>
+                    </div>
+
+                    <!-- Exercise 5 -->
+                    <div class="exercise-card">
+                        <div class="num">D5</div>
+                        <div class="title">Wrong Index Usage</div>
+                        <div class="difficulty"><span class="difficulty-medium">⭐⭐ Medium</span></div>
+                        <a href="debug-5.html">Start Exercise</a>
+                    </div>
+
+                    <!-- Exercise 6 -->
+                    <div class="exercise-card">
+                        <div class="num">D6</div>
+                        <div class="title">Type Conversion Issue</div>
+                        <div class="difficulty"><span class="difficulty-hard">⭐⭐⭐ Hard</span></div>
+                        <a href="debug-6.html">Start Exercise</a>
+                    </div>
+
+                    <!-- Exercise 7 -->
+                    <div class="exercise-card">
+                        <div class="num">D7</div>
+                        <div class="title">Logic Error in Algorithm</div>
+                        <div class="difficulty"><span class="difficulty-hard">⭐⭐⭐ Hard</span></div>
+                        <a href="debug-7.html">Start Exercise</a>
+                    </div>
+
+                    <!-- Exercise 8 -->
+                    <div class="exercise-card">
+                        <div class="num">D8</div>
+                        <div class="title">Complex Nested Loop Bug</div>
+                        <div class="difficulty"><span class="difficulty-hard">⭐⭐⭐ Hard</span></div>
+                        <a href="debug-8.html">Start Exercise</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bonus Challenge -->
+            <div class="section">
+                <h2>🏆 Bonus Challenge</h2>
+                <div class="exercise-grid" style="grid-template-columns: 1fr;">
+                    <div class="exercise-card" style="border-color: #FFD700; background: #FFFACD;">
+                        <div class="num" style="color: #FFD700;">★</div>
+                        <div class="title">Find All 5 Bugs</div>
+                        <div class="difficulty"><span style="color: #FFD700;">⭐⭐⭐⭐ Challenge</span></div>
+                        <div style="font-size: 0.85em; color: #666; margin: 10px 0;">Test your debugging mastery with one complex program containing 5 intentional bugs!</div>
+                        <a href="debug-bonus.html">Start Bonus Challenge</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Use -->
+            <div class="section">
+                <h2>How to Use These Materials</h2>
+                <div class="info-grid">
+                    <div class="info-box">
+                        <h3>For Students</h3>
+                        <p>1. Read the buggy code<br>2. Try to spot the bug<br>3. Click through the presentation<br>4. Review the explanation<br>5. Write the corrected code</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>For Instructors</h3>
+                        <p>1. Do D1-D2 together as a class<br>2. Pair students for D3-D5<br>3. Individual work on D6-D8<br>4. Discuss solutions<br>5. Challenge with bonus</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>Debugging Strategy</h3>
+                        <p><strong>TRACE:</strong> Follow code execution<br><strong>TEST:</strong> Run and check output<br><strong>THINK:</strong> Why is output wrong?<br><strong>TRACE AGAIN:</strong> Find where it diverges</p>
+                    </div>
+                    <div class="info-box">
+                        <h3>When Stuck</h3>
+                        <p>• Re-read the code slowly<br>• Trace manually with values<br>• Check variable initialization<br>• Verify loop bounds<br>• Look at error messages</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="section">
+                <h2>Getting Started</h2>
+                <div class="buttons">
+                    <a href="debug-1.html" class="btn">▶ Start with Exercise D1</a>
+                    <a href="../docs/QUICK_START.md" class="btn btn-secondary">📖 Quick Start Guide</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>PROG2 - Day 8 Afternoon: Debugging 2D Arrays | © 2026 University of San Jose-Recoletos</p>
+            <p>Computer Programming 2 Course Materials</p>
+        </div>
+    </div>
+</body>
+</html>

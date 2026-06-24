@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 3: Debugging Exam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.15;
+            color: #000;
+            background-color: white;
+            padding: 5px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 6px 8px;
+            box-shadow: none;
+        }
+
+        /* Header Section */
+        .exam-header {
+            text-align: center;
+            border-bottom: 1px solid #000;
+            padding-bottom: 3px;
+            margin-bottom: 4px;
+        }
+
+        .exam-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 0;
+        }
+
+        .exam-subtitle {
+            font-size: 9px;
+            color: #333;
+            font-style: italic;
+            margin-bottom: 0;
+            display: none;
+        }
+
+        .exam-info {
+            display: none;
+        }
+
+        .info-item {
+            background-color: #ecf0f1;
+            padding: 12px;
+            border-left: 4px solid #3498db;
+            border-radius: 3px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #555;
+        }
+
+        /* Instructions Section */
+        .instructions-section {
+            background-color: white;
+            border: 1px solid #000;
+            border-left: 3px solid #000;
+            padding: 5px;
+            margin-bottom: 4px;
+            border-radius: 0;
+            font-size: 8px;
+            column-count: 2;
+            column-gap: 10px;
+        }
+
+        .instructions-section h2 {
+            color: #000;
+            font-size: 10px;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            column-span: all;
+            font-weight: 700;
+        }
+
+        .instructions-section ul {
+            margin-left: 16px;
+            margin-bottom: 1px;
+        }
+
+        .instructions-section li {
+            margin-bottom: 0px;
+            color: #000;
+            font-size: 8px;
+        }
+
+        .scoring-info {
+            background-color: white;
+            padding: 4px;
+            border: 1px solid #000;
+            margin-top: 2px;
+            font-size: 8px;
+            border-left: 3px solid #000;
+            column-span: all;
+            font-weight: 600;
+        }
+
+        /* Question Section */
+        .questions-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .question {
+            margin-bottom: 0;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .question-header {
+            background-color: #f0f0f0;
+            color: #000;
+            padding: 4px 6px;
+            margin-bottom: 3px;
+            border-radius: 0;
+            border: 1px solid #000;
+            border-bottom: 1px solid #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question-number {
+            font-size: 11px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .question-points {
+            font-size: 8px;
+            background-color: white;
+            padding: 2px 7px;
+            border: 1px solid #000;
+            border-radius: 0;
+            font-weight: 600;
+        }
+
+        .question-content {
+            background-color: white;
+            padding: 5px;
+            border: 1px solid #000;
+            border-top: none;
+            border-radius: 0;
+        }
+
+        .context-box {
+            background-color: white;
+            border: 1px solid #000;
+            border-left: 3px solid #000;
+            padding: 4px;
+            margin-bottom: 3px;
+            border-radius: 0;
+            font-size: 8px;
+        }
+
+        .context-label {
+            font-weight: 700;
+            color: #000;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 1px;
+        }
+
+        .context-text {
+            font-size: 8px;
+            line-height: 1.15;
+            color: #000;
+        }
+
+        .code-block {
+            background-color: white;
+            border: 1px solid #000;
+            border-radius: 0;
+            margin: 2px 0;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-wrapper {
+            display: flex;
+            overflow: hidden;
+        }
+
+        .line-numbers {
+            background-color: #f5f5f5;
+            color: #000;
+            padding: 3px 4px;
+            text-align: right;
+            user-select: none;
+            border-right: 1px solid #000;
+            font-size: 8px;
+            line-height: 1.15;
+            min-width: 32px;
+        }
+
+        .code-block code {
+            display: block;
+            padding: 3px;
+            font-size: 8px;
+            line-height: 1.15;
+            color: #000;
+            overflow-x: auto;
+            flex: 1;
+            background-color: white;
+        }
+
+        .code-block pre {
+            margin: 0;
+            flex: 1;
+            background-color: white;
+        }
+
+        .expected-output {
+            background-color: white;
+            border: 1px solid #000;
+            border-left: 3px solid #000;
+            padding: 2px;
+            margin: 2px 0;
+            border-radius: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 8px;
+            color: #000;
+        }
+
+        .actual-output {
+            background-color: white;
+            border: 1px solid #000;
+            border-left: 3px solid #000;
+            padding: 2px;
+            margin: 2px 0;
+            border-radius: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 8px;
+            color: #000;
+        }
+
+        .task-list {
+            background-color: white;
+            border: 1px solid #000;
+            border-radius: 0;
+            padding: 4px;
+            margin-top: 2px;
+        }
+
+        .task-list h4 {
+            color: #000;
+            font-size: 8px;
+            text-transform: uppercase;
+            margin-bottom: 1px;
+            letter-spacing: 0.3px;
+            font-weight: 700;
+        }
+
+        .task-list ol {
+            margin-left: 16px;
+        }
+
+        .task-list li {
+            margin-bottom: 0px;
+            color: #000;
+            font-size: 8px;
+        }
+
+        /* Footer Section */
+        .exam-footer {
+            margin-top: 2px;
+            padding-top: 2px;
+            border-top: 1px solid #000;
+            text-align: center;
+            font-size: 7px;
+            color: #000;
+        }
+
+        .footer-tips {
+            background-color: white;
+            border: 1px solid #000;
+            padding: 2px;
+            border-radius: 0;
+            margin-bottom: 2px;
+            font-size: 7px;
+        }
+
+        .footer-tips h3 {
+            color: #000;
+            font-size: 7px;
+            text-transform: uppercase;
+            margin-bottom: 1px;
+            letter-spacing: 0.2px;
+            font-weight: 700;
+        }
+
+        .footer-tips ul {
+            margin-left: 14px;
+            font-size: 7px;
+        }
+
+        .footer-tips li {
+            margin-bottom: 0px;
+            color: #000;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 30px;
+            }
+
+            .question {
+                page-break-inside: avoid;
+            }
+
+            .code-block {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .exam-info {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="exam-header">
+            <div class="exam-title">PROG2 Day 3: Debugging Exam</div>
+            <div class="exam-subtitle">Intermediate Difficulty Level</div>
+
+            <div class="exam-info">
+                <div class="info-item">
+                    <span class="info-label">Exam Date</span>
+                    <span class="info-value">_____________________</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Student Name</span>
+                    <span class="info-value">_____________________</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Total Points</span>
+                    <span class="info-value"><strong>100</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions-section">
+            <h2>📋 Exam Instructions</h2>
+
+            <strong style="color: #2c3e50; font-size: 11px;">Rules:</strong>
+            <ul style="margin-bottom: 6px;">
+                <li>✓ You may use pen and paper for tracing</li>
+                <li>✗ You may NOT use a compiler or IDE</li>
+                <li>✗ You may NOT ask for help from others</li>
+                <li>✓ Show ALL your work - line numbers and explanations</li>
+            </ul>
+
+            <strong style="color: #2c3e50; font-size: 11px;">Answer on separate paper:</strong>
+            <ul>
+                <li>Label each answer clearly (Q1, Q2, Q3, Q4)</li>
+                <li>Show all work for full credit</li>
+            </ul>
+
+            <div class="scoring-info">
+                <strong>60 min | 100 points (25 each)</strong>
+            </div>
+        </div>
+
+        <!-- Questions in 2 Columns -->
+        <div class="questions-container">
+
+        <!-- Question 1 -->
+        <div class="question">
+            <div class="question-header">
+                <span class="question-number">Question 1</span>
+                <span class="question-points">25 points</span>
+            </div>
+            <div class="question-content">
+                <div class="context-box">
+                    <div class="context-label">Context</div>
+                    <div class="context-text">
+                        This program should count how many numbers between 1 and 20 are positive AND greater than 10.
+                        <br><br>
+                        <strong>Expected:</strong> Numbers 11-20 should be counted (10 numbers)
+                        <br>
+                        <strong>Expected output:</strong> <code>Count: 10</code>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-wrapper">
+                        <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</div>
+                        <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 0;
+
+    for (int i = 1; i <= 20; i++) {
+        if (i > 0 || i > 10) {
+            count++;
+        }
+    }
+
+    printf("Count: %d\n", count);
+
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="actual-output">
+                    <strong>⚠️ Actual output:</strong> Count: 20
+                </div>
+
+                <div class="task-list">
+                    <h4>Your Task</h4>
+                    <ol>
+                        <li><strong>Find the bug:</strong> What line(s) have the error?</li>
+                        <li><strong>Explain why:</strong> Why does this cause the wrong output?</li>
+                        <li><strong>Trace it:</strong> Show what happens with 3 test values (i = 5, i = 15, i = 1)</li>
+                        <li><strong>Write the fix:</strong> What should the code be?</li>
+                        <li><strong>Verify:</strong> Show the corrected code produces Count: 10</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+            <div class="question-header">
+                <span class="question-number">Question 2</span>
+                <span class="question-points">25 points</span>
+            </div>
+            <div class="question-content">
+                <div class="context-box">
+                    <div class="context-label">Context</div>
+                    <div class="context-text">
+                        This program should calculate the factorial of 5
+                        <br><br>
+                        <strong>Formula:</strong> 5! = 5 × 4 × 3 × 2 × 1 = 120
+                        <br>
+                        <strong>Expected output:</strong> <code>5! = 120</code>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-wrapper">
+                        <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</div>
+                        <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int result = 1;
+
+    for (int i = 1; i < 5; i++) {
+        result = result * i;
+    }
+
+    printf("5! = %d\n", result);
+
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="actual-output">
+                    <strong>⚠️ Actual output:</strong> 5! = 24
+                </div>
+
+                <div class="task-list">
+                    <h4>Your Task</h4>
+                    <ol>
+                        <li><strong>Find the bug:</strong> What's wrong with the loop condition (line 6)?</li>
+                        <li><strong>Trace it:</strong> Show what gets multiplied at each iteration</li>
+                        <li><strong>Explain why:</strong> Why does 24 appear instead of 120?</li>
+                        <li><strong>Write the fix:</strong> Change the loop condition only (don't change the body)</li>
+                        <li><strong>Verify:</strong> Confirm your fix produces 120</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+            <div class="question-header">
+                <span class="question-number">Question 3</span>
+                <span class="question-points">25 points</span>
+            </div>
+            <div class="question-content">
+                <div class="context-box">
+                    <div class="context-label">Context</div>
+                    <div class="context-text">
+                        This program determines if a year is a leap year.
+                        <br><br>
+                        <strong>Rules:</strong> A year is a leap year if it's divisible by 4 AND (NOT divisible by 100 OR divisible by 400)
+                        <br><br>
+                        <strong>Test Cases:</strong>
+                        <ul style="margin-left: 16px; margin-top: 4px; font-size: 11px;">
+                            <li>2000: "Leap year" ✓</li>
+                            <li>1900: "Not leap" ✗ (wrong)</li>
+                            <li>2020: "Leap year" ✓</li>
+                            <li>2019: "Not leap" ✓</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-wrapper">
+                        <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13</div>
+                        <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int year = 2000;
+
+    if (year % 4 == 0 || year % 100 != 0 || year % 400 == 0) {
+        printf("Leap year\n");
+    } else {
+        printf("Not a leap year\n");
+    }
+
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="actual-output">
+                    <strong>⚠️ Problem:</strong> Year 1900 incorrectly outputs "Leap year" (should be "Not a leap year")
+                </div>
+
+                <div class="task-list">
+                    <h4>Your Task</h4>
+                    <ol>
+                        <li><strong>Find the bug:</strong> What's wrong with the condition on line 6?</li>
+                        <li><strong>Analyze:</strong> Why does year 1900 incorrectly print "Leap year"?</li>
+                        <li><strong>Trace:</strong> Test 1900 with the buggy condition step by step</li>
+                        <li><strong>Write the fix:</strong> Rewrite the complete if condition correctly</li>
+                        <li><strong>Verify:</strong> Test your fixed condition with all 4 cases</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+            <div class="question-header">
+                <span class="question-number">Question 4</span>
+                <span class="question-points">25 points</span>
+            </div>
+            <div class="question-content">
+                <div class="context-box">
+                    <div class="context-label">Context</div>
+                    <div class="context-text">
+                        This program should sum all EVEN numbers from 10 to 15
+                        <br><br>
+                        <strong>Expected calculation:</strong> 10 + 12 + 14 = 36
+                        <br>
+                        <strong>Expected output:</strong> <code>Sum of evens: 36</code>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-wrapper">
+                        <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15</div>
+                        <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int sum = 0;
+
+    for (int i = 10; i <= 15; i++) {
+        if (i % 2 = 0) {
+            sum = sum + i;
+        }
+    }
+
+    printf("Sum of evens: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="actual-output">
+                    <strong>⚠️ Actual status:</strong> Code does NOT compile
+                </div>
+
+                <div class="task-list">
+                    <h4>Your Task</h4>
+                    <ol>
+                        <li><strong>Find ALL bugs:</strong> There are 2 bugs in this code. Find both!</li>
+                        <li><strong>Explain each bug:</strong> What's wrong and why?</li>
+                        <li><strong>Write the fixes:</strong> Correct both bugs</li>
+                        <li><strong>Trace:</strong> Show what the fixed code does for each iteration</li>
+                        <li><strong>Verify:</strong> Confirm the output is 36</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        </div><!-- End questions-container -->
+
+        <!-- Footer -->
+        <div class="exam-footer">
+            <div class="footer-tips">
+                <h3>⏱️ Time Tips</h3>
+                <ul>
+                    <li>Q1: ~15 min | Q2: ~12 min | Q3: ~15 min | Q4: ~15 min | Review: ~3 min</li>
+                </ul>
+            </div>
+
+            <p style="margin-bottom: 4px; font-size: 10px;">
+                Show your work systematically. 🐛→🔧
+            </p>
+            <p style="margin-top: 4px; font-size: 9px; color: #ccc;">
+                PROG2 Day 3 Debugging Exam | Computer Programming 2
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Highlight code blocks
+        document.querySelectorAll('pre code').forEach(block => {
+            hljs.highlightElement(block);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Module 1: Functions in C</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">
+
+    <!-- HEADER -->
+    <div style="background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%); color: white; padding: 40px 30px; text-align: center; border-radius: 8px; margin-bottom: 30px;">
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 700;">PROG2 Module 1</h1>
+        <h2 style="font-size: 1.6rem; margin: 0 0 20px 0; font-weight: 500;">Functions in C</h2>
+        <p style="font-size: 1.1rem; margin: 0; font-weight: 300;">Void Functions • Value-Returning Functions • Parameter Passing</p>
+    </div>
+
+    <!-- LEARNING OBJECTIVES -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Learning Objectives</h3>
+        <p style="font-size: 1rem; color: #555; margin-bottom: 15px;">After completing this lesson, you will be able to:</p>
+        <ul style="font-size: 1rem; color: #555; line-height: 2; margin: 0; padding-left: 20px;">
+            <li>Understand what functions are and why they're important</li>
+            <li>Write and call void functions (no return value)</li>
+            <li>Write and call value-returning functions (return data)</li>
+            <li>Use parameters to pass data into functions</li>
+            <li>Understand pass-by-value semantics</li>
+            <li>Trace function execution step-by-step</li>
+            <li>Design well-structured programs using multiple functions</li>
+        </ul>
+    </div>
+
+    <!-- WHAT ARE FUNCTIONS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">What Are Functions?</h3>
+
+        <div style="background: #E3F2FD; border-left: 4px solid #2196F3; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #1565C0;"><strong>Definition:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #1976D2;">Functions are reusable blocks of code that perform specific tasks. They help organize code, improve readability, and reduce repetition.</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Why Use Functions?</h4>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #F5F5F5;">
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3;">Benefit</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3;">Explanation</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><strong>Reusability</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Write code once, use it many times</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><strong>Readability</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Code is easier to understand with meaningful function names</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><strong>Maintainability</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Easier to fix bugs and make updates</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><strong>Modularity</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Break large problems into smaller, manageable pieces</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- THREE TYPES OF FUNCTIONS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Three Types of Functions</h3>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Type 1: Void Functions</h4>
+        <div style="background: #E3F2FD; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #1565C0;"><strong>Purpose:</strong> Perform a task but return NO value</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;">Syntax: <code style="background: #263238; color: #AED581; padding: 2px 6px; border-radius: 2px;">void functionName(parameters) { ... }</code></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;"><strong>Used for:</strong> Printing output, displaying messages, input operations</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;"><strong>Example:</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 10px; border-radius: 4px; margin: 5px 0; overflow-x: auto;">void printLine() {
+    printf("-----\n");
+}
+
+int main() {
+    printLine();  // Call the function
+    return 0;
+}</pre>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Type 2: Value-Returning Functions</h4>
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>Purpose:</strong> Perform a calculation and return a result</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;">Syntax: <code style="background: #263238; color: #AED581; padding: 2px 6px; border-radius: 2px;">int functionName(parameters) { return value; }</code></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;"><strong>Used for:</strong> Calculations, conversions, computations</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;"><strong>Example:</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 10px; border-radius: 4px; margin: 5px 0; overflow-x: auto;">int square(int num) {
+    return num * num;
+}
+
+int main() {
+    int result = square(5);  // result = 25
+    printf("%d\n", result);
+    return 0;
+}</pre>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.2rem; margin-top: 25px;">Type 3: Functions with Parameters</h4>
+        <div style="background: #FCE4EC; border-left: 4px solid #E91E63; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #C2185B;"><strong>Purpose:</strong> Accept input data and use it in the function</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;">Syntax: <code style="background: #263238; color: #AED581; padding: 2px 6px; border-radius: 2px;">void greet(char name[]) { ... }</code></p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;"><strong>Parameters:</strong> Variables in function definition (placeholders)</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;"><strong>Arguments:</strong> Actual values passed when calling the function</p>
+            <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #D81B60;"><strong>Example:</strong></p>
+            <pre style="background: #263238; color: #AED581; padding: 10px; border-radius: 4px; margin: 5px 0; overflow-x: auto;">void greet(char name[]) {      // Parameters
+    printf("Hello, %s!\n", name);
+}
+
+int main() {
+    greet("Alice");  // Arguments: "Alice"
+    greet("Bob");    // Arguments: "Bob"
+    return 0;
+}</pre>
+        </div>
+    </div>
+
+    <!-- UNDERSTANDING PARAMETERS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Parameters vs Arguments</h3>
+
+        <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <div style="flex: 1; background: #E3F2FD; border-left: 4px solid #2196F3; padding: 15px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 1rem; color: #1565C0;"><strong>Parameters</strong></p>
+                <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;">Variables in the function <strong>definition</strong></p>
+                <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #1976D2;">Like placeholders or templates</p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 4px; margin-top: 10px; overflow-x: auto; font-size: 0.85em;">void add(int a, int b) {
+    // a, b are PARAMETERS
+}</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>Arguments</strong></p>
+                <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;">Actual values passed to the function when <strong>called</strong></p>
+                <p style="margin: 10px 0 0 0; font-size: 0.95rem; color: #388E3C;">Real data that gets used</p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 4px; margin-top: 10px; overflow-x: auto; font-size: 0.85em;">int result = add(3, 5);
+// 3, 5 are ARGUMENTS</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASS-BY-VALUE -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Pass-by-Value Semantics</h3>
+
+        <div style="background: #FFF3E0; border-left: 4px solid #FF9800; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1.05rem; color: #E65100;"><strong>Key Concept:</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 1rem; color: #F57C00;">When you pass a variable to a function, the function receives a <strong>COPY</strong> of the value, not the original variable.</p>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Example:</h4>
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.5;">
+ 1 | void increment(int x) {
+ 2 |     x = x + 1;              // Changes the COPY only
+ 3 |     printf("Inside: %d\n", x);
+ 4 | }
+ 5 |
+ 6 | int main() {
+ 7 |     int num = 5;
+ 8 |     printf("Before: %d\n", num);
+ 9 |
+10 |     increment(num);          // Pass copy of num
+11 |
+12 |     printf("After: %d\n", num);  // num is STILL 5!
+13 |     return 0;
+14 | }
+</pre>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Output:</h4>
+        <pre style="background: #1B5E20; color: #4CAF50; padding: 10px; border-radius: 4px; font-size: 0.9em;">Before: 5
+Inside: 6
+After: 5</pre>
+
+        <div style="background: #FFEBEE; border-left: 4px solid #F44336; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #D32F2F;"><strong>Important:</strong> Changes inside the function do NOT affect the original variable in main()</p>
+        </div>
+    </div>
+
+    <!-- FUNCTION SIGNATURE BREAKDOWN -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Understanding Function Signatures</h3>
+
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.95em; line-height: 1.8;">
+int add(int a, int b) {
+↑   ↑      ↑  ↑
+│   │      │  └─ Parameters: placeholders for input
+│   │      └───── Parameter types: what kind of data
+│   └──────────── Function name: what it does
+└──────────────── Return type: what kind of value it sends back</pre>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Parts Explained:</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr style="background: #F5F5F5;">
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3;">Part</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3;">Example</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3;">Meaning</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><strong>Return Type</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 4px;">int</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Returns an integer value</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><strong>Function Name</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;"><code style="background: #263238; color: #AED581; padding: 2px 4px;">add</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Descriptive name of what it does</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><strong>Parameters</strong></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;"><code style="background: #263238; color: #AED581; padding: 2px 4px;">int a, int b</code></td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Two integers needed for the function</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- COMMON MISTAKES -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Common Function Mistakes</h3>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Mistake 1: Missing () When Calling Functions</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">greet;  // No ()</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">greet();  // With ()</pre>
+            </div>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 25px;">Mistake 2: Missing Return Statement</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int add(int a, int b) {
+    int sum = a + b;
+    // Missing return!
+}</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int add(int a, int b) {
+    int sum = a + b;
+    return sum;
+}</pre>
+            </div>
+        </div>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 25px;">Mistake 3: Wrong Number of Arguments</h4>
+        <div style="display: flex; gap: 15px; margin-top: 15px;">
+            <div style="flex: 1; background: #FFEBEE; border-left: 4px solid #F44336; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #D32F2F;"><strong>WRONG:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int result = add(5);  // Missing one!
+int r2 = add(1, 2, 3);  // Too many!</pre>
+            </div>
+            <div style="flex: 1; background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 12px; border-radius: 4px;">
+                <p style="margin: 0; font-size: 0.95rem; color: #2E7D32;"><strong>RIGHT:</strong></p>
+                <pre style="background: #263238; color: #AED581; padding: 8px; border-radius: 3px; margin-top: 8px; overflow-x: auto; font-size: 0.85em;">int result = add(3, 5);  // Correct
+int r2 = add(1, 2);      // Correct</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRACING FUNCTION EXECUTION -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Tracing Function Execution</h3>
+
+        <p style="font-size: 1rem; color: #555; margin-bottom: 15px;">Let's trace through this program step-by-step:</p>
+
+        <pre style="background: #263238; color: #AED581; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 0.9em; line-height: 1.6;">
+ 1 | int add(int a, int b) {
+ 2 |     return a + b;
+ 3 | }
+ 4 |
+ 5 | int main() {
+ 6 |     int result = add(3, 5);
+ 7 |     printf("%d\n", result);
+ 8 |     return 0;
+ 9 | }
+</pre>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Step-by-Step Execution:</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <tr style="background: #F5F5F5;">
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3; width: 10%;">Step</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3; width: 40%;">What Happens</td>
+                <td style="border: 1px solid #DDD; padding: 12px; font-weight: bold; color: #2196F3; width: 50%;">Variables</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">1</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Enter main()</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">(none yet)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">2</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Call add(3, 5) - enter function</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">a=3, b=5</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">3</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Calculate a + b (3 + 5 = 8)</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">a=3, b=5, result=?</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">4</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Return 8 from add(), exit function</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">result gets 8</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">5</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">Print result (8)</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: #FAFAFA;">result=8</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">6</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Return 0, exit main()</td>
+                <td style="border: 1px solid #DDD; padding: 12px; background: white;">Program ends</td>
+            </tr>
+        </table>
+
+        <h4 style="color: #555; font-size: 1.1rem; margin-top: 20px;">Output:</h4>
+        <pre style="background: #1B5E20; color: #4CAF50; padding: 10px; border-radius: 4px; font-size: 0.9em;">8</pre>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Key Takeaways</h3>
+
+        <div style="background: #E3F2FD; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #1565C0;"><strong>✓ Functions organize code into reusable pieces</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #1976D2;">Instead of writing the same code multiple times, write a function and call it</p>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>✓ Use void for actions, return types for calculations</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">If function just does something (print, input), use void. If it computes a value, return it.</p>
+        </div>
+
+        <div style="background: #FCE4EC; border-left: 4px solid #E91E63; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #C2185B;"><strong>✓ Parameters let functions accept different data</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #D81B60;">Parameters are placeholders that get filled with actual values when the function is called</p>
+        </div>
+
+        <div style="background: #FFF3E0; border-left: 4px solid #FF9800; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #E65100;"><strong>✓ Always use () to call functions</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #F57C00;">functionName; is a reference. functionName(); is a call. You need the parentheses!</p>
+        </div>
+
+        <div style="background: #F3E5F5; border-left: 4px solid #9C27B0; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #6A1B9A;"><strong>✓ Parameters are copies (pass-by-value)</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #7B1FA2;">Changes to parameters inside a function do NOT affect the original variables</p>
+        </div>
+    </div>
+
+    <!-- NEXT STEPS -->
+    <div style="background: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="color: #2196F3; font-size: 1.5rem; margin-top: 0; border-bottom: 3px solid #2196F3; padding-bottom: 10px;">Next Steps</h3>
+
+        <div style="background: #E3F2FD; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #1565C0;"><strong>1. Review Day 5 Exercises</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #1976D2;">Practice writing and tracing functions with the provided exercises</p>
+        </div>
+
+        <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #2E7D32;"><strong>2. Complete the Hands-On Exercise</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #388E3C;">Build the Student Grade Management System using 5 functions</p>
+        </div>
+
+        <div style="background: #FCE4EC; border-left: 4px solid #E91E63; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 1rem; color: #C2185B;"><strong>3. Submit Your Work</strong></p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #D81B60;">Submit your C code and screenshot showing correct output</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%); color: white; padding: 30px; text-align: center; border-radius: 8px; margin-top: 30px;">
+        <p style="font-size: 1.1rem; margin: 0; font-weight: 500;">Ready to master functions? Let's code! 💻</p>
+        <p style="font-size: 0.95rem; margin: 10px 0 0 0; opacity: 0.9;">Remember: Practice makes perfect. Build, test, and learn.</p>
+    </div>
+
+</body>
+</html>

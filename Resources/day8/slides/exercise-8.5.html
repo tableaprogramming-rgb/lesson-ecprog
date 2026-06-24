@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 8 - Exercise 8.5: Searching in 2D Arrays</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <style>
+        .reveal { width: 100% !important; height: 100% !important; }
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; color: #64B5F6; font-weight: bold; }
+        .reveal h2 { font-size: 1.3em; }
+        .reveal h3 { font-size: 1.1em; margin-top: 20px; }
+        .reveal section { padding: 10px !important; width: 100% !important; height: 100% !important; left: 0 !important; right: 0 !important; }
+        .slide-container { display: flex; flex-direction: column; height: 100%; width: 100%; justify-content: flex-start; gap: 5px; }
+        .slide-header { text-align: center; margin-bottom: 5px; flex-shrink: 0; }
+        .slide-header h2 { margin: 0 0 5px 0; color: #64B5F6; }
+        .slide-header p { margin: 2px 0; font-size: 0.65em; color: #B0BEC5; }
+        .slide-content { display: flex; gap: 12px; margin: 0; justify-content: flex-start; flex: 1; min-height: 0; overflow: hidden; }
+        .code-column { width: 75%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .code-column pre { margin: 0; padding: 0; font-size: 0.5em; line-height: 1.4; width: 100%; overflow: visible; max-height: 400px; white-space: pre; flex-shrink: 0; }
+        .code-column code { padding: 8px; border-radius: 3px; background: #263238 !important; color: #AED581 !important; display: block; font-family: 'Courier New', monospace !important; }
+        .matrix-column { width: 25%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .output-section { text-align: center; margin-top: 4px; padding: 6px; background: #1B5E20; border-left: 3px solid #4CAF50; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.5em; }
+        .output-section h3 { color: #64B5F6; margin: 0 0 3px 0; font-size: 1em; }
+        .highlight-line { background: #FFD93D; color: #000; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #2196F3; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .home-button:hover { background: #1976D2; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise 8.5: Searching in 2D Arrays</h2>
+                        <p>Finding elements and their positions</p>
+                    </div>
+                    <div class="slide-content" style="justify-content: center; align-items: center;">
+                        <div style="width: 100%; text-align: center;">
+                            <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int matrix[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    int target = 5;
+    int found = 0;
+    int row = -1, col = -1;
+
+    for (int i = 0; i < 3 && !found; i++) {
+        for (int j = 0; j < 3 && !found; j++) {
+            if (matrix[i][j] == target) {
+                found = 1;
+                row = i;
+                col = j;
+            }
+        }
+    }
+
+    if (found) {
+        printf("Found %d at [%d][%d]\n", target, row, col);
+    } else {
+        printf("Not found\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 1-5: Search Loop</h2>
+                        <p>Check each element until found</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+int target = 5;
+int found = 0;
+int row = -1, col = -1;
+
+<span class="highlight-line">for (int i = 0; i < 3 && !found; i++) {</span>
+<span class="highlight-line">    for (int j = 0; j < 3 && !found; j++) {</span>
+<span class="highlight-line">        if (matrix[i][j] == target) {</span>
+<span class="highlight-line">            found = 1;</span>
+<span class="highlight-line">            row = i;</span>
+<span class="highlight-line">            col = j;</span>
+<span class="highlight-line">        }</span>
+<span class="highlight-line">    }</span>
+<span class="highlight-line">}</span></code></pre>
+                        </div>
+                        <div class="matrix-column">
+                            <h3>Search Progress</h3>
+                            <div class="output-section">
+                                Check [0][0]=1 ✗<br>
+                                Check [0][1]=2 ✗<br>
+                                Check [0][2]=3 ✗<br>
+                                Check [1][0]=4 ✗<br>
+                                Check [1][1]=5 ✓ FOUND!<br>
+                                <br>
+                                found=1, row=1, col=1<br>
+                                Exit loops (&&!found)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 6: Print Result</h2>
+                        <p>Output position if found</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>// Search done...
+
+<span class="highlight-line">if (found) {</span>
+<span class="highlight-line">    printf("Found %d at [%d][%d]\n",</span>
+<span class="highlight-line">            target, row, col);</span>
+<span class="highlight-line">} else {</span>
+<span class="highlight-line">    printf("Not found\n");</span>
+<span class="highlight-line">}</span>
+
+return 0;</code></pre>
+                        </div>
+                        <div class="matrix-column">
+                            <h3>Output</h3>
+                            <div class="output-section">
+                                Found 5 at [1][1]
+                            </div>
+                            <h3 style="margin-top: 10px;">Key Points</h3>
+                            <p style="font-size: 0.8em; color: #B0BEC5;">
+                                • found flag stops loops early<br>
+                                • Stores position (row, col)<br>
+                                • Checks found status before print<br>
+                                • Efficient: exits on first match
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Concept Summary</h2>
+                        <p>Search algorithms in 2D arrays</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 20px 40px;">
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">1. Use Flag for Early Exit</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;"><code style="background: #263238; padding: 2px 5px;">&&!found</code> in loop stops search</p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">2. Store Position When Found</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;">Save row and col indices for later use</p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">3. Check Before Using Result</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;">Verify found is true before accessing row/col</p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">4. Linear Search Pattern</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;">Check each element sequentially until found</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

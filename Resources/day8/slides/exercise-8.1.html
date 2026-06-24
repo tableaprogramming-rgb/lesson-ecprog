@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 8 - Exercise 8.1: 2D Array Declaration & Initialization</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+
+    <style>
+        .reveal {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            color: #64B5F6;
+            font-weight: bold;
+        }
+
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.3em; }
+        .reveal h3 { font-size: 1.1em; margin-top: 20px; }
+
+        .reveal section {
+            padding: 10px !important;
+            width: 100% !important;
+            height: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 5px;
+            flex-shrink: 0;
+        }
+
+        .slide-header h2 {
+            margin: 0 0 5px 0;
+            color: #64B5F6;
+        }
+
+        .slide-header p {
+            margin: 2px 0;
+            font-size: 0.65em;
+            color: #B0BEC5;
+        }
+
+        .slide-content {
+            display: flex;
+            gap: 12px;
+            margin: 0;
+            justify-content: flex-start;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .code-column {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .code-column pre {
+            margin: 0;
+            padding: 0;
+            font-size: 0.5em;
+            line-height: 1.4;
+            width: 100%;
+            overflow: visible;
+            max-height: 400px;
+            white-space: pre;
+            flex-shrink: 0;
+        }
+
+        .code-column code {
+            padding: 8px;
+            border-radius: 3px;
+            background: #263238 !important;
+            color: #AED581 !important;
+            display: block;
+            font-family: 'Courier New', monospace !important;
+        }
+
+        .matrix-column {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 10px;
+        }
+
+        .matrix-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            background: #263238;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .matrix-row {
+            display: flex;
+            gap: 3px;
+        }
+
+        .matrix-cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1565C0;
+            color: white;
+            border-radius: 2px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .matrix-label {
+            font-size: 0.65em;
+            color: #B0BEC5;
+            text-align: center;
+            margin-top: 3px;
+        }
+
+        .variables-section {
+            background: #263238;
+            padding: 10px;
+            border-radius: 5px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .variables-section h3 {
+            margin: 0 0 8px 0;
+            font-size: 0.9em;
+            color: #64B5F6;
+        }
+
+        table {
+            font-size: 0.5em;
+            margin: 0;
+            border-collapse: collapse;
+            width: 100%;
+            background: #37474F;
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        table thead {
+            background: #455A64;
+        }
+
+        table th, table td {
+            padding: 4px 5px;
+            text-align: left;
+            border-bottom: 1px solid #546E7A;
+        }
+
+        table th {
+            font-weight: bold;
+            color: #64B5F6;
+        }
+
+        table td {
+            color: #B0BEC5;
+        }
+
+        .output-section {
+            text-align: center;
+            margin-top: 4px;
+            padding: 6px;
+            background: #1B5E20;
+            border-left: 3px solid #4CAF50;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #51CF66;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.7em;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        .output-section h3 {
+            color: #64B5F6;
+            margin: 0 0 5px 0;
+            font-size: 0.9em;
+        }
+
+        .highlight-line {
+            background: #FFD93D;
+            color: #000;
+            display: block;
+        }
+
+        .comment {
+            color: #66BB6A;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background: #1976D2;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Code Overview -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise 8.1: 2D Array Declaration & Initialization</h2>
+                        <p>Understanding array structure and accessing elements</p>
+                    </div>
+                    <div class="slide-content" style="justify-content: center; align-items: center;">
+                        <div style="width: 100%; text-align: center;">
+                            <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int matrix[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    printf("matrix[1][2] = %d\n", matrix[1][2]);
+    printf("matrix[2][1] = %d\n", matrix[2][1]);
+
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Step 1 - Declaration and Initialization -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 1: Declaration & Initialization</h2>
+                        <p>Creating the 3×3 array with values</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};  // ← WE ARE HERE
+
+printf("matrix[1][2] = %d\n", matrix[1][2]);
+printf("matrix[2][1] = %d\n", matrix[2][1]);
+
+return 0;</code></pre>
+                        </div>
+                        <div class="matrix-column">
+                            <h3>Matrix Structure</h3>
+                            <div class="matrix-visual">
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">1</div>
+                                    <div class="matrix-cell">2</div>
+                                    <div class="matrix-cell">3</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">4</div>
+                                    <div class="matrix-cell">5</div>
+                                    <div class="matrix-cell">6</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">7</div>
+                                    <div class="matrix-cell">8</div>
+                                    <div class="matrix-cell">9</div>
+                                </div>
+                            </div>
+                            <h3 style="margin-top: 10px;">Current State</h3>
+                            <div class="variables-section">
+                                <table>
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>matrix[3][3]</td>
+                                        <td>Initialized</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Step 2 - Access matrix[1][2] -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 2: Access matrix[1][2]</h2>
+                        <p>Row 1, Column 2 → value is 6</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+printf("matrix[1][2] = %d\n", matrix[1][2]);  // ← WE ARE HERE
+printf("matrix[2][1] = %d\n", matrix[2][1]);
+
+return 0;</code></pre>
+                        </div>
+                        <div class="matrix-column">
+                            <h3>Accessing matrix[1][2]</h3>
+                            <div class="matrix-visual">
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">1</div>
+                                    <div class="matrix-cell">2</div>
+                                    <div class="matrix-cell">3</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">4</div>
+                                    <div class="matrix-cell">5</div>
+                                    <div class="matrix-cell" style="background: #FFD93D; color: #000;">6</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">7</div>
+                                    <div class="matrix-cell">8</div>
+                                    <div class="matrix-cell">9</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.75em; color: #FFD93D; text-align: center; margin-top: 8px;">Row 1, Column 2</p>
+                            <div class="output-section">
+                                <h3>Output</h3>
+                                matrix[1][2] = 6
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Step 3 - Access matrix[2][1] -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 3: Access matrix[2][1]</h2>
+                        <p>Row 2, Column 1 → value is 8</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+printf("matrix[1][2] = %d\n", matrix[1][2]);
+printf("matrix[2][1] = %d\n", matrix[2][1]);  // ← WE ARE HERE
+
+return 0;</code></pre>
+                        </div>
+                        <div class="matrix-column">
+                            <h3>Accessing matrix[2][1]</h3>
+                            <div class="matrix-visual">
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">1</div>
+                                    <div class="matrix-cell">2</div>
+                                    <div class="matrix-cell">3</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">4</div>
+                                    <div class="matrix-cell">5</div>
+                                    <div class="matrix-cell">6</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">7</div>
+                                    <div class="matrix-cell" style="background: #FFD93D; color: #000;">8</div>
+                                    <div class="matrix-cell">9</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.75em; color: #FFD93D; text-align: center; margin-top: 8px;">Row 2, Column 1</p>
+                            <div class="output-section">
+                                <h3>Output</h3>
+                                matrix[1][2] = 6<br>
+                                matrix[2][1] = 8
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Key Concepts -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Key Concepts from Exercise 8.1</h2>
+                        <p>What you should understand</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 20px;">
+                        <div style="margin: 5px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.75em;">1. Array Declaration</h3>
+                            <p style="margin: 3px 0; font-size: 0.65em;">
+                                <code style="background: #263238; padding: 2px 5px; border-radius: 2px;">int matrix[3][3]</code>
+                                = 3 rows, 3 columns = 9 total elements
+                            </p>
+                        </div>
+                        <div style="margin: 5px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.75em;">2. Initialization</h3>
+                            <p style="margin: 3px 0; font-size: 0.65em;">
+                                Nested braces organize data by row (outer brace) and columns (inner braces)
+                            </p>
+                        </div>
+                        <div style="margin: 5px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.75em;">3. Indexing</h3>
+                            <p style="margin: 3px 0; font-size: 0.65em;">
+                                <code style="background: #263238; padding: 2px 5px; border-radius: 2px;">matrix[row][col]</code>
+                                - Both indices required, 0-indexed (0 to 2 for a 3×3)
+                            </p>
+                        </div>
+                        <div style="margin: 5px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.75em;">4. Memory Layout</h3>
+                            <p style="margin: 3px 0; font-size: 0.65em;">
+                                Row-major order: [0][0], [0][1], [0][2], [1][0], [1][1], [1][2], [2][0], [2][1], [2][2]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

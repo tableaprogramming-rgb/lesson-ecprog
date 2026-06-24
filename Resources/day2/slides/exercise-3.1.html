@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 2 - Exercise 3.1 Basic While Loop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+        .reveal pre {
+            margin: 20px 0;
+            font-size: 0.55em;
+        }
+        .reveal table {
+            margin: 20px auto;
+            font-size: 0.8em;
+        }
+        .reveal table th,
+        .reveal table td {
+            padding: 8px;
+            border: 1px solid #666;
+        }
+        .reveal table th {
+            background: rgba(100, 200, 255, 0.3);
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+        .slide-header {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .slide-header h3 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 0.9em;
+        }
+        .slide-header p {
+            margin: 0;
+            font-size: 0.65em;
+            color: #ccc;
+        }
+        .slide-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+            min-height: 0;
+        }
+        .code-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .code-column pre {
+            margin: 0 !important;
+            width: 100%;
+            font-size: 0.45em !important;
+            line-height: 1.15;
+        }
+        .variables-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .variables-section {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #ffaa00;
+            border-radius: 5px;
+            font-size: 0.65em;
+            line-height: 1.4;
+        }
+        .variables-section h4 {
+            color: #ffaa00;
+            margin: 0 0 10px 0;
+            font-size: 0.95em;
+        }
+        .condition-check {
+            background: rgba(100, 150, 255, 0.2);
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 3px;
+            border-left: 2px solid #00ffaa;
+        }
+        .condition-check strong {
+            color: #ffdd00;
+        }
+        .output-section {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .output-section h4 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 0.85em;
+        }
+        .output-box {
+            display: inline-block;
+            background: #001a00;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 0.75em;
+            text-align: left;
+            min-width: 250px;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            background: rgba(100, 150, 255, 0.3);
+            border: 1px solid #ffaa00;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #ffaa00;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: rgba(100, 150, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back to Menu</a>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section>
+                <h1>Exercise 3.1</h1>
+                <h3>Basic While Loop Counter</h3>
+                <p style="margin-top: 40px;">Learning: While loop mechanics</p>
+                <p style="margin-top: 60px; font-size: 0.9em; color: #aaa;">
+                    Check condition BEFORE each iteration
+                </p>
+            </section>
+
+            <!-- Full Code Overview -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 20px;">The Code</h2>
+                <pre style="width: 50%; margin: 0 auto;"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {
+        printf("Count: %d\n", count);
+        count = count + 1;
+    }
+
+    return 0;
+}</code></pre>
+                <p style="font-size: 0.7em; color: #aaa; margin-top: 20px;">
+                    What will this program output?
+                </p>
+            </section>
+
+            <!-- Step 1: Initialize -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 1: Initialize Variable</h3>
+                        <p>Line 4: Set count = 1</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;     // ← WE ARE HERE
+
+    while (count <= 3) {
+        printf("Count: %d\n", count);
+        count = count + 1;
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables Before Loop</h4>
+                                <table style="width: 100%; margin: 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">1</td>
+                                    </tr>
+                                </table>
+                                <p style="margin-top: 10px; color: #aaa;">Next: Check loop condition</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Ready to enter loop
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Check Condition Before Iteration 1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 2: Check Condition (Before Iteration 1)</h3>
+                        <p>Line 6: Is count <= 3?</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {  // ← CHECK HERE
+        printf("Count: %d\n", count);
+        count = count + 1;
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Loop Condition Check</h4>
+                                <div class="condition-check">
+                                    <strong>count <= 3?</strong><br>
+                                    1 <= 3?<br>
+                                    <span style="color: #00ff00;">YES ✓ Enter loop</span>
+                                </div>
+                                <table style="width: 100%; margin: 10px 0 0 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">1</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Condition TRUE → Execute loop body
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Execute Loop Body (Iteration 1) -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 3: Iteration 1 - Print & Update</h3>
+                        <p>Lines 7-8: Print count, then increment</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {
+        printf("Count: %d\n", count);  // ← PRINT
+        count = count + 1;             // ← INCREMENT
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Iteration 1 Action</h4>
+                                <p style="color: #ffdd00;">Print: "Count: 1"</p>
+                                <p style="margin: 8px 0; color: #aaa;">Then:</p>
+                                <p style="color: #ffdd00;">count = 1 + 1 = 2</p>
+                                <table style="width: 100%; margin: 10px 0 0 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>New Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">2</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Output So Far:</h4>
+                        <div class="output-box">
+                            Count: 1
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Check Condition Again (Before Iteration 2) -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 4: Check Condition (Before Iteration 2)</h3>
+                        <p>Back to line 6: Is count <= 3?</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {  // ← CHECK AGAIN
+        printf("Count: %d\n", count);
+        count = count + 1;
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Loop Condition Check</h4>
+                                <div class="condition-check">
+                                    <strong>count <= 3?</strong><br>
+                                    2 <= 3?<br>
+                                    <span style="color: #00ff00;">YES ✓ Continue</span>
+                                </div>
+                                <table style="width: 100%; margin: 10px 0 0 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">2</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Condition still TRUE → Execute again
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: Iteration 2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 5: Iteration 2 - Print & Update</h3>
+                        <p>Lines 7-8: Print count, then increment</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {
+        printf("Count: %d\n", count);  // ← PRINT 2
+        count = count + 1;             // ← INCREMENT
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Iteration 2 Action</h4>
+                                <p style="color: #ffdd00;">Print: "Count: 2"</p>
+                                <p style="margin: 8px 0; color: #aaa;">Then:</p>
+                                <p style="color: #ffdd00;">count = 2 + 1 = 3</p>
+                                <table style="width: 100%; margin: 10px 0 0 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>New Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">3</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Output So Far:</h4>
+                        <div class="output-box">
+                            Count: 1<br>
+                            Count: 2
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 6: Check Condition Again (Before Iteration 3) -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 6: Check Condition (Before Iteration 3)</h3>
+                        <p>Back to line 6: Is count <= 3?</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {  // ← CHECK AGAIN
+        printf("Count: %d\n", count);
+        count = count + 1;
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Loop Condition Check</h4>
+                                <div class="condition-check">
+                                    <strong>count <= 3?</strong><br>
+                                    3 <= 3?<br>
+                                    <span style="color: #00ff00;">YES ✓ Continue</span>
+                                </div>
+                                <table style="width: 100%; margin: 10px 0 0 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">3</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Still TRUE → Execute one more time
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 7: Iteration 3 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 7: Iteration 3 - Print & Update</h3>
+                        <p>Lines 7-8: Print count, then increment</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {
+        printf("Count: %d\n", count);  // ← PRINT 3
+        count = count + 1;             // ← INCREMENT
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Iteration 3 Action</h4>
+                                <p style="color: #ffdd00;">Print: "Count: 3"</p>
+                                <p style="margin: 8px 0; color: #aaa;">Then:</p>
+                                <p style="color: #ffdd00;">count = 3 + 1 = 4</p>
+                                <table style="width: 100%; margin: 10px 0 0 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>New Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">4</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Output So Far:</h4>
+                        <div class="output-box">
+                            Count: 1<br>
+                            Count: 2<br>
+                            Count: 3
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 8: Check Condition (Loop Exits) -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 8: Check Condition (Loop Exits)</h3>
+                        <p>Back to line 6: Is count <= 3?</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 1;
+
+    while (count <= 3) {  // ← FALSE NOW
+        printf("Count: %d\n", count);
+        count = count + 1;
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Loop Condition Check</h4>
+                                <div class="condition-check" style="background: rgba(200, 100, 100, 0.2); border-color: #ff8888;">
+                                    <strong>count <= 3?</strong><br>
+                                    4 <= 3?<br>
+                                    <span style="color: #ff8888;">NO ✗ EXIT LOOP</span>
+                                </div>
+                                <table style="width: 100%; margin: 10px 0 0 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>count</td>
+                                        <td style="color: #ffdd00;">4</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Loop ends → Continue to line 10
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Output -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">Final Output</h2>
+                <div class="output-box" style="margin: 0 auto; font-size: 1.1em; padding: 30px;">
+                    Count: 1<br>
+                    Count: 2<br>
+                    Count: 3
+                </div>
+                <p style="margin-top: 40px; font-size: 0.85em; color: #aaa;">Loop ran 3 times (when count = 1, 2, 3)</p>
+                <p style="font-size: 0.85em; color: #aaa;">Loop stopped when count became 4 (4 <= 3 is FALSE)</p>
+            </section>
+
+            <!-- Key Takeaway -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">Key Takeaway</h2>
+                <div style="font-size: 1.0em; text-align: left; max-width: 900px; margin: 0 auto; line-height: 1.8;">
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">While Loop Mechanics:</strong></p>
+                    <ol style="color: #aaa; padding-left: 40px;">
+                        <li style="margin: 15px 0;">Check condition BEFORE each iteration</li>
+                        <li style="margin: 15px 0;">If TRUE: execute loop body</li>
+                        <li style="margin: 15px 0;">Go back to step 1</li>
+                        <li style="margin: 15px 0;">If FALSE: exit loop</li>
+                    </ol>
+                    <p style="margin-top: 30px; background: rgba(100, 150, 255, 0.2); padding: 15px; border-left: 3px solid #ffaa00;">
+                        <strong>Remember:</strong> The condition is checked <span style="color: #ffdd00;">BEFORE each iteration</span>, not after!
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ],
+            width: "100%",
+            height: "100%"
+        });
+    </script>
+</body>
+</html>

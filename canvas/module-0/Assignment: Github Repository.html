@@ -1,0 +1,735 @@
+<div style="max-width: 1000px; margin: 0 auto; background: white; font-family: Arial, sans-serif; color: #333;">
+    <!-- Header -->
+    <div style="background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%); color: white; padding: 40px 30px; text-align: center; border-radius: 8px 8px 0 0;">
+        <h1 style="font-size: 2.2rem; margin: 0 0 10px 0; font-weight: 700;">GitHub Basics: A Beginner's Guide to Version Control</h1>
+        <p style="font-size: 1rem; margin: 0; font-weight: 500;">Learn how to create a GitHub repository, manage your code with Git, and submit your project link for assignments.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div style="padding: 30px;">
+        <!-- Critical Video Section -->
+        <div style="background-color: #fff3cd; border-radius: 8px; padding: 20px; margin: 20px 0; border: 3px solid #ff6b6b;">
+            <h2 style="color: #d9534f; margin-top: 0; font-size: 1.4rem;">WATCH THIS VIDEO FIRST - REQUIRED!</h2>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Before reading this guide, you MUST watch this YouTube video:</strong></p>
+            <p style="font-size: 1rem; color: #d9534f; margin: 15px 0;"><strong><a style="color: #d9534f; text-decoration: underline;" href="https://www.youtube.com/watch?v=mAFoROnOfHs" target="_blank" rel="noopener">Git and GitHub Tutorial For Beginners</a></strong></p>
+            <p style="margin: 10px 0; font-size: 0.95rem;">This video covers the fundamental concepts of Git and GitHub in an easy-to-understand way. Watching it FIRST will make the rest of this guide much clearer.</p>
+            <p style="margin: 10px 0; font-style: italic; font-size: 0.9rem;"><strong>Video Duration:</strong> ~30 minutes | <strong>Importance:</strong> CRITICAL</p>
+            <p style="margin: 10px 0; background-color: #f8d7da; padding: 10px; border-left: 4px solid #d9534f; font-size: 0.95rem;"><strong>After watching the video, come back and follow the step-by-step instructions below to set up your project repository.</strong></p>
+        </div>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 1 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 1: What is Git and GitHub?</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Git vs GitHub</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">These are often confused—they're different but related:</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem;">
+                <thead>
+                    <tr style="background: #2196F3; color: white;">
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>Git</strong></th>
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>GitHub</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">A <strong>version control system</strong> software that runs on your computer</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">A <strong>website/service</strong> that hosts Git repositories in the cloud</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">Tracks changes to your code over time (history)</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Stores your code online and enables collaboration</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">You use Git commands in your terminal/command prompt</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">You interact with GitHub through a web browser or Git commands</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">Free, open-source</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Free for public repositories, paid plans for private repos</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">Example: <code>git commit</code>, <code>git push</code></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Example: https://github.com/username/repo-name</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Why Use Git and GitHub?</h3>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li><strong>Version History:</strong> Keep a complete history of changes. You can go back to any previous version if needed.</li>
+                <li><strong>Collaboration:</strong> Multiple people can work on the same project without overwriting each other's work.</li>
+                <li><strong>Backup:</strong> Your code is safely stored in the cloud, not just on your local computer.</li>
+                <li><strong>Portfolio:</strong> Employers and teachers can see your work and contributions on GitHub.</li>
+                <li><strong>Learning:</strong> You can browse and learn from other people's code repositories.</li>
+            </ul>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Reminder Box -->
+        <div style="background-color: #d1ecf1; border-radius: 5px; padding: 15px; margin: 20px 0; border-left: 4px solid #0c5460;">
+            <p style="margin: 0; color: #0c5460; font-size: 0.95rem;"><strong>REMINDER:</strong> If you haven't watched the video yet (<a style="color: #0c5460; text-decoration: underline;" href="https://www.youtube.com/watch?v=mAFoROnOfHs" target="_blank" rel="noopener">Git and GitHub Tutorial For Beginners</a>), please watch it now before proceeding with installation. It will help you understand what Git and GitHub do before you install them.</p>
+        </div>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 2 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 2: Installing and Setting Up Git</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 1: Install Git</h3>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Windows:</h4>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Go to <strong>https://git-scm.com/download/win</strong></li>
+                <li>Download and run the installer</li>
+                <li>Accept all default options during installation</li>
+                <li>Open Command Prompt or PowerShell after installation</li>
+            </ol>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">macOS:</h4>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Open Terminal (Applications → Utilities → Terminal)</li>
+                <li>Run: <strong>brew install git</strong> (requires Homebrew)</li>
+                <li>Or go to <strong>https://git-scm.com/download/mac</strong> and download the installer</li>
+            </ol>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Linux:</h4>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Open Terminal</li>
+                <li>Run: <strong>sudo apt-get install git</strong> (Ubuntu/Debian) or <strong>sudo yum install git</strong> (RedHat/CentOS)</li>
+            </ol>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 2: Verify Git Installation</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Open your terminal/command prompt and type: <strong>git --version</strong></p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Expected output:</strong> You should see the Git version number (e.g., "git version 2.40.0")</p>
+            <p style="font-size: 0.95rem; margin: 10px 0;">If you see version information, Git is installed successfully. If you see "command not found," restart your terminal and try again.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 3: Configure Git with Your Name and Email</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Git needs to know who you are. Type these commands in your terminal:</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Replace "Your Name" with your actual name and "your.email@example.com" with your email.</strong></p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Why?</strong> Every commit (change you save) will be tagged with your name and email, so people know who made the change.</p>
+            <p style="font-size: 0.95rem; margin: 10px 0;">To verify your configuration was saved, run: <strong>git config --global --list</strong></p>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 3 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 3: Create a GitHub Account</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 1: Sign Up</h3>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Go to <strong>https://github.com</strong></li>
+                <li>Click the <strong>"Sign up"</strong> button in the top-right</li>
+                <li>Enter your email address</li>
+                <li>Create a strong password</li>
+                <li>Choose a username (this will be part of your repository URL)</li>
+                <li>Follow the prompts to complete signup and verify your email</li>
+            </ol>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Important: Choose Your Username Wisely</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Your GitHub username becomes part of your repository URL:</p>
+            <p style="background: #f5f5f5; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;"><strong>https://github.com/YOUR-USERNAME/[project-name]</strong></p>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li><strong>Good examples:</strong> john-smith, alice2025, dev-bob</li>
+                <li><strong>Avoid:</strong> xXgamer420Xx, anonymous123 (too casual or unprofessional)</li>
+            </ul>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Remember:</strong> This is part of your professional portfolio. Choose something you won't regret later!</p>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 4 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 4: Create Your First Repository on GitHub</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 1: Click "Create Repository"</h3>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Log in to GitHub (https://github.com)</li>
+                <li>In the top-right corner, click the <strong>"+"</strong> icon</li>
+                <li>Select <strong>"New repository"</strong></li>
+            </ol>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 2: Fill in Repository Details</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem;">
+                <thead>
+                    <tr style="background: #2196F3; color: white;">
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>Field</strong></th>
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>What to Enter</strong></th>
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>Example</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>Repository name</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Name for your project (use hyphens or underscores)</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">[project-name] or [project_name]</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>Description</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Brief explanation of what the project is about</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">[A short description of your assignment]</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>Public or Private</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Choose "Public" (so instructors can view it)</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Public</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>Add a README file</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Check this box (explains your project)</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Checked</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>.gitignore</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Select based on your language (C, Java, Python, etc.)</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">[Select your programming language]</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>License</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Leave as "None" for now</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">None</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 3: Click "Create Repository"</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Congratulations! Your GitHub repository is created. You'll see a page with your repository URL:</p>
+            <p style="background: #e3f2fd; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 0.9rem; margin: 10px 0;"><strong>https://github.com/YOUR-USERNAME/[project-name]</strong></p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>This is the link you'll submit for your assignment!</strong></p>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 5 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 5: Clone the Repository to Your Computer</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">What Does "Clone" Mean?</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Cloning downloads your repository from GitHub to your local computer so you can work on it.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 1: Get the Repository URL</h3>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Go to your repository on GitHub (https://github.com/YOUR-USERNAME/[project-name])</li>
+                <li>Click the green <strong>"Code"</strong> button</li>
+                <li>Copy the URL (it should start with https://github.com/...)</li>
+            </ol>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 2: Clone the Repository</h3>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Open your terminal/command prompt</li>
+                <li>Navigate to where you want to store your project (e.g., Documents or Desktop)</li>
+                <li>Run this command (paste the URL you copied):
+                    <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git clone https://github.com/YOUR-USERNAME/[project-name]</pre>
+                </li>
+                <li><strong>Expected output:</strong> A new folder with your repository name will be created with all repository files</li>
+            </ol>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 3: Enter Your Repository Folder</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Navigate into your cloned repository by typing the folder name:</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">cd [project-name]</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;">You're now inside your project folder. Any Git commands you run will affect this repository.</p>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Key Concept Box -->
+        <div style="background-color: #e7f3ff; border-radius: 5px; padding: 15px; margin: 20px 0; border-left: 4px solid #004085;">
+            <p style="margin: 0; color: #004085; font-size: 0.95rem;"><strong>KEY CONCEPT FROM VIDEO:</strong> The three steps in the workflow below (status → add → commit → push) are the most important Git concepts explained in the video. This section puts those concepts into practice with real examples.</p>
+        </div>
+
+        <!-- Section 6 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 6: The Basic Git Workflow</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Understand the 4-Step Process</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Every time you make changes to your code, follow this workflow:</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 1: Check What Changed (Status)</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Why:</strong> See which files you've modified since the last commit.</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 2: Prepare Changes (Stage)</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Why:</strong> Tell Git which files you want to save in the next commit. You don't have to commit all changes at once.</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 3: Save Changes (Commit)</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Why:</strong> Create a permanent snapshot of your code at this point. This becomes part of your version history.</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 4: Push to GitHub (Upload)</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Why:</strong> Upload your commits to GitHub so they're backed up in the cloud.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Visual Diagram:</h3>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.85rem; border-left: 4px solid #2196F3;">Your Computer (Local)              GitHub (Remote/Cloud)
+┌──────────────────────┐            ┌──────────────────────┐
+│ Your Files (Working) │            │ Repository (Online)  │
+│  - [source files]    │    PUSH    │ - [source files]     │
+│  - [header files]    │     →→→    │ - [header files]     │
+│  - [other code]      │    PULL    │ - README.md          │
+│  - README.md         │     ←←←    │ - (version history)  │
+└──────────────────────┘            └──────────────────────┘
+         ↑ COMMIT
+         │ (saves to local history)
+         │
+    ┌────┴────────────────┐
+    │ Staging Area       │
+    │ (files to commit)  │
+    └────────────────────┘</pre>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 7 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 7: Complete Workflow Example</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Scenario: You Just Finished Writing Your Source Code</h3>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 1: Check Repository Status</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Run this command in your terminal (inside your repository folder):</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git status</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Output explains:</strong> Which files are new (untracked), modified, or unchanged. Red files are not yet staged.</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 2: Stage Your Changes</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Add specific files to the staging area:</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git add [filename]</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>OR add all changes at once:</strong></p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git add .</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>What this does:</strong> Tells Git "these are the files I want to save in my next commit"</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 3: Check Staging Status</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Verify what you're about to commit:</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git status</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Expected output:</strong> Files in green are staged and ready to commit. Files in red are not staged yet.</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 4: Commit with a Message</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Create a snapshot of your staged changes:</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git commit -m "Add feature implementation"</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Important:</strong> Use meaningful commit messages! Describe WHAT changed and WHY.</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 5: Push to GitHub</h4>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Upload your commits from your local computer to GitHub:</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">git push</pre>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Expected output:</strong> You should see a message like "1 file changed" or similar. Your code is now on GitHub!</p>
+
+            <h4 style="color: #333; font-size: 1.1rem; margin-top: 15px;">Step 6: Verify on GitHub</h4>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Go to your repository on GitHub (https://github.com/YOUR-USERNAME/[project-name])</li>
+                <li>Refresh the page</li>
+                <li>You should see your files appear in the repository!</li>
+                <li>Click on a file to see its contents</li>
+                <li>Click "commits" to see your commit history</li>
+            </ol>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 8 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 8: Essential Git Commands Cheat Sheet</h2>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem;">
+                <thead>
+                    <tr style="background: #2196F3; color: white;">
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>Command</strong></th>
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>What It Does</strong></th>
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>Example</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>git status</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Show which files changed since last commit</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Check before committing</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>git add [filename]</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Stage a specific file for commit</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;"><code>git add main.c</code></td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>git add .</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Stage all changed files at once</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Quick way to stage everything</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>git commit -m "[message]"</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Save staged changes with a description</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;"><code>git commit -m "Add feature"</code></td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>git push</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Upload commits to GitHub</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">After committing, push to backup</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>git log</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">View your commit history</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">See all changes you've made</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;"><strong>git pull</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Download latest changes from GitHub</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">Use if working on multiple computers</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 9 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 9: How to Write Good Commit Messages</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Why Commit Messages Matter</h3>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li><strong>Documentation:</strong> Future you will thank present you when reviewing what changed</li>
+                <li><strong>Collaboration:</strong> Other developers (and your instructor) can understand your work</li>
+                <li><strong>Debugging:</strong> When finding a bug, you can read commit history to see what changed</li>
+            </ul>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Examples of Good vs Bad Commit Messages</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem;">
+                <thead>
+                    <tr style="background: #2196F3; color: white;">
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>BAD</strong></th>
+                        <th style="border: 1px solid #ddd; padding: 12px; text-align: left;"><strong>GOOD</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">"update"</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">"Add core function implementation for feature X"</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">"fix bug"</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">"Fix null pointer exception when handling edge case Y"</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">"changes"</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">"Implement function Z with proper error handling"</td>
+                    </tr>
+                    <tr style="background: white;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">"stuff"</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">"Add README with project description and setup instructions"</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="border: 1px solid #ddd; padding: 12px;">"asdf"</td>
+                        <td style="border: 1px solid #ddd; padding: 12px;">"Refactor module A to handle empty/null cases"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Commit Message Format</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Simple template:</strong></p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">[Verb] [What changed] [Why it's important]</pre>
+
+            <p style="font-size: 0.95rem; margin: 15px 0;"><strong>Example commit messages:</strong></p>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li>"Initialize project structure with core data types and main logic"</li>
+                <li>"Implement core operation/function for primary functionality"</li>
+                <li>"Add error handling and edge case validation"</li>
+                <li>"Write comprehensive README with usage instructions"</li>
+            </ul>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 10 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 10: Managing Your Project Repository</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Folder Structure on GitHub</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Organize your files clearly. Suggested structure:</p>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9rem; border-left: 4px solid #2196F3;">[project-name]/
+├── README.md              (Description of your project)
+├── src/                   (All source code)
+│   ├── [main source files]
+│   ├── [header files]
+│   └── [additional modules]
+├── obj/                   (Compiled files - listed in .gitignore)
+├── bin/                   (Executable files - listed in .gitignore)
+└── .gitignore             (Tells Git which files to ignore)</pre>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">What NOT to Commit</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Your .gitignore file (created when you set up the repo) tells Git to ignore:</p>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li><strong>Compiled object files</strong> - (.o, .obj, .class, etc.) - can be regenerated</li>
+                <li><strong>Executable files</strong> - (.exe, .out, etc.) - can be regenerated</li>
+                <li><strong>Libraries</strong> - (.a, .lib, .so, etc.) - can be regenerated</li>
+                <li><strong>obj/ or build/ folders</strong> - Directories with intermediate build files</li>
+                <li><strong>bin/ or dist/ folders</strong> - Directories with executables</li>
+            </ul>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Why?</strong> These are generated files. Only commit source code (program files) and configuration files (README, Makefile, etc.). This keeps your repository clean and small.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Update Your README.md</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">Your repository needs a README explaining your project. Click "Edit" on your README.md on GitHub or edit locally.</p>
+
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Good README includes:</strong></p>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li><strong>Project title:</strong> Clear name describing what the project is</li>
+                <li><strong>Brief description:</strong> What is it? Why did you build it?</li>
+                <li><strong>How to compile/build:</strong> Instructions for setup (gcc, javac, python, npm, etc.)</li>
+                <li><strong>How to run:</strong> Instructions to execute your program or tests</li>
+                <li><strong>Features:</strong> What your program can do</li>
+                <li><strong>Requirements:</strong> What needs to be installed (compiler, runtime, libraries, etc.)</li>
+            </ul>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 11 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 11: Submitting Your GitHub Profile URL</h2>
+
+            <div style="background-color: #e8f5e9; border-radius: 8px; padding: 20px; margin: 20px 0; border: 3px solid #4caf50;">
+                <h3 style="margin-top: 0; color: #2e7d32; font-size: 1.3rem;">SUBMISSION REQUIREMENT</h3>
+                <p style="font-size: 0.95rem; margin: 10px 0;"><strong>You must submit your GitHub profile URL to prove you have created a GitHub account.</strong></p>
+                <p style="font-size: 1rem; color: #2e7d32; margin: 15px 0;"><strong>Format:</strong> <span style="font-family: monospace; background-color: #f0f0f0; padding: 5px 10px;">https://github.com/YOUR-USERNAME</span></p>
+                <p style="margin: 10px 0; font-style: italic; font-size: 0.95rem;">This is your GitHub <strong>profile URL</strong>, not a specific project repository.</p>
+            </div>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 1: Find Your GitHub Profile URL</h3>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Log in to GitHub (https://github.com)</li>
+                <li>Click your profile icon in the top-right corner</li>
+                <li>Click "Your profile"</li>
+                <li>Look at your browser's address bar (the URL at the top)</li>
+                <li>You should see:
+                    <p style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; font-family: monospace; margin: 10px 0;"><strong>https://github.com/YOUR-USERNAME</strong></p>
+                </li>
+                <li>Copy this URL exactly (use Ctrl+C or Cmd+C)</li>
+            </ol>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 2: Verify Your Profile is Public</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>IMPORTANT:</strong> Before submitting, verify your profile is publicly visible:</p>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Open a new browser window/tab (do NOT use the same tab)</li>
+                <li>Paste your GitHub profile URL into the address bar</li>
+                <li>You should see your GitHub profile page with:
+                    <ul style="font-size: 0.95rem; line-height: 1.8;">
+                        <li>Your GitHub username</li>
+                        <li>Your profile bio (if you added one)</li>
+                        <li>Your repositories (if you created any)</li>
+                    </ul>
+                </li>
+                <li><strong>If you see "404 Not Found" or can't access the page,</strong> your profile is private. This is not necessary to change—your instructor only needs to verify your GitHub account exists.</li>
+            </ol>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Step 3: Submit Your GitHub Profile URL to Canvas</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Follow these steps:</strong></p>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Log in to Canvas</li>
+                <li>Navigate to this assignment page</li>
+                <li>Click "Submit Assignment"</li>
+                <li>In the submission text area, paste your GitHub profile URL:
+                    <p style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; font-family: monospace; margin: 10px 0;"><strong>https://github.com/YOUR-USERNAME</strong></p>
+                </li>
+                <li>Optionally, add a brief note in the comment area (example below):
+                    <p style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin: 10px 0; font-style: italic;">"My GitHub profile for this course."</p>
+                </li>
+                <li>Click "Submit Assignment" button</li>
+                <li>You will see a confirmation message</li>
+            </ol>
+
+            <div style="background-color: #e3f2fd; border-radius: 8px; padding: 15px; margin: 20px 0; border: 2px solid #2196f3;">
+                <h4 style="margin-top: 0; color: #1565c0; font-size: 1.1rem;">What Your Instructor Will Check:</h4>
+                <ul style="margin: 10px 0; font-size: 0.95rem;">
+                    <li>Valid GitHub profile URL</li>
+                    <li>GitHub account exists and is accessible</li>
+                    <li>Correct username format</li>
+                </ul>
+            </div>
+
+            <div style="background-color: #fff3cd; border-radius: 8px; padding: 15px; margin: 20px 0; border: 2px solid #ff9800;">
+                <h4 style="margin-top: 0; color: #e65100; font-size: 1.1rem;">Correct Submission Format:</h4>
+                <p style="margin: 10px 0; font-family: monospace; background-color: #f0f0f0; padding: 8px; font-size: 0.9rem;">https://github.com/john-smith</p>
+                <p style="margin: 10px 0; font-family: monospace; background-color: #f0f0f0; padding: 8px; font-size: 0.9rem;">https://github.com/alice2025</p>
+                <p style="margin: 10px 0; font-family: monospace; background-color: #f0f0f0; padding: 8px; font-size: 0.9rem;">https://github.com/dev-bob</p>
+            </div>
+
+            <div style="background-color: #ffebee; border-radius: 8px; padding: 15px; margin: 20px 0; border: 2px solid #f44336;">
+                <h4 style="margin-top: 0; color: #c62828; font-size: 1.1rem;">Common Mistakes to Avoid:</h4>
+                <ul style="margin: 10px 0; font-size: 0.95rem; line-height: 1.8;">
+                    <li><strong>Don't submit a repository URL:</strong> Submit your <strong>profile URL</strong> (https://github.com/username), not a specific project (https://github.com/username/project-name)</li>
+                    <li><strong>Don't include extra text:</strong> Just paste the URL, nothing else</li>
+                    <li><strong>Don't forget "https://":</strong> The URL must start with https://github.com/</li>
+                    <li><strong>Don't use uppercase:</strong> GitHub usernames are case-sensitive; use exactly what appears in your URL</li>
+                </ul>
+            </div>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">After You Submit</h3>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>You will see a "Submitted" confirmation in Canvas</li>
+                <li>Your submission is automatically timestamped</li>
+                <li>The instructor will verify your GitHub account exists</li>
+                <li>Assignment complete!</li>
+            </ol>
+
+            <div style="background-color: #f3e5f5; border-left: 4px solid #9c27b0; padding: 15px; margin: 15px 0;">
+                <p style="margin: 0; font-size: 0.95rem;"><strong>NOTE:</strong> This assignment simply verifies you have created a GitHub account. Your actual project work and repository content are separate from this submission requirement.</p>
+            </div>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 12 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 12: Common Issues & How to Fix Them</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Issue 1: "fatal: not a git repository"</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Problem:</strong> You're trying to run git commands outside your repository folder.</p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Solution:</strong> Use "cd" to navigate into your [project-name] folder, then try again.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Issue 2: "error: src refspec main does not match any"</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Problem:</strong> You're trying to push but haven't committed anything yet.</p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Solution:</strong> Commit your files first using "git add" and "git commit", then "git push".</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Issue 3: "Please tell me who you are" when committing</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Problem:</strong> Git doesn't know your name/email.</p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Solution:</strong> Run the setup commands from Section 2, Step 3.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Issue 4: Changes not showing on GitHub after pushing</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Problem:</strong> You forgot to stage or commit before pushing.</p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Solution:</strong> Run "git status" to check. Then "git add", "git commit", and "git push" in that order.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Issue 5: "Your branch is ahead of 'origin/main' by X commits"</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Problem:</strong> You've committed locally but haven't pushed to GitHub yet.</p>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Solution:</strong> Run "git push" to upload your commits.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Issue 6: Can't remember what files you changed?</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Solution:</strong> Run "git status" to see. Run "git log" to see your entire commit history.</p>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 13 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 13: Best Practices & Next Steps</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Committing Regularly</h3>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li><strong>Don't wait until the end:</strong> Commit after completing each function</li>
+                <li><strong>Small commits are better:</strong> One commit per feature is ideal</li>
+                <li><strong>Frequent pushes:</strong> Push to GitHub regularly as backup</li>
+            </ul>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Example Commit Timeline</h3>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Commit 1: "Initialize project structure with basic setup"</li>
+                <li>Commit 2: "Implement core feature/function 1"</li>
+                <li>Commit 3: "Implement core feature/function 2"</li>
+                <li>Commit 4: "Implement core feature/function 3"</li>
+                <li>Commit 5: "Implement remaining functions and features"</li>
+                <li>Commit 6: "Add user interaction and main program flow"</li>
+                <li>Commit 7: "Add comprehensive README with setup instructions"</li>
+            </ol>
+            <p style="font-size: 0.95rem; margin: 10px 0;"><strong>Remember:</strong> This is just an example. Your commits should match the actual work you did. One commit per feature or logical change is ideal.</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Advanced Tips (Optional)</h3>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li><strong>Create branches:</strong> For experimenting with features without affecting main code</li>
+                <li><strong>Create issues:</strong> Track bugs and features to implement</li>
+                <li><strong>Use tags:</strong> Mark important releases (v1.0, v2.0, etc.)</li>
+                <li><strong>Collaborate:</strong> Add collaborators to work together on the same project</li>
+            </ul>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Section 14 -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">SECTION 14: Quick Reference - Copy-Paste Commands</h2>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">First Time Setup</h3>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.85rem; border-left: 4px solid #2196F3;">1. Install Git from https://git-scm.com
+
+2. Configure your identity:
+   git config --global user.name "Your Name"
+   git config --global user.email "your.email@example.com"
+
+3. Go to https://github.com and create account
+
+4. Create new repository on GitHub with:
+   - Name: [project-name]
+   - Public visibility
+   - Add README
+   - Add .gitignore (select your language: C, Java, Python, etc.)
+
+5. Clone locally:
+   git clone https://github.com/YOUR-USERNAME/[project-name]
+   cd [project-name]</pre>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Daily Workflow</h3>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.85rem; border-left: 4px solid #2196F3;">After writing/editing your code:
+
+1. Check what changed:
+   git status
+
+2. Stage your changes:
+   git add .
+
+3. Commit with message:
+   git commit -m "Description of what you implemented"
+
+4. Push to GitHub:
+   git push
+
+5. Verify on GitHub:
+   Visit https://github.com/YOUR-USERNAME/[project-name]
+   and refresh to see your changes</pre>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">If Something Goes Wrong</h3>
+            <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.85rem; border-left: 4px solid #2196F3;">Check status:
+   git status
+
+See all commits:
+   git log
+
+See what changed in a file:
+   git diff filename
+
+Undo changes (before staging):
+   git checkout filename
+
+Undo changes (after staging):
+   git reset filename</pre>
+        </section>
+
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 30px 0;">
+
+        <!-- Final Section -->
+        <section style="margin-bottom: 30px;">
+            <h2 style="color: #2196F3; font-size: 1.8rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 3px solid #2196F3;">You're Ready!</h2>
+
+            <p style="font-size: 0.95rem; margin: 10px 0;">You now know enough to:</p>
+            <ul style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Create a GitHub account and repository</li>
+                <li>Clone your repository to your computer</li>
+                <li>Write code and save it with meaningful commits</li>
+                <li>Push your code to GitHub for backup and sharing</li>
+                <li>Share your project link with your instructor</li>
+            </ul>
+
+            <p style="font-size: 0.95rem; margin: 15px 0;"><strong>Remember:</strong> Commit often, write good messages, and push regularly. Your GitHub repository is your digital portfolio—make it count!</p>
+
+            <h3 style="color: #1565C0; font-size: 1.2rem; margin-top: 20px;">Generic Checklist for Any Assignment</h3>
+            <p style="font-size: 0.95rem; margin: 10px 0;">No matter what the assignment is, use this checklist:</p>
+            <ol style="font-size: 0.95rem; line-height: 1.8;">
+                <li>Watch the required video</li>
+                <li>Install Git and create GitHub account</li>
+                <li>Create repository with descriptive name and clear description</li>
+                <li>Clone to your computer</li>
+                <li>Develop your project, committing frequently with clear messages</li>
+                <li>Push changes to GitHub regularly (not just at the end)</li>
+                <li>Update README.md with project description and setup instructions</li>
+                <li>Verify your code is visible on GitHub</li>
+                <li>Copy your repository link and submit to assignment</li>
+            </ol>
+        </section>
+    </div>
+</div>

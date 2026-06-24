@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 2 - Exercise 2.1 Simple AND Condition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+        .reveal pre {
+            margin: 20px 0;
+            font-size: 0.55em;
+        }
+        .reveal code {
+            padding: 2px 6px;
+        }
+        .reveal table {
+            margin: 20px auto;
+            font-size: 0.8em;
+        }
+        .reveal table th,
+        .reveal table td {
+            padding: 8px;
+            border: 1px solid #666;
+        }
+        .reveal table th {
+            background: rgba(100, 200, 255, 0.3);
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+        .slide-header {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .slide-header h3 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 0.9em;
+        }
+        .slide-header p {
+            margin: 0;
+            font-size: 0.65em;
+            color: #ccc;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        .slide-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+            min-height: 0;
+        }
+        .code-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .code-column pre {
+            margin: 0 !important;
+            width: 100%;
+            font-size: 0.5em !important;
+            line-height: 1.2;
+        }
+        .variables-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .variables-section {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #ffaa00;
+            border-radius: 5px;
+            font-size: 0.75em;
+        }
+        .variables-section h4 {
+            color: #ffaa00;
+            margin: 0 0 12px 0;
+            font-size: 0.95em;
+        }
+        .condition-eval {
+            background: rgba(100, 150, 255, 0.2);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 3px;
+            border-left: 2px solid #00ffaa;
+        }
+        .condition-eval strong {
+            color: #ffdd00;
+        }
+        .and-result {
+            background: rgba(200, 100, 100, 0.2);
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 3px;
+            border: 1px dashed #ff8888;
+            font-weight: bold;
+            text-align: center;
+            color: #ffaa00;
+        }
+        .output-section {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .output-section h4 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 0.85em;
+        }
+        .output-box {
+            display: inline-block;
+            background: #001a00;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            font-size: 0.85em;
+            text-align: left;
+            min-width: 300px;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            background: rgba(100, 150, 255, 0.3);
+            border: 1px solid #ffaa00;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #ffaa00;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background: rgba(100, 150, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back to Menu</a>
+
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section>
+                <h1>Exercise 2.1</h1>
+                <h3>Simple AND Condition</h3>
+                <p style="margin-top: 40px;">Learning: AND operator basics</p>
+                <p style="margin-top: 60px; font-size: 0.9em; color: #aaa;">
+                    Both parts must be TRUE for AND to be true
+                </p>
+            </section>
+
+            <!-- Full Code Overview -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 20px;">The Code</h2>
+                <pre style="width: 50%; margin: 0 auto;"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 20;
+    int hasLicense = 1;
+
+    if (age >= 18 && hasLicense == 1) {
+        printf("You can drive\n");
+    } else {
+        printf("You cannot drive\n");
+    }
+
+    return 0;
+}</code></pre>
+                <p style="font-size: 0.7em; color: #aaa; margin-top: 20px;">
+                    What will this program output?
+                </p>
+            </section>
+
+            <!-- Step 1: Variable Declaration -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 1: Variable Declaration</h3>
+                        <p>Lines 4-5: Declaring our variables</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 20;           // ← WE ARE HERE
+    int hasLicense = 1;
+
+    if (age >= 18 && hasLicense == 1) {
+        printf("You can drive\n");
+    } else {
+        printf("You cannot drive\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Current Variables</h4>
+                                <table style="width: 100%; margin: 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>age</td>
+                                        <td>int</td>
+                                        <td style="color: #ffdd00;">20</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Progress:</h4>
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Variables declared → Now declare hasLicense
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Second Variable -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 2: Second Variable</h3>
+                        <p>Line 5: Declare hasLicense variable</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 20;
+    int hasLicense = 1;    // ← WE ARE HERE
+
+    if (age >= 18 && hasLicense == 1) {
+        printf("You can drive\n");
+    } else {
+        printf("You cannot drive\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Current Variables</h4>
+                                <table style="width: 100%; margin: 0;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>age</td>
+                                        <td>int</td>
+                                        <td style="color: #ffdd00;">20</td>
+                                    </tr>
+                                    <tr>
+                                        <td>hasLicense</td>
+                                        <td>int</td>
+                                        <td style="color: #ffdd00;">1</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Progress:</h4>
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Both variables ready → Now evaluate condition
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Check First Condition -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 3: Check First Part</h3>
+                        <p>Line 7: Is age >= 18?</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 20;
+    int hasLicense = 1;
+
+    if (age >= 18 && hasLicense == 1) {
+        // ↑ Check first part ↑
+        printf("You can drive\n");
+    } else {
+        printf("You cannot drive\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Condition Evaluation</h4>
+                                <div class="condition-eval">
+                                    <strong>Part 1:</strong> age >= 18<br>
+                                    20 >= 18?<br>
+                                    <span style="color: #00ff00;">TRUE ✓</span>
+                                </div>
+                                <div class="condition-eval">
+                                    <strong>Part 2:</strong> hasLicense == 1<br>
+                                    (Not yet checked)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Result So Far:</h4>
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            First part is TRUE → Check second part
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Check Second Condition -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 4: Check Second Part</h3>
+                        <p>Line 7 (continued): Is hasLicense == 1?</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 20;
+    int hasLicense = 1;
+
+    if (age >= 18 && hasLicense == 1) {
+        // ↑ Check second part ↑
+        printf("You can drive\n");
+    } else {
+        printf("You cannot drive\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Condition Evaluation</h4>
+                                <div class="condition-eval">
+                                    <strong>Part 1:</strong> age >= 18<br>
+                                    20 >= 18 = <span style="color: #00ff00;">TRUE ✓</span>
+                                </div>
+                                <div class="condition-eval">
+                                    <strong>Part 2:</strong> hasLicense == 1<br>
+                                    1 == 1?<br>
+                                    <span style="color: #00ff00;">TRUE ✓</span>
+                                </div>
+                                <div class="and-result">
+                                    TRUE AND TRUE = TRUE ✓
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Result:</h4>
+                        <span style="color: #aaa; font-size: 0.75em;">
+                            Both parts are TRUE → Execute if block
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 5: Execute If Block -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 5: Execute If Block</h3>
+                        <p>Line 8: Both conditions TRUE, so execute if block</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 20;
+    int hasLicense = 1;
+
+    if (age >= 18 && hasLicense == 1) {
+        printf("You can drive\n");  // ← WE ARE HERE
+    } else {
+        printf("You cannot drive\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Condition Result</h4>
+                                <div class="and-result" style="background: rgba(100, 200, 100, 0.2); border-color: #88ff88;">
+                                    Condition = TRUE<br>
+                                    Execute if block →
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>What Prints:</h4>
+                        <div class="output-box">
+                            You can drive
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 6: Final Output -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h3>Step 6: Program Complete</h3>
+                        <p>Lines 11-12: Return from main</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int age = 20;
+    int hasLicense = 1;
+
+    if (age >= 18 && hasLicense == 1) {
+        printf("You can drive\n");
+    } else {
+        printf("You cannot drive\n");
+    }
+
+    return 0;  // ← WE ARE HERE
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Final Summary</h4>
+                                <table style="width: 100%; margin: 0; font-size: 0.85em;">
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Final Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>age</td>
+                                        <td style="color: #ffdd00;">20</td>
+                                    </tr>
+                                    <tr>
+                                        <td>hasLicense</td>
+                                        <td style="color: #ffdd00;">1</td>
+                                    </tr>
+                                </table>
+                                <div style="margin-top: 15px; padding: 10px; background: rgba(100, 200, 100, 0.2); border-radius: 3px;">
+                                    <strong>Condition Result:</strong><br>
+                                    TRUE AND TRUE = TRUE ✓
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="output-section">
+                        <h4>Final Output:</h4>
+                        <div class="output-box">
+                            You can drive
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Takeaway -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">Key Takeaway</h2>
+                <div style="font-size: 1.1em; text-align: left; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">AND Operator (&&):</strong></p>
+                    <p style="margin: 20px 0; color: #aaa;">
+                        For AND to be <span style="color: #00ff00;">TRUE</span>, <strong>BOTH</strong> parts must be <span style="color: #00ff00;">TRUE</span>.
+                    </p>
+                    <p style="margin: 20px 0; background: rgba(100, 150, 255, 0.2); padding: 15px; border-left: 3px solid #ffaa00;">
+                        age >= 18 && hasLicense == 1<br>
+                        <span style="color: #00ff00;">TRUE</span> && <span style="color: #00ff00;">TRUE</span> = <span style="color: #ffdd00; font-weight: bold;">TRUE</span>
+                    </p>
+                    <p style="margin-top: 30px; font-size: 0.85em; color: #aaa;">
+                        ✓ If either part was FALSE, the whole condition would be FALSE
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ],
+            width: "100%",
+            height: "100%"
+        });
+    </script>
+</body>
+</html>

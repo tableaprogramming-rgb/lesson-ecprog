@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 3 - Exercise 3.1 Debugging</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { margin: 20px 0; font-size: 0.55em; }
+        .reveal code { padding: 2px 6px; }
+        .reveal table { margin: 20px auto; font-size: 0.8em; }
+        .reveal table th, .reveal table td { padding: 8px; border: 1px solid #666; }
+        .reveal table th { background: rgba(100, 200, 255, 0.3); }
+        .slide-container { display: flex; flex-direction: column; gap: 15px; height: 100%; }
+        .slide-header { text-align: center; flex-shrink: 0; }
+        .slide-header h3 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.85em; }
+        .slide-header p { margin: 0; font-size: 0.6em; line-height: 1.2; }
+        .slide-content { display: flex; gap: 20px; align-items: flex-start; justify-content: center; flex: 1; }
+        .slide-footer { text-align: center; flex-shrink: 0; font-size: 0.7em; }
+        .code-column { width: 50%; text-align: left; flex-shrink: 0; }
+        .code-column pre { margin: 0 !important; padding: 12px !important; width: 100%; line-height: 1.0 !important; font-size: 0.5em !important; }
+        .code-column code { line-height: 1.0 !important; }
+        .info-column { width: 50%; text-align: left; font-size: 0.75em; flex-shrink: 0; }
+        .output-section { background: rgba(0, 0, 0, 0.5); border: 1px solid #4CAF50; padding: 8px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        .output-section h4 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.8em; }
+        .output-section pre { margin: 0; color: #4CAF50; font-size: 0.75em; line-height: 1.3; }
+        .bug-highlight { background: rgba(255, 100, 100, 0.3); border: 2px dashed #ff6666; padding: 10px; border-radius: 3px; margin: 12px 0; }
+        .bug-highlight p { color: #ff8888; font-weight: bold; margin: 0; font-size: 0.8em; }
+        .correct-highlight { background: rgba(100, 200, 100, 0.2); border: 2px solid #66ff66; padding: 10px; border-radius: 3px; margin: 12px 0; }
+        .correct-highlight p { color: #66ff66; font-weight: bold; margin: 0; font-size: 0.8em; }
+        .info-box { margin-bottom: 12px; padding: 10px; background: rgba(100, 100, 100, 0.2); border-left: 3px solid #888; border-radius: 3px; }
+        .info-box h4 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.85em; }
+        .info-box p { margin: 0; font-size: 0.75em; line-height: 1.3; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1em; cursor: pointer; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
+        .home-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
+        .home-button:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">🏠 Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1>Exercise 3.1: Debugging</h1>
+                <h3>Logic Error - Backwards Condition</h3>
+                <p style="margin-top: 60px; font-size: 0.9em;">Find the bug in the condition</p>
+            </section>
+
+            <!-- SLIDE 2: CONTEXT -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">The Context</h2>
+                <div style="text-align: left; max-width: 800px; margin: 0 auto; font-size: 0.95em; line-height: 1.8;">
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">Goal:</strong></p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #ffaa00;">
+                        Check if a number is positive
+                    </p>
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">Expected Behavior:</strong></p>
+                    <p style="margin: 20px 0;">
+                        If x = 10: Print <span style="color: #66ff66;">"x is positive"</span><br>
+                        If x = -5: Print <span style="color: #ff8888;">"x is negative"</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: BUGGY CODE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">The Buggy Code</h2>
+                        <h3>What does this code actually do?</h3>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int x = 10;
+
+    if (x < 0) {
+        printf("x is positive\n");
+    } else {
+        printf("x is negative\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column">
+                            <div class="output-section">
+                                <h4>Console Output</h4>
+                                <pre>x is negative</pre>
+                            </div>
+                            <div class="info-box" style="background: rgba(255, 100, 100, 0.2); border-left-color: #ff6666; margin-top: 15px;">
+                                <h4 style="color: #ff8888;">Problem:</h4>
+                                <p>x = 10 (positive), Expected: "x is positive"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">Where is the bug?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: BUG HIGHLIGHTED -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">The Bug</h2>
+                        <h3>Line 6 has the error</h3>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int x = 10;
+
+    if (x < 0) {
+        printf("x is positive\n");
+    } else {
+        printf("x is negative\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column">
+                            <div class="bug-highlight">
+                                <p>🐛 BUG: Backwards logic</p>
+                            </div>
+                            <div class="info-box">
+                                <h4>What's Wrong:</h4>
+                                <p>Condition checks if x < 0<br>
+                                But prints "positive"</p>
+                            </div>
+                            <div class="info-box">
+                                <h4>What Happens:</h4>
+                                <p>10 < 0? FALSE<br>
+                                Goes to else block<br>
+                                Prints "x is negative"<br>
+                                But 10 IS positive!</p>
+                            </div>
+                            <div class="info-box" style="background: rgba(255, 100, 100, 0.2); border-left-color: #ff6666;">
+                                <h4>Result:</h4>
+                                <p>Condition logic is reversed<br>
+                                <strong>Wrong!</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">How do we fix this?</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: THE FIX -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">The Fix</h2>
+                        <h3>Change < to ></h3>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int x = 10;
+
+    if (x > 0) {
+        printf("x is positive\n");
+    } else {
+        printf("x is negative\n");
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column">
+                            <div class="correct-highlight">
+                                <p>✓ FIXED: Changed < to ></p>
+                            </div>
+                            <div class="info-box" style="background: rgba(100, 200, 100, 0.2); border-left-color: #66ff66;">
+                                <h4>What Changed:</h4>
+                                <p><code>&lt;</code> (less than) changed to<br>
+                                <code>&gt;</code> (greater than)</p>
+                            </div>
+                            <div class="info-box" style="background: rgba(100, 200, 100, 0.2); border-left-color: #66ff66;">
+                                <h4>Now It Means:</h4>
+                                <p>"If x is greater than 0<br>
+                                print positive"</p>
+                            </div>
+                            <div class="info-box" style="background: rgba(100, 200, 100, 0.2); border-left-color: #66ff66;">
+                                <h4>Result:</h4>
+                                <p>10 > 0? TRUE<br>
+                                Prints "x is positive"<br>
+                                Correct!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">Correct output →</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: VERIFICATION -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Verification</h2>
+                        <h3>Fixed code produces correct output</h3>
+                    </div>
+
+                    <div class="slide-content">
+                        <div style="width: 100%; text-align: center;">
+                            <div style="margin: 20px 0;">
+                                <h4 style="color: #ffaa00;">Buggy Code Output</h4>
+                                <div class="output-section">
+                                    <pre>x is negative  ✗ WRONG</pre>
+                                </div>
+                            </div>
+                            <div style="margin: 30px 0; font-size: 1.2em; color: #ffaa00;">↓</div>
+                            <div style="margin: 20px 0;">
+                                <h4 style="color: #ffaa00;">Fixed Code Output</h4>
+                                <div class="output-section">
+                                    <pre>x is positive  ✓ CORRECT</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">The fix works! Bug solved.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: LESSON -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">Key Lesson</h2>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 0.9em; line-height: 1.8;">
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">Logic Errors:</strong></p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(255, 100, 100, 0.2); border-left: 3px solid #ff6666;">
+                        Condition syntax is correct, but logic is backwards<br>
+                        Code runs without errors, but gives wrong results
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Comparison Operators:</strong><br>
+                        • <code>&lt;</code> - Less than (smaller)<br>
+                        • <code>&gt;</code> - Greater than (larger)<br>
+                        • <code>&lt;=</code> - Less than or equal<br>
+                        • <code>&gt;=</code> - Greater than or equal
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 200, 100, 0.2); border-left: 3px solid #66ff66;">
+                        <strong>How to Catch This:</strong><br>
+                        Test your code! Run it with different values<br>
+                        Does it give the right answer?
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

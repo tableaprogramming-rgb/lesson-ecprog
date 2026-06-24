@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 7 - Exercise 7.3: Looping Through Arrays</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+
+    <style>
+        .reveal {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            color: #64B5F6;
+            font-weight: bold;
+        }
+
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.3em; }
+        .reveal h3 { font-size: 1.1em; margin-top: 20px; }
+
+        .reveal section {
+            padding: 10px !important;
+            width: 100% !important;
+            height: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 5px;
+            flex-shrink: 0;
+        }
+
+        .slide-header h2 {
+            margin: 0 0 5px 0;
+            color: #64B5F6;
+        }
+
+        .slide-header p {
+            margin: 2px 0;
+            font-size: 0.65em;
+            color: #B0BEC5;
+        }
+
+        .slide-content {
+            display: flex;
+            gap: 12px;
+            margin: 0;
+            justify-content: flex-start;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .code-column {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .code-column pre {
+            margin: 0;
+            padding: 0;
+            font-size: 0.5em;
+            line-height: 1.4;
+            width: 100%;
+            overflow: visible;
+            max-height: 400px;
+            white-space: pre;
+            flex-shrink: 0;
+        }
+
+        .code-column code {
+            padding: 8px;
+            border-radius: 3px;
+            background: #263238 !important;
+            color: #AED581 !important;
+            display: block;
+            font-family: 'Courier New', monospace !important;
+        }
+
+        .variables-column {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .variables-table {
+            font-size: 0.5em;
+            margin: 0;
+            border-collapse: collapse;
+            width: 100%;
+            background: #37474F;
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .variables-table thead {
+            background: #455A64;
+        }
+
+        .variables-table th, .variables-table td {
+            padding: 4px 5px;
+            text-align: left;
+            border-bottom: 1px solid #546E7A;
+        }
+
+        .variables-table th {
+            font-weight: bold;
+            color: #64B5F6;
+        }
+
+        .variables-table td {
+            color: #B0BEC5;
+        }
+
+        .output-section {
+            text-align: center;
+            margin-top: 4px;
+            padding: 6px;
+            background: #1B5E20;
+            border-left: 3px solid #4CAF50;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.5em;
+            color: #4CAF50;
+            flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 80px;
+        }
+
+        .info-box {
+            padding: 6px;
+            margin: 0 0 4px 0;
+            border-radius: 3px;
+            font-size: 0.55em;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        .info-box.concept {
+            background: #1E3A8A;
+            border-left: 3px solid #64B5F6;
+            color: #E3F2FD;
+        }
+
+        .info-box.correct {
+            background: #1B5E20;
+            border-left: 3px solid #4CAF50;
+            color: #C8E6C9;
+        }
+
+        .slide-footer {
+            text-align: center;
+            font-size: 0.5em;
+            color: #B0BEC5;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .reveal p {
+            color: #B0BEC5;
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(100, 181, 246, 0.4);
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise 7.3</h2>
+                        <p>Looping Through Arrays</p>
+                        <p style="margin-top: 20px; font-size: 0.75em;">Using loops to process all array elements</p>
+                    </div>
+                    <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                        <div class="info-box concept">
+                            <strong>Today's Goal:</strong> Learn how to use for loops to iterate through array elements efficiently
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: CODE OVERVIEW -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>The Complete Program</h2>
+                        <p>We'll trace this step by step</p>
+                    </div>
+                    <div style="text-align: center; flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; padding: 0 10px; box-sizing: border-box;">
+                        <pre style="width: 100%;"><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int arr[3] = {5, 10, 15};
+ 5 |
+ 6 |     for(int i = 0; i < 3; i++) {
+ 7 |         printf("%d\n", arr[i]);
+ 8 |     }
+ 9 |
+10 |     
+11 | }</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: INIT LOOP -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 1: Loop Setup</h2>
+                        <p>Initialize loop variable and array</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int arr[3] = {5, 10, 15};
+ 5 |
+ 6 |     for(int i = 0; i < 3; i++) {  // ← WE ARE HERE
+ 7 |         printf("%d\n", arr[i]);
+ 8 |     }
+ 9 |
+10 |     
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Loop:</strong>
+                                <div style="margin-top: 4px; font-family: monospace; font-size: 0.85em;">
+                                    i = 0<br>0 < 3? YES
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Loop variable i starts at 0</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: ITERATION 1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 2: Iteration 1 (i=0)</h2>
+                        <p>Print arr[0]</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int arr[3] = {5, 10, 15};
+ 5 |
+ 6 |     for(int i = 0; i < 3; i++) {
+ 7 |         printf("%d\n", arr[i]);  // ← WE ARE HERE
+ 8 |     }
+ 9 |
+10 |     
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <table class="variables-table">
+                                <tr><th>i</th><th>i<3</th><th>arr[i]</th></tr>
+                                <tr><td>0</td><td>YES</td><td>5</td></tr>
+                            </table>
+                            <div class="output-section" style="margin-top: 4px;">
+                                5
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>First element printed, i++</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: ITERATION 2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 3: Iteration 2 (i=1)</h2>
+                        <p>Print arr[1]</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int arr[3] = {5, 10, 15};
+ 5 |
+ 6 |     for(int i = 0; i < 3; i++) {
+ 7 |         printf("%d\n", arr[i]);  // ← WE ARE HERE
+ 8 |     }
+ 9 |
+10 |     
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <table class="variables-table">
+                                <tr><th>i</th><th>i<3</th><th>arr[i]</th></tr>
+                                <tr><td>1</td><td>YES</td><td>10</td></tr>
+                            </table>
+                            <div class="output-section" style="margin-top: 4px;">
+                                5<br>10
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Second element printed, i++</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: ITERATION 3 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 4: Iteration 3 (i=2)</h2>
+                        <p>Print arr[2]</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int arr[3] = {5, 10, 15};
+ 5 |
+ 6 |     for(int i = 0; i < 3; i++) {
+ 7 |         printf("%d\n", arr[i]);  // ← WE ARE HERE
+ 8 |     }
+ 9 |
+10 |     
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <table class="variables-table">
+                                <tr><th>i</th><th>i<3</th><th>arr[i]</th></tr>
+                                <tr><td>2</td><td>YES</td><td>15</td></tr>
+                            </table>
+                            <div class="output-section" style="margin-top: 4px;">
+                                5<br>10<br>15
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Third element printed, i++</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: LOOP EXIT -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 5: Loop Condition Check</h2>
+                        <p>i = 3, condition false</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int arr[3] = {5, 10, 15};
+ 5 |
+ 6 |     for(int i = 0; i < 3; i++) {  // ← WE ARE HERE
+ 7 |         printf("%d\n", arr[i]);
+ 8 |     }
+ 9 |
+10 |     
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box concept">
+                                <strong>Loop:</strong>
+                                <div style="margin-top: 4px; font-family: monospace; font-size: 0.85em;">
+                                    i = 3<br>3 < 3? NO
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Condition false, exit loop</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: SUMMARY -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Summary: Looping Arrays</h2>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <div class="info-box concept">
+                            <strong>Key Points:</strong>
+                            <ul style="margin: 4px 0; padding-left: 16px; font-size: 0.95em;">
+                                <li>Loop with i=0 to i<size</li>
+                                <li>Each iteration accesses arr[i]</li>
+                                <li>Processes all elements automatically</li>
+                                <li>Condition: 0<3, 1<3, 2<3, 3<3=false</li>
+                            </ul>
+                        </div>
+                        <div class="output-section" style="margin-top: 8px;">
+                            5<br>10<br>15
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+</html>

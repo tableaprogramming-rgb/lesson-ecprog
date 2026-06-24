@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 2 - Interactive Presentations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+        .reveal a {
+            color: #ffaa00;
+        }
+        .reveal a:hover {
+            color: #ffdd00;
+        }
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .exercise-link {
+            padding: 15px 30px;
+            background: rgba(100, 150, 255, 0.3);
+            border: 2px solid #ffaa00;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #ffaa00;
+        }
+        .exercise-link:hover {
+            background: rgba(100, 150, 255, 0.6);
+            color: #ffdd00;
+            transform: scale(1.05);
+        }
+        .section-header {
+            font-size: 1.5em;
+            color: #ffaa00;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 1px solid #ffaa00;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.9em;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+        }
+        .back-link:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-link">← Master Index</a>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section>
+                <h1>PROG2 Day 2</h1>
+                <h3>Control Structures - Stepping Up</h3>
+                <p style="margin-top: 40px;">Compound Conditions & While Loops</p>
+                <p style="margin-top: 60px; font-size: 0.9em; color: #aaa;">
+                    Select an exercise below to begin →
+                </p>
+            </section>
+
+            <!-- Exercise Menu -->
+            <section>
+                <div class="menu-container">
+                    <h2>Exercise Selection</h2>
+
+                    <div class="section-header">Compound Conditions (AND/OR)</div>
+                    <a href="exercise-2.1.html" class="exercise-link">Exercise 2.1: Simple AND</a>
+                    <a href="exercise-2.2.html" class="exercise-link">Exercise 2.2: AND with False Result</a>
+                    <a href="exercise-2.3.html" class="exercise-link">Exercise 2.3: Simple OR</a>
+                    <a href="exercise-2.4.html" class="exercise-link">Exercise 2.4: Complex AND</a>
+                    <a href="exercise-2.5.html" class="exercise-link">Exercise 2.5: Multiple OR</a>
+
+                    <div class="section-header">While Loops</div>
+                    <a href="exercise-3.1.html" class="exercise-link">Exercise 3.1: Basic Counter Loop</a>
+                    <a href="exercise-3.2.html" class="exercise-link">Exercise 3.2: Accumulation Loop</a>
+                    <a href="exercise-3.3.html" class="exercise-link">Exercise 3.3: Decrement Loop</a>
+
+                    <div class="section-header">Mixed Logic</div>
+                    <a href="exercise-4.1.html" class="exercise-link">Exercise 4.1: If Inside While</a>
+                    <a href="exercise-4.2.html" class="exercise-link">Exercise 4.2: AND Inside While</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ],
+            width: "100%",
+            height: "100%"
+        });
+    </script>
+</body>
+</html>

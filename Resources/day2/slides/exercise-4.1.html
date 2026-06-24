@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 2 - Exercise 4.1 Code Tracing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { margin: 20px 0; font-size: 0.55em; }
+        .reveal code { padding: 2px 6px; }
+        .reveal table { margin: 20px auto; font-size: 0.8em; }
+        .reveal table th, .reveal table td { padding: 8px; border: 1px solid #666; }
+        .reveal table th { background: rgba(100, 200, 255, 0.3); }
+        .slide-container { display: flex; flex-direction: column; gap: 20px; height: 100%; }
+        .slide-header { text-align: center; flex-shrink: 0; }
+        .slide-header h3 { margin: 0 0 8px 0; color: #ffaa00; font-size: 0.9em; }
+        .slide-header p { margin: 0; font-size: 0.65em; line-height: 1.3; }
+        .slide-content { display: flex; gap: 30px; align-items: flex-start; justify-content: center; flex: 1; }
+        .slide-footer { text-align: center; flex-shrink: 0; }
+        .code-column { width: 50%; text-align: left; flex-shrink: 0; }
+        .code-column pre { margin: 0 !important; padding: 15px !important; width: 100%; line-height: 1.1 !important; }
+        .code-column code { line-height: 1.1 !important; }
+        .variables-column { width: 50%; text-align: left; font-size: 0.85em; flex-shrink: 0; }
+        .variables-section { margin-bottom: 20px; }
+        .variables-section h4 { margin: 0 0 10px 0; color: #ffaa00; font-size: 1em; }
+        .variables-section table { width: 100%; font-size: 0.85em; border-collapse: collapse; }
+        .variables-section table th, .variables-section table td { border: 1px solid #666; padding: 6px; text-align: left; }
+        .variables-section table th { background: rgba(100, 200, 255, 0.3); }
+        .output-section { background: rgba(0, 0, 0, 0.5); border: 1px solid #4CAF50; padding: 10px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        .output-section h4 { margin: 0 0 8px 0; color: #ffaa00; font-size: 1em; }
+        .output-section pre { margin: 0; color: #4CAF50; font-size: 0.75em; line-height: 1.3; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1em; cursor: pointer; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
+        .home-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
+        .home-button:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">🏠 Home</a>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Exercise 4.1: Code Tracing</h1>
+                <h3>If-Else Inside While Loop</h3>
+            </section>
+
+            <section>
+                <h2>Exercise 4.1: Complete Code</h2>
+                <div style="width: 50%; margin: 0 auto;">
+                    <pre style="font-size: 0.40em; margin: 10px 0; padding: 10px;"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i = 1;
+
+    while (i <= 4) {
+        if (i % 2 == 0) {
+            printf("%d is even\n", i);
+        } else {
+            printf("%d is odd\n", i);
+        }
+        i = i + 1;
+    }
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 1: Initialize i</h2>
+                        <h3>i = 1 (counter from 1 to 4)</h3>
+                        <p>Line 4: i = 1</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i = 1;      // ← WE ARE HERE
+
+    while (i <= 4) {
+        if (i % 2 == 0) {
+            printf("%d is even\n", i);
+        } else {
+            printf("%d is odd\n", i);
+        }
+        i = i + 1;
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>i</td>
+                                        <td>1</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">Check loop, then check if-else</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 2-5: All Iterations</h2>
+                        <h3>Loop runs 4 times, checking even/odd each time</h3>
+                        <p>i = 1, 2, 3, 4 (each goes through if-else)</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">// Iteration 1: i=1
+i % 2 == 0? (1%2=1) NO
+→ "1 is odd"
+i = 2
+
+// Iteration 2: i=2
+i % 2 == 0? (2%2=0) YES
+→ "2 is even"
+i = 3
+
+// Iteration 3: i=3
+i % 2 == 0? (3%2=1) NO
+→ "3 is odd"
+i = 4
+
+// Iteration 4: i=4
+i % 2 == 0? (4%2=0) YES
+→ "4 is even"
+i = 5</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Loop Summary</h4>
+                                <table style="font-size: 0.7em;">
+                                    <tr>
+                                        <th>Iter</th>
+                                        <th>i</th>
+                                        <th>i%2==0?</th>
+                                        <th>Branch</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>NO</td>
+                                        <td>else</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2</td>
+                                        <td>YES</td>
+                                        <td>if</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>3</td>
+                                        <td>NO</td>
+                                        <td>else</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>4</td>
+                                        <td>YES</td>
+                                        <td>if</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">Loop exits when i > 4</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 6: Complete Output</h2>
+                        <h3>All 4 iterations complete</h3>
+                        <p>Loop exits when i becomes 5 (5 <= 4 is false)</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i = 1;
+
+    while (i <= 4) {
+        if (i % 2 == 0) {
+            printf("%d is even\n", i);
+        } else {
+            printf("%d is odd\n", i);
+        }
+        i = i + 1;
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Final State</h4>
+                                <table>
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Final Value</th>
+                                    </tr>
+                                    <tr>
+                                        <td>i</td>
+                                        <td>5</td>
+                                    </tr>
+                                </table>
+                                <p style="margin: 10px 0; font-size: 0.8em; color: #aaa;">
+                                    Loop ran 4 times<br>
+                                    Each iteration checked even/odd
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section">
+                            <h4>Output</h4>
+                            <pre>1 is odd
+2 is even
+3 is odd
+4 is even</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 20px;">Key Insight</h2>
+                <div style="font-size: 0.9em; text-align: left; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                    <p style="margin: 20px 0;"><strong>Mixed Logic (Loop + Condition):</strong></p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #ffaa00;">
+                        The if-else INSIDE the loop runs with EVERY iteration.<br>
+                        Different iterations can take different branches!
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 100, 100, 0.2); border-left: 3px solid #888;">
+                        In this exercise:<br>
+                        Even numbers go to if; odd numbers go to else
+                    </p>
+                    <p style="margin-top: 30px; font-size: 0.85em; color: #aaa;">
+                        ✓ Always trace BOTH the loop condition AND the if-else condition
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

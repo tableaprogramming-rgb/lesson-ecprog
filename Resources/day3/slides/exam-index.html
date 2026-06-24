@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 3 - Intermediate Exam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+            padding: 60px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .course-info {
+            color: #999;
+            font-size: 0.95em;
+        }
+
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .exam-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 30px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .exam-card.easy {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .exam-card.medium {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .exam-card.hard {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .question-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .question-description {
+            font-size: 0.9em;
+            opacity: 0.95;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .points {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-top: 12px;
+        }
+
+        footer {
+            text-align: center;
+            color: #999;
+            font-size: 0.95em;
+            line-height: 1.6;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+
+        .instructions {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+
+        .instructions h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: #764ba2;
+        }
+
+        .back-link .master-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-link .master-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .exam-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PROG2 Day 3: Intermediate Exam</h1>
+            <div class="subtitle">Debugging Challenge - 4 Questions</div>
+            <div class="course-info">Computer Programming 2 | 100 Points Total (25 pts each)</div>
+        </header>
+
+        <div class="instructions">
+            <h3>Exam Instructions</h3>
+            <ol>
+                <li><strong>Time Limit:</strong> 60 minutes total (approximately 15 minutes per question)</li>
+                <li><strong>Tools:</strong> Pen and paper for tracing code. NO compiler/IDE allowed.</li>
+                <li><strong>Show Your Work:</strong> Write line numbers, traces, and explanations on your answer sheet</li>
+                <li><strong>Click a question</strong> to open the problem in fullscreen</li>
+                <li><strong>Use arrow keys</strong> to navigate and read through the problem carefully</li>
+                <li><strong>Press F</strong> for fullscreen mode (recommended for better readability)</li>
+            </ol>
+        </div>
+
+        <div class="exam-grid">
+            <!-- Question 1.1 -->
+            <a href="exam-1.1.html" class="exam-card easy">
+                <div class="question-number">Q1.1</div>
+                <div class="question-title">Multiple Condition Bug</div>
+                <div class="question-description">AND vs OR operator in range checking</div>
+                <div class="points">25 Points</div>
+            </a>
+
+            <!-- Question 1.2 -->
+            <a href="exam-1.2.html" class="exam-card easy">
+                <div class="question-number">Q1.2</div>
+                <div class="question-title">Loop Boundary Error</div>
+                <div class="question-description">Off-by-one error in factorial calculation</div>
+                <div class="points">25 Points</div>
+            </a>
+
+            <!-- Question 2.1 -->
+            <a href="exam-2.1.html" class="exam-card medium">
+                <div class="question-number">Q2.1</div>
+                <div class="question-title">Leap Year Logic</div>
+                <div class="question-description">Complex conditional logic with exceptions</div>
+                <div class="points">25 Points</div>
+            </a>
+
+            <!-- Question 2.2 -->
+            <a href="exam-2.2.html" class="exam-card hard">
+                <div class="question-number">Q2.2</div>
+                <div class="question-title">Multiple Bugs</div>
+                <div class="question-description">Find and fix syntax and logic errors</div>
+                <div class="points">25 Points</div>
+            </a>
+        </div>
+
+        <footer>
+            <p><strong>Total Points:</strong> 100 (A=90+, B=80+, C=70+, D=60+, F=<60)</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <strong>Tips:</strong> Start with Q1.1 and Q1.2 (easier). Save Q2.1 and Q2.2 for after. 🐛→🔧
+            </p>
+        </footer>
+
+        <div class="back-link">
+            <a href="../../index.html" class="master-btn">← Master Index</a>
+            <a href="index.html">← Back to Day 3 Exercises</a>
+        </div>
+    </div>
+</body>
+</html>

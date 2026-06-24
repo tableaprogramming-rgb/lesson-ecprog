@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 8 - Exercise 8.3: Row and Column Operations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <style>
+        .reveal { width: 100% !important; height: 100% !important; }
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; color: #64B5F6; font-weight: bold; }
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.3em; }
+        .reveal h3 { font-size: 1.1em; margin-top: 20px; }
+        .reveal section { padding: 10px !important; width: 100% !important; height: 100% !important; left: 0 !important; right: 0 !important; }
+        .slide-container { display: flex; flex-direction: column; height: 100%; width: 100%; justify-content: flex-start; gap: 5px; }
+        .slide-header { text-align: center; margin-bottom: 5px; flex-shrink: 0; }
+        .slide-header h2 { margin: 0 0 5px 0; color: #64B5F6; }
+        .slide-header p { margin: 2px 0; font-size: 0.65em; color: #B0BEC5; }
+        .slide-content { display: flex; gap: 12px; margin: 0; justify-content: flex-start; flex: 1; min-height: 0; overflow: hidden; }
+        .code-column { width: 75%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .code-column pre { margin: 0; padding: 0; font-size: 0.5em; line-height: 1.4; width: 100%; overflow: visible; max-height: 400px; white-space: pre; flex-shrink: 0; }
+        .code-column code { padding: 8px; border-radius: 3px; background: #263238 !important; color: #AED581 !important; display: block; font-family: 'Courier New', monospace !important; }
+        .matrix-column { width: 25%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .output-section { text-align: center; margin-top: 4px; padding: 6px; background: #1B5E20; border-left: 3px solid #4CAF50; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.5em; }
+        .output-section h3 { color: #64B5F6; margin: 0 0 3px 0; font-size: 1em; }
+        table { font-size: 0.5em; margin: 0; border-collapse: collapse; width: 100%; background: #37474F; border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+        table thead { background: #455A64; }
+        table th, table td { padding: 4px 5px; text-align: left; border-bottom: 1px solid #546E7A; }
+        table th { font-weight: bold; color: #64B5F6; }
+        table td { color: #B0BEC5; }
+        .highlight-line { background: #FFD93D; color: #000; }
+        .comment { color: #66BB6A; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #2196F3; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .home-button:hover { background: #1976D2; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise 8.3: Row and Column Operations</h2>
+                        <p>Calculating sums of specific rows and columns</p>
+                    </div>
+                    <div class="slide-content" style="justify-content: center; align-items: center;">
+                        <div style="width: 100%; text-align: center;">
+                            <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int matrix[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    // Sum of row 1
+    int rowSum = 0;
+    for (int j = 0; j < 3; j++) {
+        rowSum += matrix[1][j];
+    }
+    printf("Row 1 sum: %d\n", rowSum);
+
+    // Sum of column 1
+    int colSum = 0;
+    for (int i = 0; i < 3; i++) {
+        colSum += matrix[i][1];
+    }
+    printf("Column 1 sum: %d\n", colSum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 1: Calculate Row Sum</h2>
+                        <p>Fixed row index, loop through columns</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+int rowSum = 0;
+<span class="highlight-line">for (int j = 0; j < 3; j++) {</span>
+<span class="highlight-line">    rowSum += matrix[1][j];</span>
+<span class="highlight-line">}</span>
+printf("Row 1 sum: %d\n", rowSum);
+
+// Column loop below...
+
+return 0;</code></pre>
+                        </div>
+                        <div class="matrix-column">
+                            <h3>Row 1 Sum</h3>
+                            <p style="font-size: 0.8em;">Fix i=1, vary j=0,1,2</p>
+                            <div class="output-section">
+                                <h3>Iteration Trace</h3>
+                                j=0: matrix[1][0]=4, sum=4<br>
+                                j=1: matrix[1][1]=5, sum=9<br>
+                                j=2: matrix[1][2]=6, sum=15
+                            </div>
+                            <h3 style="margin-top: 10px;">Result</h3>
+                            <div class="output-section">
+                                Row 1 sum: 15
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 2: Calculate Column Sum</h2>
+                        <p>Fixed column index, loop through rows</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+// Row sum done...
+
+int colSum = 0;
+<span class="highlight-line">for (int i = 0; i < 3; i++) {</span>
+<span class="highlight-line">    colSum += matrix[i][1];</span>
+<span class="highlight-line">}</span>
+printf("Column 1 sum: %d\n", colSum);
+
+return 0;</code></pre>
+                        </div>
+                        <div class="matrix-column">
+                            <h3>Column 1 Sum</h3>
+                            <p style="font-size: 0.8em;">Fix j=1, vary i=0,1,2</p>
+                            <div class="output-section">
+                                <h3>Iteration Trace</h3>
+                                i=0: matrix[0][1]=2, sum=2<br>
+                                i=1: matrix[1][1]=5, sum=7<br>
+                                i=2: matrix[2][1]=8, sum=15
+                            </div>
+                            <h3 style="margin-top: 10px;">Result</h3>
+                            <div class="output-section">
+                                Column 1 sum: 15
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Key Differences: Row vs Column</h2>
+                        <p>Understanding selective traversal</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 20px 40px;">
+                        <div style="margin: 10px 0; background: rgba(100,181,246,0.1); padding: 10px; border-radius: 3px;">
+                            <h3 style="color: #FFD93D; font-size: 1em; margin: 0 0 5px 0;">Row Sum (Fixed Row)</h3>
+                            <p style="margin: 0; font-size: 0.85em;">
+                                <code style="background: #263238; padding: 2px 5px;">for (int j = 0; j < 3; j++)</code><br>
+                                Access: matrix[1][0], matrix[1][1], matrix[1][2]<br>
+                                Pattern: i is constant, j varies
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0; background: rgba(100,181,246,0.1); padding: 10px; border-radius: 3px;">
+                            <h3 style="color: #FFD93D; font-size: 1em; margin: 0 0 5px 0;">Column Sum (Fixed Column)</h3>
+                            <p style="margin: 0; font-size: 0.85em;">
+                                <code style="background: #263238; padding: 2px 5px;">for (int i = 0; i < 3; i++)</code><br>
+                                Access: matrix[0][1], matrix[1][1], matrix[2][1]<br>
+                                Pattern: j is constant, i varies
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0; background: rgba(100,181,246,0.1); padding: 10px; border-radius: 3px;">
+                            <h3 style="color: #FFD93D; font-size: 1em; margin: 0 0 5px 0;">Key Insight</h3>
+                            <p style="margin: 0; font-size: 0.85em;">
+                                Fix the index you don't want to change,<br>
+                                Loop through the index you want to vary
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Concept Summary</h2>
+                        <p>Row vs Column operations</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 20px 40px;">
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">1. Row Operations Use Single Loop</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;">Only loop columns; row index is fixed</p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">2. Column Operations Use Single Loop</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;">Only loop rows; column index is fixed</p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">3. More Efficient Than Nested Loops</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;">For single row/column: 3 iterations instead of 9</p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 1em;">4. Same Accumulation Pattern</h3>
+                            <p style="margin: 5px 0; font-size: 0.85em;">Initialize variable, add elements in loop, use result</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

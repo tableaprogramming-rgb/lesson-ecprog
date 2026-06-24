@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 8 - Debug 3: Uninitialized Variable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <style>
+        .reveal { width: 100% !important; height: 100% !important; }
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; color: #FF6B35; font-weight: bold; }
+        .reveal h2 { font-size: 0.9em; }
+        .reveal h3 { font-size: 0.6em; margin-top: 20px; }
+        .reveal section { padding: 10px !important; width: 100% !important; height: 100% !important; left: 0 !important; right: 0 !important; }
+        .slide-container { display: flex; flex-direction: column; height: 100%; width: 100%; justify-content: flex-start; gap: 5px; }
+        .slide-header { text-align: center; margin-bottom: 5px; flex-shrink: 0; }
+        .slide-header h2 { margin: 0 0 5px 0; color: #FF6B35; }
+        .slide-header p { margin: 2px 0; font-size: 0.45em; color: #B0BEC5; }
+        .slide-content { display: flex; gap: 12px; margin: 0; justify-content: flex-start; flex: 1; min-height: 0; overflow: visible; }
+        .code-column { width: 75%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .code-column pre { margin: 0; padding: 0; font-size: 0.18em; line-height: 1.2; width: 100%; overflow: visible; max-height: 400px; white-space: pre; flex-shrink: 0; }
+        .code-column code { padding: 8px; border-radius: 3px; background: #263238 !important; color: #AED581 !important; display: block; font-family: 'Courier New', monospace !important; }
+        .info-column { width: 25%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .output-section { text-align: center; margin-top: 4px; padding: 6px; background: #C62828; border-left: 3px solid #FF5252; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.5em; }
+        .output-section h3 { color: #FF6B35; margin: 0 0 3px 0; font-size: 0.6em; }
+        .bug-highlight { background: #FF5252; color: white; padding: 2px 4px; border-radius: 2px; }
+        .fix-highlight { background: #66BB6A; color: #000; padding: 2px 4px; border-radius: 2px; }
+        .context-box { background: rgba(255, 165, 0, 0.2); border: 2px solid #FF6B35; padding: 15px; border-radius: 5px; margin: 15px 0; text-align: left; }
+        .context-box h4 { color: #FFD93D; margin: 0 0 10px 0; font-size: 0.75em; font-weight: bold; }
+        .context-box p { margin: 5px 0; font-size: 0.55em; line-height: 1.5; }
+        .task-box { background: rgba(100, 150, 255, 0.2); border: 2px solid #66AAFF; padding: 15px; border-radius: 5px; margin: 10px 0; text-align: left; }
+        .task-box h4 { color: #66AAFF; margin: 0 0 10px 0; font-size: 0.75em; font-weight: bold; }
+        .task-box ol { margin: 5px 0 0 20px; color: #ddd; font-size: 0.65em; line-height: 1.6; }
+        .task-box li { margin: 5px 0; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #FF6B35; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .home-button:hover { background: #D84315; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .slide-number { position: fixed; bottom: 20px; right: 20px; font-size: 0.75em; color: #FF6B35; background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 3px; z-index: 500; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1 style="font-size: 1.8em; margin-bottom: 30px;">Debug 3: Uninitialized Variable</h1>
+                <h2 style="color: #FFD93D; font-size: 1.1em;">The Danger of Garbage Values</h2>
+                <p style="margin-top: 60px; font-size: 0.85em; color: #B0BEC5;">Intermediate Level</p>
+                <div class="slide-number">1 / 8</div>
+            </section>
+
+            <!-- SLIDE 2: CONTEXT -->
+            <section>
+                <h2 style="color: #FF6B35; margin-bottom: 30px;">The Context</h2>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 0.8em; line-height: 1.8;">
+                    <p style="margin: 15px 0;"><strong style="color: #FFD93D;">Goal:</strong></p>
+                    <div class="context-box">
+                        <p>Calculate the <strong>average grade</strong> for a specific student (row 2) in a 4×3 grade matrix</p>
+                        <p style="margin-top: 10px;">Row 2 grades: [78, 85, 82] — Expected average: 81.67</p>
+                    </div>
+                    <p style="margin: 15px 0;"><strong style="color: #FFD93D;">Expected Output:</strong></p>
+                    <p style="margin: 15px 0; padding: 12px; background: rgba(102, 187, 106, 0.2); border-left: 3px solid #66BB6A; font-family: 'Courier New', monospace;">
+                        Average: <span style="color: #66BB6A; font-weight: bold;">81.67</span>
+                    </p>
+                </div>
+                <div class="slide-number">2 / 8</div>
+            </section>
+
+            <!-- SLIDE 3: BUGGY CODE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>The Buggy Code</h2>
+                        <h3>What does this code actually produce?</h3>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column" style="width: 60%;">
+                            <pre style="font-size: 0.4em; margin: 0; overflow: visible;"><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int grades[4][3] = {
+        {85, 90, 78},
+        {92, 88, 95},
+        {78, 85, 82},
+        {88, 92, 89}
+    };
+
+    int row = 2;
+    int sum;  // ❌ NOT INITIALIZED!
+
+    for (int j = 0; j &lt; 3; j++) {
+        sum += grades[row][j];
+    }
+
+    double average = sum / 3.0;
+    printf("Average: %.2f\n", average);
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column" style="width: 40%; padding-left: 15px;">
+                            <div class="output-section" style="background: rgba(198, 40, 40, 0.3); border-left-color: #FF5252; margin-bottom: 15px;">
+                                <h3>Actual Output</h3>
+                                <p style="font-family: 'Courier New', monospace; margin: 5px 0; font-size: 0.65em; color: #FF6B6B;">Unpredictable garbage value</p>
+                            </div>
+                            <div style="background: rgba(198, 40, 40, 0.2); border-left: 3px solid #FF5252; padding: 10px; border-radius: 3px;">
+                                <h4 style="color: #FF8888; margin: 0 0 8px 0; font-size: 0.65em;">Problem:</h4>
+                                <p style="margin: 0; font-size: 0.6em; color: #ddd;">Expected: Average: 81.67</p>
+                                <p style="margin: 5px 0 0 0; font-size: 0.6em; color: #ddd;">Got: Random different value each run</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">3 / 8</div>
+            </section>
+
+            <!-- SLIDE 4: THE BUG -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>The Bug: Uninitialized Variable</h2>
+                        <p>What happens without initialization?</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div style="margin: 10px 0; background: rgba(255, 107, 53, 0.1); padding: 10px; border-radius: 3px;">
+                            <h3 style="color: #FF6B35; font-size: 0.6em;">🐛 The Problem</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                <span class="bug-highlight">int sum;</span> declares but doesn't initialize<br>
+                                Variable contains garbage/random value from memory
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0; background: rgba(255, 107, 53, 0.1); padding: 10px; border-radius: 3px;">
+                            <h3 style="color: #FF6B35; font-size: 0.6em;">💥 Why It Fails</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                <code style="background: #263238; padding: 2px 5px;">sum += grades[row][j]</code><br>
+                                Adding to undefined value → unpredictable result
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0; background: rgba(255, 107, 53, 0.1); padding: 10px; border-radius: 3px;">
+                            <h3 style="color: #FF6B35; font-size: 0.6em;">✓ The Fix</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                <span class="fix-highlight">int sum = 0;</span> initialize to zero
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">4 / 8</div>
+            </section>
+
+            <!-- SLIDE 5: YOUR TASK -->
+            <section>
+                <h2 style="color: #FF6B35; margin-bottom: 25px;">Your Task</h2>
+                <div class="task-box" style="max-width: 900px; margin: 0 auto;">
+                    <h4>Complete the following:</h4>
+                    <ol>
+                        <li><strong>Find the bug:</strong> Which line is missing initialization?</li>
+                        <li><strong>Explain why:</strong> Why does an uninitialized variable cause wrong results?</li>
+                        <li><strong>Trace execution:</strong> Show what happens when sum starts at garbage value 12345</li>
+                        <li><strong>Write the fix:</strong> What should the declaration line be?</li>
+                        <li><strong>Verify:</strong> Show that fixed code produces: Average: 81.67</li>
+                    </ol>
+                </div>
+                <div class="slide-number">5 / 8</div>
+            </section>
+
+            <!-- SLIDE 6: WHY THIS HAPPENS -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Why Variables Need Initialization</h2>
+                        <p>Understanding memory and garbage values</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.6em;">What Is Memory?</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Memory contains leftover data from previous programs<br>
+                                Uninitialized variables read that leftover data
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.6em;">The Result</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Each run produces different garbage value<br>
+                                Makes bugs hard to reproduce and debug
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.6em;">Best Practice</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                ALWAYS initialize variables when declaring
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">6 / 8</div>
+            </section>
+
+            <!-- SLIDE 7: FIXED CODE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>The Fixed Code</h2>
+                        <p>With proper initialization</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre style="font-size: 0.4em;"><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int grades[4][3] = {
+        {85, 90, 78},
+        {92, 88, 95},
+        {78, 85, 82},
+        {88, 92, 89}
+    };
+
+    int row = 2;
+    int sum = 0;  // ✓ INITIALIZED
+
+    for (int j = 0; j &lt; 3; j++) {
+        sum += grades[row][j];
+    }
+
+    double average = sum / 3.0;
+    printf("Average: %.2f\n", average);
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column">
+                            <h3>Execution Trace</h3>
+                            <div class="output-section" style="background: #1B5E20; border-left-color: #4CAF50; margin-bottom: 10px;">
+                                <h3 style="color: #66BB6A;">sum = 0 (initial)</h3>
+                            </div>
+                            <div class="output-section" style="background: #1B5E20; border-left-color: #4CAF50; margin-bottom: 10px;">
+                                <h3 style="color: #66BB6A;">j=0: sum = 78</h3>
+                            </div>
+                            <div class="output-section" style="background: #1B5E20; border-left-color: #4CAF50; margin-bottom: 10px;">
+                                <h3 style="color: #66BB6A;">j=1: sum = 163</h3>
+                            </div>
+                            <div class="output-section" style="background: #1B5E20; border-left-color: #4CAF50;">
+                                <h3 style="color: #66BB6A;">j=2: sum = 245</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">7 / 8</div>
+            </section>
+
+            <!-- SLIDE 8: LEARNING SUMMARY -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Learning Summary</h2>
+                        <p>Key takeaways from this debugging exercise</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.6em;">ALWAYS Initialize Variables</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Declare AND initialize in same statement
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.6em;">Accumulation Variables</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Variables used in <code style="background: #263238; padding: 2px 5px;">+=</code> must start at 0 or identity value
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.6em;">Flags Should Start False</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                <code style="background: #263238; padding: 2px 5px;">int found = 0;</code> not uninitialized
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.6em;">Hard to Debug</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Different every run → enable compiler warnings!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">8 / 8</div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

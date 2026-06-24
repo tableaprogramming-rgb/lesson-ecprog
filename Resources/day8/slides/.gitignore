@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Node/npm (if using local development)
+node_modules/
+package-lock.json
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Build artifacts (if applicable)
+dist/
+build/

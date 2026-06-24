@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 7: Single-Dimensional Arrays - Interactive Presentations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+        header h2 {
+            font-size: 1.5em;
+            color: #ffaa00;
+            margin-bottom: 20px;
+        }
+        header p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .exercises {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .exercise-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        .exercise-card:hover {
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        .exercise-card h3 {
+            font-size: 1.5em;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+        .exercise-card .number {
+            font-size: 0.9em;
+            color: #ffaa00;
+            margin-bottom: 15px;
+        }
+        .exercise-card p {
+            color: #d0d0d0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .exercise-card .code-example {
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            text-align: left;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            color: #00ff00;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+        .info-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #ffaa00;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        .info-section h3 {
+            color: #ffaa00;
+            margin-bottom: 10px;
+        }
+        .info-section ul {
+            list-style-position: inside;
+            color: #d0d0d0;
+            line-height: 2;
+        }
+        .keyboard-shortcuts {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #666;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .keyboard-shortcuts h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+        }
+        .shortcut {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            color: #d0d0d0;
+        }
+        .shortcut code {
+            background: #1a1a1a;
+            padding: 2px 8px;
+            border-radius: 3px;
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            .exercises {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .back-to-master {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-to-master:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .top-nav {
+            text-align: center;
+            padding-top: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-nav">
+            <a href="../../index.html" class="back-to-master">← Back to Master Index</a>
+        </div>
+        <header>
+            <h1>🎓 Day 7 Presentations</h1>
+            <h2>Single-Dimensional Arrays</h2>
+            <p>Interactive code tracing presentations to understand arrays step-by-step</p>
+        </header>
+
+        <div class="info-section">
+            <h3>📋 What You'll Learn</h3>
+            <ul>
+                <li><strong>7.1:</strong> How to declare and initialize arrays</li>
+                <li><strong>7.2:</strong> How to access elements using indexing</li>
+                <li><strong>7.3:</strong> How to loop through all elements</li>
+                <li><strong>7.4:</strong> How to modify array values</li>
+                <li><strong>7.5:</strong> How to search and analyze array data</li>
+                <li><strong>7.6:</strong> How to traverse arrays using loops</li>
+                <li><strong>7.7:</strong> How to read user input into arrays with scanf</li>
+            </ul>
+        </div>
+
+        <div class="exercises">
+            <!-- Exercise 7.1 -->
+            <div class="exercise-card">
+                <h3>Exercise 7.1</h3>
+                <div class="number">Array Declaration & Initialization</div>
+                <p>Learn how to declare arrays and initialize them with values</p>
+                <div class="code-example">
+int numbers[5] = {10, 20, 30, 40, 50};
+printf("First: %d\n", numbers[0]);
+                </div>
+                <a href="exercise-7.1.html" class="btn">View Presentation →</a>
+            </div>
+
+            <!-- Exercise 7.2 -->
+            <div class="exercise-card">
+                <h3>Exercise 7.2</h3>
+                <div class="number">Array Indexing</div>
+                <p>Understand how to access individual elements by index</p>
+                <div class="code-example">
+int scores[5] = {85, 90, 78, 92, 88};
+int first = scores[0];
+int middle = scores[2];
+                </div>
+                <a href="exercise-7.2.html" class="btn">View Presentation →</a>
+            </div>
+
+            <!-- Exercise 7.3 -->
+            <div class="exercise-card">
+                <h3>Exercise 7.3</h3>
+                <div class="number">Looping Through Arrays</div>
+                <p>See how loops process every element efficiently</p>
+                <div class="code-example">
+for(int i = 0; i < 3; i++) {
+    printf("%d\n", arr[i]);
+}
+                </div>
+                <a href="exercise-7.3.html" class="btn">View Presentation →</a>
+            </div>
+
+            <!-- Exercise 7.4 -->
+            <div class="exercise-card">
+                <h3>Exercise 7.4</h3>
+                <div class="number">Array Manipulation</div>
+                <p>Learn to modify array elements and build values</p>
+                <div class="code-example">
+values[0] = values[0] * 10;
+values[1] = values[1] + 5;
+values[2] = values[0] + values[1];
+                </div>
+                <a href="exercise-7.4.html" class="btn">View Presentation →</a>
+            </div>
+
+            <!-- Exercise 7.5 -->
+            <div class="exercise-card">
+                <h3>Exercise 7.5</h3>
+                <div class="number">Searching & Analysis</div>
+                <p>Find specific values and analyze array data</p>
+                <div class="code-example">
+for(int i = 1; i < 5; i++) {
+    if(data[i] < min) min = data[i];
+}
+                </div>
+                <a href="exercise-7.5.html" class="btn">View Presentation →</a>
+            </div>
+
+            <!-- Exercise 7.6 -->
+            <div class="exercise-card">
+                <h3>Exercise 7.6</h3>
+                <div class="number">Array Traversal with Loop</div>
+                <p>Use loops to access and display all array elements sequentially</p>
+                <div class="code-example">
+for(int i = 0; i < 4; i++) {
+    printf("Day %d: %d°F\n", i+1, temps[i]);
+}
+                </div>
+                <a href="exercise-7.6.html" class="btn">View Presentation →</a>
+            </div>
+
+            <!-- Exercise 7.7 -->
+            <div class="exercise-card">
+                <h3>Exercise 7.7</h3>
+                <div class="number">User Input into Array using scanf</div>
+                <p>Read values from user input and store them in an array</p>
+                <div class="code-example">
+scanf("%d", &amp;numbers[i]);
+printf("You entered: %d, %d, %d\n",
+       numbers[0], numbers[1], numbers[2]);
+                </div>
+                <a href="exercise-7.7.html" class="btn">View Presentation →</a>
+            </div>
+        </div>
+
+        <div class="keyboard-shortcuts">
+            <h3>⌨️ Navigation Tips</h3>
+            <p style="color: #d0d0d0; margin-bottom: 15px;">Use these keyboard shortcuts in the presentations:</p>
+            <div>
+                <span class="shortcut"><code>Space</code> or <code>→</code> - Next slide</span>
+                <span class="shortcut"><code>←</code> - Previous slide</span>
+                <span class="shortcut"><code>F</code> - Fullscreen mode</span>
+                <span class="shortcut"><code>ESC</code> - Exit fullscreen</span>
+                <span class="shortcut"><code>?</code> - Show all shortcuts</span>
+            </div>
+        </div>
+
+        <div class="info-section" style="border-left-color: #00ff00; margin-top: 40px;">
+            <h3>💡 How to Use These Presentations</h3>
+            <ul>
+                <li><strong>In Class:</strong> Teacher shows slides while students follow along</li>
+                <li><strong>Individual Review:</strong> Students watch at their own pace to understand concepts</li>
+                <li><strong>Homework Verification:</strong> Check your hand-traced answers against the slides</li>
+                <li><strong>Flipped Classroom:</strong> Watch before class, discuss after</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Day 7: Single-Dimensional Arrays | PROG2: Computer Programming 2</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Made with Reveal.js • Interactive Code Tracing</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 7 - Exercise 7.1: Array Declaration & Initialization</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+
+    <style>
+        .reveal {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            color: #64B5F6;
+            font-weight: bold;
+        }
+
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.3em; }
+        .reveal h3 { font-size: 1.1em; margin-top: 20px; }
+
+        .reveal section {
+            padding: 10px !important;
+            width: 100% !important;
+            height: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 5px;
+            flex-shrink: 0;
+        }
+
+        .slide-header h2 {
+            margin: 0 0 5px 0;
+            color: #64B5F6;
+        }
+
+        .slide-header p {
+            margin: 2px 0;
+            font-size: 0.65em;
+            color: #B0BEC5;
+        }
+
+        .slide-content {
+            display: flex;
+            gap: 12px;
+            margin: 0;
+            justify-content: flex-start;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .code-column {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .code-column pre {
+            margin: 0;
+            padding: 0;
+            font-size: 0.5em;
+            line-height: 1.4;
+            width: 100%;
+            overflow: visible;
+            max-height: 400px;
+            white-space: pre;
+            flex-shrink: 0;
+        }
+
+        .code-column code {
+            padding: 8px;
+            border-radius: 3px;
+            background: #263238 !important;
+            color: #AED581 !important;
+            display: block;
+            font-family: 'Courier New', monospace !important;
+        }
+
+        .variables-column {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .variables-table {
+            font-size: 0.5em;
+            margin: 0;
+            border-collapse: collapse;
+            width: 100%;
+            background: #37474F;
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .variables-table thead {
+            background: #455A64;
+        }
+
+        .variables-table th, .variables-table td {
+            padding: 4px 5px;
+            text-align: left;
+            border-bottom: 1px solid #546E7A;
+        }
+
+        .variables-table th {
+            font-weight: bold;
+            color: #64B5F6;
+        }
+
+        .variables-table td {
+            color: #B0BEC5;
+        }
+
+        .output-section {
+            text-align: center;
+            margin-top: 4px;
+            padding: 6px;
+            background: #1B5E20;
+            border-left: 3px solid #4CAF50;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.5em;
+            color: #4CAF50;
+            flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 80px;
+        }
+
+        .info-box {
+            padding: 6px;
+            margin: 0 0 4px 0;
+            border-radius: 3px;
+            font-size: 0.55em;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        .info-box.concept {
+            background: #1E3A8A;
+            border-left: 3px solid #64B5F6;
+            color: #E3F2FD;
+        }
+
+        .info-box.correct {
+            background: #1B5E20;
+            border-left: 3px solid #4CAF50;
+            color: #C8E6C9;
+        }
+
+        .slide-footer {
+            text-align: center;
+            font-size: 0.5em;
+            color: #B0BEC5;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .reveal p {
+            color: #B0BEC5;
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(100, 181, 246, 0.4);
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise 7.1</h2>
+                        <p>Array Declaration & Initialization</p>
+                        <p style="margin-top: 20px; font-size: 0.75em;">Understanding how to declare arrays and set initial values</p>
+                    </div>
+                    <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                        <div class="info-box concept">
+                            <strong>Today's Goal:</strong> Learn how to create arrays and populate them with data using initialization
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: CODE OVERVIEW -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>The Complete Program</h2>
+                        <p>We'll trace this step by step</p>
+                    </div>
+                    <div style="text-align: center; flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; padding: 0 10px; box-sizing: border-box;">
+                        <pre style="width: 100%;"><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int numbers[5] = {10, 20, 30, 40, 50};
+ 5 |
+ 6 |     printf("First: %d\n", numbers[0]);
+ 7 |     printf("Last: %d\n", numbers[4]);
+ 8 |
+ 9 |     
+10 | }</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: STEP 1 - INCLUDE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 1: Include Library</h2>
+                        <p>Load stdio.h for printf() function</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;         // ← WE ARE HERE
+ 2 |
+ 3 | void main() {
+ 4 |     int numbers[5] = {10, 20, 30, 40, 50};
+ 5 |
+ 6 |     printf("First: %d\n", numbers[0]);
+ 7 |     printf("Last: %d\n", numbers[4]);
+ 8 |
+ 9 |     
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box concept">
+                                <strong>What happens:</strong> The stdio library is loaded
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <p style="font-size: 0.75em; color: #B0BEC5;"><strong>Status:</strong> Header file included</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>#include directives load libraries at the start</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: STEP 2 - ENTER MAIN -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 2: Enter main() Function</h2>
+                        <p>Program execution begins here</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {                         // ← WE ARE HERE
+ 4 |     int numbers[5] = {10, 20, 30, 40, 50};
+ 5 |
+ 6 |     printf("First: %d\n", numbers[0]);
+ 7 |     printf("Last: %d\n", numbers[4]);
+ 8 |
+ 9 |     
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box concept">
+                                <strong>What happens:</strong> main() function starts executing
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <p style="font-size: 0.75em; color: #B0BEC5;"><strong>Status:</strong> In main function</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>main() is the entry point of C programs</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: STEP 3 - DECLARE & INIT ARRAY -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 3: Declare & Initialize Array</h2>
+                        <p>Create array with 5 integers and set values</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int numbers[5] = {10, 20, 30, 40, 50};  // ← WE ARE HERE
+ 5 |
+ 6 |     printf("First: %d\n", numbers[0]);
+ 7 |     printf("Last: %d\n", numbers[4]);
+ 8 |
+ 9 |     
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Memory Layout:</strong>
+                                <div style="margin-top: 8px; font-family: monospace; font-size: 0.9em;">
+                                    Index: 0   1   2   3   4<br>
+                                    Value: 10  20  30  40  50
+                                </div>
+                            </div>
+                            <table class="variables-table" style="margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th>Variable</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>numbers</td>
+                                        <td>int[5]</td>
+                                        <td>{10..50}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>int numbers[5] creates 5 integer slots; {10, 20, 30, 40, 50} fills them</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: STEP 4 - ACCESS FIRST -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 4: Access First Element</h2>
+                        <p>Print the value at index 0</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int numbers[5] = {10, 20, 30, 40, 50};
+ 5 |
+ 6 |     printf("First: %d\n", numbers[0]);  // ← WE ARE HERE
+ 7 |     printf("Last: %d\n", numbers[4]);
+ 8 |
+ 9 |     
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Access:</strong>
+                                <div style="margin-top: 8px; font-family: monospace;">
+                                    numbers[0] = 10
+                                </div>
+                            </div>
+                            <div class="output-section" style="margin-top: 10px;">
+                                First: 10
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Index 0 refers to the first element in the array</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: STEP 5 - ACCESS LAST -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 5: Access Last Element</h2>
+                        <p>Print the value at index 4</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int numbers[5] = {10, 20, 30, 40, 50};
+ 5 |
+ 6 |     printf("First: %d\n", numbers[0]);
+ 7 |     printf("Last: %d\n", numbers[4]);  // ← WE ARE HERE
+ 8 |
+ 9 |     
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Access:</strong>
+                                <div style="margin-top: 8px; font-family: monospace;">
+                                    numbers[4] = 50
+                                </div>
+                            </div>
+                            <div class="output-section" style="margin-top: 10px;">
+                                First: 10<br>
+                                Last: 50
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>For array size 5, last valid index is 4 (size - 1)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: STEP 6 - RETURN -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 6: Return from main()</h2>
+                        <p>Program ends successfully</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int numbers[5] = {10, 20, 30, 40, 50};
+ 5 |
+ 6 |     printf("First: %d\n", numbers[0]);
+ 7 |     printf("Last: %d\n", numbers[4]);
+ 8 |
+ 9 |     return 0;                         // ← WE ARE HERE
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Return Value:</strong>
+                                <div style="margin-top: 8px;">0 (success)</div>
+                            </div>
+                            <div class="output-section" style="margin-top: 10px;">
+                                First: 10<br>
+                                Last: 50
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Returning 0 indicates successful program execution</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: SUMMARY -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Summary: Array Declaration & Initialization</h2>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <div class="info-box concept">
+                            <strong>What We Learned:</strong>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li>int numbers[5] creates space for 5 integers</li>
+                                <li>= {10, 20, 30, 40, 50} initializes with values</li>
+                                <li>Arrays use 0-based indexing (0, 1, 2, 3, 4)</li>
+                                <li>Index = position - 1</li>
+                                <li>Last valid index = size - 1</li>
+                            </ul>
+                        </div>
+                        <div class="output-section" style="margin-top: 15px;">
+                            First: 10<br>
+                            Last: 50
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+</html>

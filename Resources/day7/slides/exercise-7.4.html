@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 7 - Exercise 7.4: Array Manipulation</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+
+    <style>
+        .reveal {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            color: #64B5F6;
+            font-weight: bold;
+        }
+
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.3em; }
+        .reveal h3 { font-size: 1.1em; margin-top: 20px; }
+
+        .reveal section {
+            padding: 10px !important;
+            width: 100% !important;
+            height: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 5px;
+            flex-shrink: 0;
+        }
+
+        .slide-header h2 {
+            margin: 0 0 5px 0;
+            color: #64B5F6;
+        }
+
+        .slide-header p {
+            margin: 2px 0;
+            font-size: 0.65em;
+            color: #B0BEC5;
+        }
+
+        .slide-content {
+            display: flex;
+            gap: 12px;
+            margin: 0;
+            justify-content: flex-start;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .code-column {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .code-column pre {
+            margin: 0;
+            padding: 0;
+            font-size: 0.5em;
+            line-height: 1.4;
+            width: 100%;
+            overflow: visible;
+            max-height: 400px;
+            white-space: pre;
+            flex-shrink: 0;
+        }
+
+        .code-column code {
+            padding: 8px;
+            border-radius: 3px;
+            background: #263238 !important;
+            color: #AED581 !important;
+            display: block;
+            font-family: 'Courier New', monospace !important;
+        }
+
+        .variables-column {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .variables-table {
+            font-size: 0.5em;
+            margin: 0;
+            border-collapse: collapse;
+            width: 100%;
+            background: #37474F;
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .variables-table thead {
+            background: #455A64;
+        }
+
+        .variables-table th, .variables-table td {
+            padding: 4px 5px;
+            text-align: left;
+            border-bottom: 1px solid #546E7A;
+        }
+
+        .variables-table th {
+            font-weight: bold;
+            color: #64B5F6;
+        }
+
+        .variables-table td {
+            color: #B0BEC5;
+        }
+
+        .output-section {
+            text-align: center;
+            margin-top: 4px;
+            padding: 6px;
+            background: #1B5E20;
+            border-left: 3px solid #4CAF50;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.5em;
+            color: #4CAF50;
+            flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 80px;
+        }
+
+        .info-box {
+            padding: 6px;
+            margin: 0 0 4px 0;
+            border-radius: 3px;
+            font-size: 0.55em;
+            line-height: 1.2;
+            flex-shrink: 0;
+        }
+
+        .info-box.concept {
+            background: #1E3A8A;
+            border-left: 3px solid #64B5F6;
+            color: #E3F2FD;
+        }
+
+        .info-box.correct {
+            background: #1B5E20;
+            border-left: 3px solid #4CAF50;
+            color: #C8E6C9;
+        }
+
+        .slide-footer {
+            text-align: center;
+            font-size: 0.5em;
+            color: #B0BEC5;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .reveal p {
+            color: #B0BEC5;
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(100, 181, 246, 0.4);
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise 7.4</h2>
+                        <p>Array Manipulation</p>
+                        <p style="margin-top: 20px; font-size: 0.75em;">Modifying array elements and building values</p>
+                    </div>
+                    <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                        <div class="info-box concept">
+                            <strong>Today's Goal:</strong> Learn how to modify array values and use them in calculations
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: CODE OVERVIEW -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>The Complete Program</h2>
+                        <p>We'll trace this step by step</p>
+                    </div>
+                    <div style="text-align: center; flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; padding: 0 10px; box-sizing: border-box;">
+                        <pre style="width: 100%;"><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int values[3] = {1, 2, 3};
+ 5 |
+ 6 |     values[0] = values[0] * 10;
+ 7 |     values[1] = values[1] + 5;
+ 8 |     values[2] = values[0] + values[1];
+ 9 |
+10 |     printf("%d %d %d\n", values[0], values[1], values[2]);
+11 |
+12 |     
+13 | }</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: INIT -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 1: Initialize Array</h2>
+                        <p>Create array with values {1, 2, 3}</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int values[3] = {1, 2, 3};  // ← WE ARE HERE
+ 5 |
+ 6 |     values[0] = values[0] * 10;
+ 7 |     values[1] = values[1] + 5;
+ 8 |     values[2] = values[0] + values[1];
+ 9 |
+10 |     printf("%d %d %d\n", values[0], values[1], values[2]);
+11 |
+12 |     
+13 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Array:</strong>
+                                <div style="margin-top: 4px; font-family: monospace; font-size: 0.85em;">
+                                    [1] [2] [3]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Initial values: 1, 2, 3</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: MOD 1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 2: Multiply values[0]</h2>
+                        <p>values[0] = values[0] * 10</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int values[3] = {1, 2, 3};
+ 5 |
+ 6 |     values[0] = values[0] * 10;  // ← WE ARE HERE
+ 7 |     values[1] = values[1] + 5;
+ 8 |     values[2] = values[0] + values[1];
+ 9 |
+10 |     printf("%d %d %d\n", values[0], values[1], values[2]);
+11 |
+12 |     
+13 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Calc:</strong>
+                                <div style="margin-top: 4px; font-family: monospace; font-size: 0.85em;">
+                                    1 * 10 = 10
+                                </div>
+                            </div>
+                            <div class="info-box concept" style="margin-top: 3px;">
+                                <strong>Array:</strong>
+                                <div style="margin-top: 2px; font-family: monospace; font-size: 0.85em;">
+                                    [10] [2] [3]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>values[0] changed from 1 to 10</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: MOD 2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 3: Add 5 to values[1]</h2>
+                        <p>values[1] = values[1] + 5</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int values[3] = {1, 2, 3};
+ 5 |
+ 6 |     values[0] = values[0] * 10;
+ 7 |     values[1] = values[1] + 5;  // ← WE ARE HERE
+ 8 |     values[2] = values[0] + values[1];
+ 9 |
+10 |     printf("%d %d %d\n", values[0], values[1], values[2]);
+11 |
+12 |     
+13 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Calc:</strong>
+                                <div style="margin-top: 4px; font-family: monospace; font-size: 0.85em;">
+                                    2 + 5 = 7
+                                </div>
+                            </div>
+                            <div class="info-box concept" style="margin-top: 3px;">
+                                <strong>Array:</strong>
+                                <div style="margin-top: 2px; font-family: monospace; font-size: 0.85em;">
+                                    [10] [7] [3]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>values[1] changed from 2 to 7</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: MOD 3 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 4: Sum to values[2]</h2>
+                        <p>values[2] = values[0] + values[1]</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int values[3] = {1, 2, 3};
+ 5 |
+ 6 |     values[0] = values[0] * 10;
+ 7 |     values[1] = values[1] + 5;
+ 8 |     values[2] = values[0] + values[1];  // ← WE ARE HERE
+ 9 |
+10 |     printf("%d %d %d\n", values[0], values[1], values[2]);
+11 |
+12 |     
+13 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Calc:</strong>
+                                <div style="margin-top: 4px; font-family: monospace; font-size: 0.85em;">
+                                    10 + 7 = 17
+                                </div>
+                            </div>
+                            <div class="info-box concept" style="margin-top: 3px;">
+                                <strong>Array:</strong>
+                                <div style="margin-top: 2px; font-family: monospace; font-size: 0.85em;">
+                                    [10] [7] [17]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>values[2] changed from 3 to 17</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: PRINT -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Step 5: Print Output</h2>
+                        <p>Display the final values</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c"> 1 | #include &lt;stdio.h&gt;
+ 2 |
+ 3 | void main() {
+ 4 |     int values[3] = {1, 2, 3};
+ 5 |
+ 6 |     values[0] = values[0] * 10;
+ 7 |     values[1] = values[1] + 5;
+ 8 |     values[2] = values[0] + values[1];
+ 9 |
+10 |     printf("%d %d %d\n", values[0], values[1], values[2]);  // ← WE ARE HERE
+11 |
+12 |     
+13 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="output-section">
+                                10 7 17
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <p>Final values printed</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: SUMMARY -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Summary: Array Manipulation</h2>
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <div class="info-box concept">
+                            <strong>Key Points:</strong>
+                            <ul style="margin: 4px 0; padding-left: 16px; font-size: 0.95em;">
+                                <li>Modify: values[i] = new_value</li>
+                                <li>Order matters - each step uses updated values</li>
+                                <li>1→10, 2→7, 3→17</li>
+                                <li>Each element is independent</li>
+                            </ul>
+                        </div>
+                        <div class="output-section" style="margin-top: 8px;">
+                            10 7 17
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [RevealHighlight]
+        });
+    </script>
+</body>
+</html>

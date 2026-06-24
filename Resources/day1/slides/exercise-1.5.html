@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Week 1 - Exercise 1.5 Code Tracing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+        .reveal pre {
+            margin: 20px 0;
+            font-size: 0.55em;
+        }
+        .reveal code {
+            padding: 2px 6px;
+        }
+        .reveal table {
+            margin: 20px auto;
+            font-size: 0.8em;
+        }
+        .reveal table th,
+        .reveal table td {
+            padding: 8px;
+            border: 1px solid #666;
+        }
+        .reveal table th {
+            background: rgba(100, 200, 255, 0.3);
+        }
+
+        /* Slide layout */
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+        .slide-header {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .slide-header h3 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 0.9em;
+        }
+        .slide-header p {
+            margin: 0;
+            font-size: 0.65em;
+            line-height: 1.3;
+        }
+        .slide-content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            justify-content: center;
+            flex: 1;
+        }
+        .slide-footer {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .code-column {
+            width: 50%;
+            text-align: left;
+            flex-shrink: 0;
+        }
+        .code-column pre {
+            margin: 0 !important;
+            padding: 15px !important;
+            width: 100%;
+            line-height: 1.1 !important;
+        }
+        .code-column code {
+            line-height: 1.1 !important;
+        }
+        .variables-column {
+            width: 50%;
+            text-align: left;
+            font-size: 0.85em;
+            flex-shrink: 0;
+        }
+        .variables-section {
+            margin-bottom: 20px;
+        }
+        .variables-section h4 {
+            margin: 0 0 10px 0;
+            color: #ffaa00;
+            font-size: 1em;
+        }
+        .variables-section table {
+            width: 100%;
+            font-size: 0.85em;
+            border-collapse: collapse;
+        }
+        .variables-section table th,
+        .variables-section table td {
+            border: 1px solid #666;
+            padding: 6px;
+            text-align: left;
+        }
+        .variables-section table th {
+            background: rgba(100, 200, 255, 0.3);
+        }
+        .output-section {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #4CAF50;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .output-section h4 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 1em;
+        }
+        .output-section pre {
+            margin: 0;
+            color: #4CAF50;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .home-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">🏠 Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1>Exercise 1.5: Code Tracing</h1>
+                <h3>Nested Loops (Challenge Level)</h3>
+            </section>
+
+            <!-- SLIDE 2: Complete Code -->
+            <section>
+                <h2>Exercise 1.5: Complete Code</h2>
+                <div style="width: 50%; margin: 0 auto;">
+                    <pre style="font-size: 0.43em; margin: 10px 0; padding: 10px;"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: Explain Nested Loops -->
+            <section>
+                <h2>Understanding Nested Loops</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;">This code has:</p>
+                <ul style="font-size: 0.85em; line-height: 1.8;">
+                    <li><strong>Outer Loop:</strong> <code>for (int i = 1; i <= 3; i++)</code> runs 3 times</li>
+                    <li><strong>Inner Loop:</strong> <code>for (int j = 1; j <= 2; j++)</code> runs 2 times per outer iteration</li>
+                    <li><strong>Total Executions:</strong> 3 × 2 = <strong>6 times</strong></li>
+                    <li><strong>Order:</strong> Inner loop completes before outer loop advances</li>
+                </ul>
+                <p style="font-size: 0.8em; margin-top: 30px; color: #ffaa00;"><strong>KEY:</strong> Each time outer loop runs once, inner loop runs fully!</p>
+            </section>
+
+            <!-- SLIDE 4: Initialize -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 1: Initialize total = 0</h2>
+                        <h3>Setup</h3>
+                        <p>We create a variable <code>total</code> to count the iterations.</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;              // ← WE ARE HERE
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td><strong>total</strong></td><td>int</td><td><strong>0</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: Outer i=1, Inner j=1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 2: Outer Loop i=1, Inner j=1</h2>
+                        <h3>First Inner Iteration</h3>
+                        <p>Outer loop starts: i=1 (1 ≤ 3? YES). Inner loop starts: j=1 (1 ≤ 2? YES). Execute: <code>total = 0 + 1 = 1</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;  // ← WE ARE HERE (i=1,j=1)
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>1</td></tr>
+                                    <tr><td>j</td><td>int</td><td>1</td></tr>
+                                    <tr><td>total</td><td>int</td><td><strong>1</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: Outer i=1, Inner j=2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 3: Outer Loop i=1, Inner j=2</h2>
+                        <h3>Second Inner Iteration</h3>
+                        <p>Inner loop continues: j=2 (2 ≤ 2? YES). Execute: <code>total = 1 + 1 = 2</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;  // ← WE ARE HERE (i=1,j=2)
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>1</td></tr>
+                                    <tr><td>j</td><td>int</td><td>2</td></tr>
+                                    <tr><td>total</td><td>int</td><td><strong>2</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: Outer i=2, Inner j=1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 4: Outer Loop i=2, Inner j=1</h2>
+                        <h3>Outer Loop Advances</h3>
+                        <p>Inner loop completes (j=3, which is > 2). Outer loop increments: i=2. Inner loop restarts: j=1. Execute: <code>total = 2 + 1 = 3</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;  // ← WE ARE HERE (i=2,j=1)
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>2</td></tr>
+                                    <tr><td>j</td><td>int</td><td>1</td></tr>
+                                    <tr><td>total</td><td>int</td><td><strong>3</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: Outer i=2, Inner j=2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 5: Outer Loop i=2, Inner j=2</h2>
+                        <h3>Second Iteration of Inner Loop</h3>
+                        <p>Inner loop continues: j=2. Execute: <code>total = 3 + 1 = 4</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;  // ← WE ARE HERE (i=2,j=2)
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>2</td></tr>
+                                    <tr><td>j</td><td>int</td><td>2</td></tr>
+                                    <tr><td>total</td><td>int</td><td><strong>4</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: Outer i=3, Inner j=1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 6: Outer Loop i=3, Inner j=1</h2>
+                        <h3>Last Outer Iteration</h3>
+                        <p>Outer loop increments: i=3 (3 ≤ 3? YES). Inner loop restarts: j=1. Execute: <code>total = 4 + 1 = 5</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;  // ← WE ARE HERE (i=3,j=1)
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>3</td></tr>
+                                    <tr><td>j</td><td>int</td><td>1</td></tr>
+                                    <tr><td>total</td><td>int</td><td><strong>5</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: Outer i=3, Inner j=2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 7: Outer Loop i=3, Inner j=2</h2>
+                        <h3>Final Iteration</h3>
+                        <p>Inner loop final iteration: j=2. Execute: <code>total = 5 + 1 = 6</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;  // ← WE ARE HERE (i=3,j=2)
+        }
+    }
+
+    printf("Total: %d\n", total);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>3</td></tr>
+                                    <tr><td>j</td><td>int</td><td>2</td></tr>
+                                    <tr><td>total</td><td>int</td><td><strong>6</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11: Loops Exit & Print -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 8: Loops Exit & Print Result</h2>
+                        <h3>Display Final Total</h3>
+                        <p>Both loops exit (i=4, j=3). Display the final total.</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int total = 0;
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 2; j++) {
+            total = total + 1;
+        }
+    }
+
+    printf("Total: %d\n", total); // ← WE ARE HERE
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>total</td><td>int</td><td>6</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>Total: 6</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 12: EXECUTION SUMMARY -->
+            <section>
+                <h2>Complete Execution Summary</h2>
+                <table style="font-size: 0.65em;">
+                    <tr>
+                        <th>Step</th>
+                        <th>i Value</th>
+                        <th>j Value</th>
+                        <th>Condition</th>
+                        <th>total</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>i ≤ 3 ✓, j ≤ 2 ✓</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>i ≤ 3 ✓, j ≤ 2 ✓</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>i ≤ 3 ✓, j ≤ 2 ✓</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>i ≤ 3 ✓, j ≤ 2 ✓</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>i ≤ 3 ✓, j ≤ 2 ✓</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>i ≤ 3 ✓, j ≤ 2 ✓</td>
+                        <td>6</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 20px; font-size: 0.8em;"><strong>Total Iterations: 3 × 2 = 6</strong></p>
+            </section>
+
+            <!-- SLIDE 13: KEY CONCEPTS -->
+            <section>
+                <h2>Key Concepts to Remember</h2>
+                <ul style="font-size: 0.85em; line-height: 1.8;">
+                    <li><strong>Nested Loops:</strong> Loop inside another loop</li>
+                    <li><strong>Execution Order:</strong> Inner loop runs completely before outer loop advances</li>
+                    <li><strong>Total Iterations:</strong> Outer count × Inner count = Total</li>
+                    <li><strong>Variable Scope:</strong> Inner loop variables reset each iteration</li>
+                    <li><strong>Complex Tracing:</strong> Track both i AND j values at each step</li>
+                </ul>
+            </section>
+
+            <!-- SLIDE 14: CHALLENGE -->
+            <section>
+                <h2>Challenge: Predict Iterations</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;">For this nested loop:</p>
+                <pre style="font-size: 0.7em;"><code class="language-c">    for (int i = 1; i <= 4; i++) {
+        for (int j = 1; j <= 3; j++) {
+            total = total + 1;
+        }
+    }</code></pre>
+                <p style="font-size: 0.85em; margin-top: 20px;"><strong>Questions:</strong></p>
+                <ul style="font-size: 0.75em;">
+                    <li>How many times does the outer loop run?</li>
+                    <li>How many times does the inner loop run per outer iteration?</li>
+                    <li>What is the final total? (4 × 3 = ?)</li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [ RevealHighlight ],
+            width: '100%',
+            height: '100%',
+            margin: 0.1,
+            transition: 'fade',
+        });
+    </script>
+</body>
+</html>

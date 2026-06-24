@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 3 - Exam Question 1.1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { margin: 20px 0; font-size: 0.55em; }
+        .reveal code { padding: 2px 6px; }
+        .reveal table { margin: 20px auto; font-size: 0.8em; }
+        .reveal table th, .reveal table td { padding: 8px; border: 1px solid #666; }
+        .reveal table th { background: rgba(100, 200, 255, 0.3); }
+        .slide-container { display: flex; flex-direction: column; gap: 15px; height: 100%; }
+        .slide-header { text-align: center; flex-shrink: 0; }
+        .slide-header h3 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.85em; }
+        .slide-header p { margin: 0; font-size: 0.6em; line-height: 1.2; }
+        .slide-content { display: flex; gap: 20px; align-items: flex-start; justify-content: center; flex: 1; }
+        .slide-footer { text-align: center; flex-shrink: 0; font-size: 0.7em; }
+        .code-column { width: 50%; text-align: left; flex-shrink: 0; }
+        .code-column pre { margin: 0 !important; padding: 12px !important; width: 100%; line-height: 1.0 !important; font-size: 0.5em !important; }
+        .code-column code { line-height: 1.0 !important; }
+        .info-column { width: 50%; text-align: left; font-size: 0.75em; flex-shrink: 0; }
+        .output-section { background: rgba(0, 0, 0, 0.5); border: 1px solid #4CAF50; padding: 8px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        .output-section h4 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.8em; }
+        .output-section pre { margin: 0; color: #4CAF50; font-size: 0.75em; line-height: 1.3; }
+        .task-box { background: rgba(100, 150, 255, 0.2); border: 2px solid #66aaff; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .task-box h4 { color: #66aaff; margin: 0 0 10px 0; font-size: 0.9em; }
+        .task-box ol { margin-left: 20px; color: #ddd; font-size: 0.85em; line-height: 1.6; }
+        .info-box { margin-bottom: 12px; padding: 10px; background: rgba(100, 100, 100, 0.2); border-left: 3px solid #888; border-radius: 3px; }
+        .info-box h4 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.85em; }
+        .info-box p { margin: 0; font-size: 0.75em; line-height: 1.3; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1em; cursor: pointer; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
+        .home-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
+        .home-button:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">🏠 Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1>Exam Question 1.1</h1>
+                <h3>Multiple Condition Bug</h3>
+                <p style="margin-top: 60px; font-size: 0.9em;">25 Points - Intermediate</p>
+            </section>
+
+            <!-- SLIDE 2: CONTEXT -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">The Context</h2>
+                <div style="text-align: left; max-width: 800px; margin: 0 auto; font-size: 0.95em; line-height: 1.8;">
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">Goal:</strong></p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #ffaa00;">
+                        Count how many numbers between 1 and 20 are BOTH positive AND greater than 10
+                    </p>
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">Expected Numbers:</strong></p>
+                    <p style="margin: 20px 0; font-size: 1.05em;">
+                        11, 12, 13, 14, 15, 16, 17, 18, 19, 20 = <span style="color: #66ff66; font-weight: bold;">Count: 10</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: BUGGY CODE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">The Buggy Code</h2>
+                        <h3>What does this code actually do?</h3>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int count = 0;
+
+    for (int i = 1; i <= 20; i++) {
+        if (i > 0 || i > 10) {
+            count++;
+        }
+    }
+
+    printf("Count: %d\n", count);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column">
+                            <div class="output-section">
+                                <h4>Actual Output</h4>
+                                <pre>Count: 20</pre>
+                            </div>
+                            <div class="info-box" style="background: rgba(255, 100, 100, 0.2); border-left-color: #ff6666; margin-top: 15px;">
+                                <h4 style="color: #ff8888;">Problem:</h4>
+                                <p>Expected 10, but got 20</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">Analyze the code carefully</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: YOUR TASK -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 20px;">Your Task (25 Points)</h2>
+                <div class="task-box">
+                    <h4>Complete the following:</h4>
+                    <ol>
+                        <li><strong>Find the bug:</strong> What line(s) have the error?</li>
+                        <li><strong>Explain why:</strong> Why does this cause the wrong output?</li>
+                        <li><strong>Trace it:</strong> Test with i = 5, i = 15, i = 1. Show what the condition evaluates to.</li>
+                        <li><strong>Write the fix:</strong> What should the code be instead?</li>
+                        <li><strong>Verify:</strong> Show the corrected code produces Count: 10</li>
+                    </ol>
+                </div>
+                <div style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #aaa;">
+                    <p><strong>Remember:</strong> Show all your work on your exam answer sheet</p>
+                    <p>Write line numbers, traces, and explanations clearly</p>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: HINT -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">Think About:</h2>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 1em; line-height: 2;">
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 1:</strong> Look at line 7. What operator is used? <code>||</code> or <code>&&</code>?
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 2:</strong> What does OR (<code>||</code>) mean? "At least one" or "both"?
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 3:</strong> For every number 1-20, is it true that <code>i > 0</code>? If yes, what happens with OR?
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 200, 100, 0.2); border-left: 3px solid #66ff66;">
+                        <strong>Fix Hint:</strong> We need BOTH conditions to be true. Use AND instead of OR.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

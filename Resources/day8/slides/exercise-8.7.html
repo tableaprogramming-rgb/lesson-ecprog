@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 8 - Exercise 8.7: Practical Application - Grade Matrix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <style>
+        .reveal { width: 100% !important; height: 100% !important; }
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; color: #64B5F6; font-weight: bold; }
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.3em; }
+        .reveal h3 { font-size: 1.1em; margin-top: 20px; }
+        .reveal section { padding: 10px !important; width: 100% !important; height: 100% !important; left: 0 !important; right: 0 !important; }
+        .slide-container { display: flex; flex-direction: column; height: 100%; width: 100%; justify-content: flex-start; gap: 5px; }
+        .slide-header { text-align: center; margin-bottom: 5px; flex-shrink: 0; }
+        .slide-header h2 { margin: 0 0 5px 0; color: #64B5F6; }
+        .slide-header p { margin: 2px 0; font-size: 0.65em; color: #B0BEC5; }
+        .slide-content { display: flex; gap: 12px; margin: 0; justify-content: flex-start; flex: 1; min-height: 0; overflow: hidden; }
+        .code-column { width: 75%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .code-column pre { margin: 0; padding: 0; font-size: 0.5em; line-height: 1.4; width: 100%; overflow: visible; max-height: 400px; white-space: pre; flex-shrink: 0; }
+        .code-column code { padding: 8px; border-radius: 3px; background: #263238 !important; color: #AED581 !important; display: block; font-family: 'Courier New', monospace !important; }
+        .output-column { width: 25%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .output-section { text-align: center; margin-top: 4px; padding: 6px; background: #1B5E20; border-left: 3px solid #4CAF50; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.5em; }
+        .output-section h3 { color: #64B5F6; margin: 0 0 3px 0; font-size: 1em; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #2196F3; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .home-button:hover { background: #1976D2; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise 8.7: Practical Application</h2>
+                        <p>Grade Management System - Real-World 2D Arrays</p>
+                    </div>
+                    <div class="slide-content" style="justify-content: center; align-items: center; padding: 20px;">
+                        <div style="width: 100%; text-align: center;">
+                            <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    // 4 students, 3 subjects (Math, English, Science)
+    int grades[4][3] = {
+        {85, 90, 78},
+        {92, 88, 95},
+        {78, 85, 82},
+        {88, 92, 89}
+    };
+
+    // Calculate student averages
+    printf("STUDENT AVERAGES:\n");
+    for (int i = 0; i < 4; i++) {
+        int sum = 0;
+        for (int j = 0; j < 3; j++) {
+            sum += grades[i][j];
+        }
+        double avg = sum / 3.0;
+        printf("Student %d: %.2f\n", i, avg);
+    }
+
+    // Calculate subject averages
+    printf("\nSUBJECT AVERAGES:\n");
+    for (int j = 0; j < 3; j++) {
+        int sum = 0;
+        for (int i = 0; i < 4; i++) {
+            sum += grades[i][j];
+        }
+        double avg = sum / 4.0;
+        printf("Subject %d: %.2f\n", j, avg);
+    }
+
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Data Structure Overview</h2>
+                        <p>Understanding the grade matrix</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>Grade Matrix:
+4 students × 3 subjects
+
+grades[4][3] = {
+    {85, 90, 78},
+    {92, 88, 95},
+    {78, 85, 82},
+    {88, 92, 89}
+};
+
+Index meanings:
+grades[student][subject]
+
+Students: 0, 1, 2, 3
+Subjects: 0(Math), 1(Eng), 2(Sci)
+
+Example:
+grades[0][0] = 85 (Student 0, Math)
+grades[1][2] = 95 (Student 1, Science)
+grades[3][1] = 92 (Student 3, English)</code></pre>
+                        </div>
+                        <div class="output-column">
+                            <h3>Matrix Visualization</h3>
+                            <div class="output-section">
+                                        Math  Eng  Sci<br>
+                                Stud0:  85    90   78<br>
+                                Stud1:  92    88   95<br>
+                                Stud2:  78    85   82<br>
+                                Stud3:  88    92   89<br>
+                                <br>
+                                Row = Student<br>
+                                Col = Subject
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Student Averages Calculation</h2>
+                        <p>Sum each row, divide by 3 subjects</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>// For each student
+for (int i = 0; i < 4; i++) {
+    int sum = 0;
+    // Sum all subjects for this student
+    for (int j = 0; j < 3; j++) {
+        sum += grades[i][j];
+    }
+    // Calculate average
+    double avg = sum / 3.0;
+    printf("Student %d: %.2f\n",
+           i, avg);
+}
+
+Pattern: Fix row (i), loop columns (j)</code></pre>
+                        </div>
+                        <div class="output-column">
+                            <h3>Student Averages</h3>
+                            <div class="output-section">
+                                Student 0:<br>
+                                (85+90+78)/3 = 84.33<br>
+                                <br>
+                                Student 1:<br>
+                                (92+88+95)/3 = 91.67<br>
+                                <br>
+                                Student 2:<br>
+                                (78+85+82)/3 = 81.67<br>
+                                <br>
+                                Student 3:<br>
+                                (88+92+89)/3 = 89.67
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Subject Averages Calculation</h2>
+                        <p>Sum each column, divide by 4 students</p>
+                    </div>
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code>// For each subject
+for (int j = 0; j < 3; j++) {
+    int sum = 0;
+    // Sum all students for this subject
+    for (int i = 0; i < 4; i++) {
+        sum += grades[i][j];
+    }
+    // Calculate average
+    double avg = sum / 4.0;
+    printf("Subject %d: %.2f\n",
+           j, avg);
+}
+
+Pattern: Fix column (j), loop rows (i)</code></pre>
+                        </div>
+                        <div class="output-column">
+                            <h3>Subject Averages</h3>
+                            <div class="output-section">
+                                Subject 0 (Math):<br>
+                                (85+92+78+88)/4 = 85.75<br>
+                                <br>
+                                Subject 1 (English):<br>
+                                (90+88+85+92)/4 = 88.75<br>
+                                <br>
+                                Subject 2 (Science):<br>
+                                (78+95+82+89)/4 = 86.00
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Complete Output</h2>
+                        <p>Final program execution result</p>
+                    </div>
+                    <div class="slide-content" style="justify-content: center;">
+                        <div class="output-section" style="width: 100%; font-size: 0.75em; text-align: left;">
+                            STUDENT AVERAGES:<br>
+                            Student 0: 84.33<br>
+                            Student 1: 91.67<br>
+                            Student 2: 81.67<br>
+                            Student 3: 89.67<br>
+                            <br>
+                            SUBJECT AVERAGES:<br>
+                            Subject 0: 85.75<br>
+                            Subject 1: 88.75<br>
+                            Subject 2: 86.00
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Concept Summary</h2>
+                        <p>2D Array Practical Applications</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 15px 40px;">
+                        <div style="margin: 8px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.95em;">1. Real Data Representation</h3>
+                            <p style="margin: 3px 0; font-size: 0.8em;">2D arrays model real-world data (students×subjects)</p>
+                        </div>
+                        <div style="margin: 8px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.95em;">2. Multiple Perspectives</h3>
+                            <p style="margin: 3px 0; font-size: 0.8em;">Can analyze by rows (students) or columns (subjects)</p>
+                        </div>
+                        <div style="margin: 8px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.95em;">3. Flexible Loop Patterns</h3>
+                            <p style="margin: 3px 0; font-size: 0.8em;">Different loops for different analysis needs</p>
+                        </div>
+                        <div style="margin: 8px 0;">
+                            <h3 style="color: #FFD93D; font-size: 0.95em;">4. Integration of Concepts</h3>
+                            <p style="margin: 3px 0; font-size: 0.8em;">Uses nested loops, type conversion, accumulation, and output</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

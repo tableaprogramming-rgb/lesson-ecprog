@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 5: Functions - Reveal.js Presentation</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            color: #64B5F6;
+            font-weight: bold;
+        }
+
+        .reveal h1 { font-size: 2.2em; }
+        .reveal h2 { font-size: 1.8em; }
+        .reveal h3 { font-size: 1.4em; margin-top: 20px; }
+
+        .reveal section {
+            padding: 20px !important;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            justify-content: flex-start;
+            gap: 10px;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 8px;
+            flex-shrink: 0;
+        }
+
+        .slide-header h2 {
+            margin: 0 0 10px 0;
+            color: #64B5F6;
+        }
+
+        .slide-header p {
+            margin: 5px 0;
+            font-size: 0.65em;
+            color: #B0BEC5;
+        }
+
+        .slide-content {
+            display: flex;
+            gap: 15px;
+            margin: 5px 0;
+            justify-content: space-between;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .code-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .code-column pre {
+            margin: 0;
+            font-size: 0.5em;
+            line-height: 1.4;
+            width: 100%;
+            overflow: auto;
+            max-height: 400px;
+            white-space: pre;
+        }
+
+        .code-column code {
+            padding: 12px;
+            border-radius: 5px;
+            background: #263238 !important;
+            color: #AED581 !important;
+            display: block;
+            font-family: 'Courier New', monospace !important;
+        }
+
+        .variables-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .variables-table {
+            font-size: 0.65em;
+            margin: 0;
+            border-collapse: collapse;
+            width: 100%;
+            background: #37474F;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .variables-table thead {
+            background: #455A64;
+        }
+
+        .variables-table th, .variables-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #546E7A;
+        }
+
+        .variables-table th {
+            font-weight: bold;
+            color: #64B5F6;
+        }
+
+        .variables-table td {
+            color: #B0BEC5;
+        }
+
+        .output-section {
+            text-align: center;
+            margin-top: 5px;
+            padding: 8px;
+            background: #1B5E20;
+            border-left: 4px solid #4CAF50;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.65em;
+            color: #4CAF50;
+            flex-shrink: 0;
+        }
+
+        .info-box {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 0.8em;
+            line-height: 1.4;
+        }
+
+        .info-box.concept {
+            background: #1E3A8A;
+            border-left: 4px solid #64B5F6;
+            color: #E3F2FD;
+        }
+
+        .info-box.correct {
+            background: #1B5E20;
+            border-left: 4px solid #4CAF50;
+            color: #C8E6C9;
+        }
+
+        .info-box.mistake {
+            background: #5D1F1A;
+            border-left: 4px solid #F44336;
+            color: #FFCDD2;
+        }
+
+        .comparison-box {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 0.75em;
+        }
+
+        .comparison-item {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+
+        .comparison-item.void {
+            background: #1E3A8A;
+            border-left-color: #64B5F6;
+            color: #E3F2FD;
+        }
+
+        .comparison-item.returning {
+            background: #1B5E20;
+            border-left-color: #4CAF50;
+            color: #C8E6C9;
+        }
+
+        .step-list {
+            text-align: left;
+            font-size: 0.75em;
+            line-height: 1.6;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .step-list li {
+            margin: 8px 0;
+            color: #B0BEC5;
+        }
+
+        .step-list strong {
+            color: #64B5F6;
+        }
+
+        .tip-box {
+            background: #F57F17;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.75em;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .reveal p {
+            color: #B0BEC5;
+        }
+
+        .reveal ul, .reveal ol {
+            width: 100%;
+            text-align: left;
+            display: block;
+            font-size: 0.85em;
+            margin: 10px auto;
+        }
+
+        .reveal li {
+            margin: 5px 0;
+            color: #B0BEC5;
+        }
+
+        .title-slide {
+            background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%);
+            padding: 80px 40px !important;
+            text-align: center;
+        }
+
+        .title-slide h1 {
+            color: white;
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+
+        .title-slide p {
+            color: white;
+            font-size: 1.5em;
+            margin: 15px 0;
+        }
+
+        .back-to-master {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-master:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-to-master">← Master Index</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE SLIDE -->
+            <section class="title-slide">
+                <h1>PROG2 Day 5</h1>
+                <h2 style="color: white;">Functions in C</h2>
+                <p style="color: white; font-size: 0.9em; margin-top: 40px;">Void Functions • Value-Returning Functions • Parameter Passing</p>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.7em; margin-top: 80px;">Master the fundamentals of writing and using functions</p>
+            </section>
+
+            <!-- SLIDE 2: LEARNING OBJECTIVES -->
+            <section>
+                <h2>Learning Objectives</h2>
+                <ul style="margin-top: 30px;">
+                    <li><strong>Understand void functions:</strong> Functions that perform tasks but return no value</li>
+                    <li><strong>Master value-returning functions:</strong> Functions that compute and return results</li>
+                    <li><strong>Learn parameter passing:</strong> How to send data into functions</li>
+                    <li><strong>Trace function execution:</strong> Follow variable changes through function calls</li>
+                    <li><strong>Identify common mistakes:</strong> Missing returns, type mismatches, parameter errors</li>
+                    <li><strong>Write correct functions:</strong> Apply best practices and verify behavior</li>
+                </ul>
+            </section>
+
+            <!-- SLIDE 3: WHAT ARE FUNCTIONS? -->
+            <section>
+                <h2>What are Functions?</h2>
+                <div class="info-box concept" style="margin-top: 30px;">
+                    <strong>Definition:</strong> Reusable blocks of code that perform specific tasks
+                </div>
+
+                <h3 style="color: #64B5F6; font-size: 1.2em; margin-top: 30px;">Benefits:</h3>
+                <ul style="font-size: 0.85em; margin-top: 15px;">
+                    <li><strong>Code Reusability:</strong> Write once, use many times</li>
+                    <li><strong>Readability:</strong> Give code meaningful names</li>
+                    <li><strong>Maintainability:</strong> Easier to fix and update</li>
+                    <li><strong>Modularity:</strong> Break problems into smaller pieces</li>
+                </ul>
+            </section>
+
+            <!-- SLIDE 4: FUNCTION TYPES OVERVIEW -->
+            <section>
+                <h2>Three Types of Functions</h2>
+
+                <div class="comparison-box" style="margin-top: 30px;">
+                    <div class="comparison-item void">
+                        <strong>Type 1: Void Functions</strong>
+                        <hr style="border: 1px solid #42A5F5; margin: 8px 0;">
+                        <div>Perform a task</div>
+                        <div>No return value</div>
+                        <div style="margin-top: 8px; font-size: 0.9em;">Example: printLine()</div>
+                    </div>
+                    <div class="comparison-item returning">
+                        <strong>Type 2: Value-Returning</strong>
+                        <hr style="border: 1px solid #4CAF50; margin: 8px 0;">
+                        <div>Compute a result</div>
+                        <div>Return the result</div>
+                        <div style="margin-top: 8px; font-size: 0.9em;">Example: square(5)</div>
+                    </div>
+                    <div class="comparison-item void">
+                        <strong>Type 3: Parameters</strong>
+                        <hr style="border: 1px solid #42A5F5; margin: 8px 0;">
+                        <div>Accept input data</div>
+                        <div>Customize behavior</div>
+                        <div style="margin-top: 8px; font-size: 0.9em;">Example: add(3, 5)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: VOID FUNCTIONS - CONCEPT -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Void Functions: Basic Concept</h2>
+                        <p>Functions that perform a task but return NO value</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | void printLine() {
+ 2 |     printf("-----\n");
+ 3 | }
+ 4 |
+ 5 | int main() {
+ 6 |     printLine();  // Call
+ 7 |     printLine();  // Call again
+ 8 |
+ 9 |     return 0;
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box concept">
+                                <strong>Key Points:</strong>
+                                <ul style="margin: 8px 0; padding-left: 15px;">
+                                    <li>Return type: <code style="background: #263238; padding: 2px 4px; border-radius: 2px;">void</code></li>
+                                    <li>No return statement needed</li>
+                                    <li>Used for "actions" (printing, modifying)</li>
+                                    <li>Called with <code style="background: #263238; padding: 2px 4px; border-radius: 2px;">functionName()</code></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Output:<br>
+                        -----<br>
+                        -----
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: VOID FUNCTIONS - TRACE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Tracing Void Function Calls</h2>
+                        <p>Step-by-step execution with parameter table</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | void greet(char name[]) {
+ 2 |     printf("Hello, %s!\n",
+ 3 |            name);
+ 4 | }
+ 5 |
+ 6 | int main() {
+ 7 |     greet("Alice");
+ 8 |     greet("Bob");
+ 9 |
+10 |     return 0;
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <table class="variables-table">
+                                <thead>
+                                    <tr>
+                                        <th>Step</th>
+                                        <th>Location</th>
+                                        <th>Output</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Enter main()</td>
+                                        <td>(none)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Call greet("Alice")</td>
+                                        <td>Hello, Alice!</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Return to main()</td>
+                                        <td>(none)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Call greet("Bob")</td>
+                                        <td>Hello, Bob!</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Return & exit</td>
+                                        <td>(none)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: VALUE-RETURNING FUNCTIONS - CONCEPT -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Value-Returning Functions</h2>
+                        <p>Functions that compute and return a result</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | int square(int num) {
+ 2 |     int result = num * num;
+ 3 |     return result;
+ 4 | }
+ 5 |
+ 6 | int main() {
+ 7 |     int answer = square(5);
+ 8 |     // answer = 25
+ 9 |
+10 |     printf("%d\n", answer);
+11 |     return 0;
+12 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box correct">
+                                <strong>Key Points:</strong>
+                                <ul style="margin: 8px 0; padding-left: 15px;">
+                                    <li>Return type: <code style="background: #263238; padding: 2px 4px; border-radius: 2px;">int</code> (or other)</li>
+                                    <li>Must have <code style="background: #263238; padding: 2px 4px; border-radius: 2px;">return value;</code></li>
+                                    <li>Value replaces function call</li>
+                                    <li>Used for "calculations"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Output:<br>
+                        25
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: VALUE-RETURNING FUNCTIONS - TRACE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Tracing Value-Returning Functions</h2>
+                        <p>How return values replace function calls</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | int add(int a, int b) {
+ 2 |     return a + b;
+ 3 | }
+ 4 |
+ 5 | int main() {
+ 6 |     int result = add(3, 5);
+ 7 |     // becomes: result = 8;
+ 8 |
+ 9 |     printf("%d\n", result);
+10 |     return 0;
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <table class="variables-table">
+                                <thead>
+                                    <tr>
+                                        <th>Step</th>
+                                        <th>Code</th>
+                                        <th>result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>int result = </td>
+                                        <td>? (uninitialized)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Call add(3, 5)</td>
+                                        <td>? (waiting)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>return 3 + 5</td>
+                                        <td>? (computing)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>= 8</td>
+                                        <td>8 ✓</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>printf("%d", 8)</td>
+                                        <td>8</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Output:<br>
+                        8
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: PARAMETERS AND ARGUMENTS -->
+            <section>
+                <h2>Parameters vs Arguments</h2>
+
+                <div style="margin-top: 30px; font-size: 0.85em; text-align: left;">
+                    <div class="info-box concept" style="margin: 15px 0;">
+                        <strong>Parameters:</strong> Variables in the function definition (like placeholders)
+                        <pre style="background: #263238; padding: 10px; border-radius: 3px; font-size: 0.9em; margin-top: 8px;"><code class="language-c" style="color: #AED581;">int add(int a, int b) { // a, b are PARAMETERS
+    return a + b;
+}</code></pre>
+                    </div>
+
+                    <div class="info-box correct" style="margin: 15px 0;">
+                        <strong>Arguments:</strong> Actual values passed to the function when called
+                        <pre style="background: #263238; padding: 10px; border-radius: 3px; font-size: 0.9em; margin-top: 8px;"><code class="language-c" style="color: #AED581;">int result = add(3, 5); // 3, 5 are ARGUMENTS</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: PASS-BY-VALUE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Pass-by-Value Semantics</h2>
+                        <p>How values are passed into functions</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | void modifyValue(int x) {
+ 2 |     x = 100;  // Changes copy
+ 3 |     printf("In fn: %d\n", x);
+ 4 | }
+ 5 |
+ 6 | int main() {
+ 7 |     int num = 5;
+ 8 |     modifyValue(num);
+ 9 |     // num is STILL 5!
+10 |     printf("In main: %d\n", num);
+11 |     return 0;
+12 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box mistake">
+                                <strong>Important:</strong> Parameters are <strong>copies</strong> of arguments
+                            </div>
+
+                            <table class="variables-table">
+                                <thead>
+                                    <tr>
+                                        <th>Location</th>
+                                        <th>Variable</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>main()</td>
+                                        <td>num</td>
+                                        <td>5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>modifyValue()</td>
+                                        <td>x (copy)</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td>main()</td>
+                                        <td>num</td>
+                                        <td>5 (unchanged)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Output:<br>
+                        In fn: 100<br>
+                        In main: 5
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11: MULTIPLE PARAMETERS -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Multiple Parameters</h2>
+                        <p>Functions with more than one parameter</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | double average(double a,
+ 2 |                 double b) {
+ 3 |     return (a + b) / 2.0;
+ 4 | }
+ 5 |
+ 6 | int main() {
+ 7 |     double avg =
+ 8 |         average(10.0, 20.0);
+ 9 |     // avg = 15.0
+10 |
+11 |     printf("%.1f\n", avg);
+12 |     return 0;
+13 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <table class="variables-table">
+                                <thead>
+                                    <tr>
+                                        <th>Function</th>
+                                        <th>Param</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>average()</td>
+                                        <td>a</td>
+                                        <td>10.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>average()</td>
+                                        <td>b</td>
+                                        <td>20.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>average()</td>
+                                        <td>return</td>
+                                        <td>15.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>main()</td>
+                                        <td>avg</td>
+                                        <td>15.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="info-box concept" style="margin-top: 10px;">
+                                Parameter order matters! average(10, 20) ≠ average(20, 10)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Output:<br>
+                        15.0
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 12: EXERCISE WALKTHROUGH 1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise Set 1.1 Walkthrough</h2>
+                        <p>Common bug: Missing function call parentheses</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | void greet() {
+ 2 |     printf("Hello!\n");
+ 3 | }
+ 4 |
+ 5 | int main() {
+ 6 |     greet;     // BUG: Missing ()
+ 7 |     // Should be: greet();
+ 8 |
+ 9 |     return 0;
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box mistake">
+                                <strong>Bug:</strong> greet (without parentheses) is just a reference to the function, NOT a call
+                            </div>
+
+                            <div class="info-box correct">
+                                <strong>Fix:</strong> greet() (with parentheses) executes the function
+                            </div>
+
+                            <div style="margin-top: 10px; font-size: 0.75em; background: #37474F; padding: 8px; border-radius: 3px;">
+                                <strong>Key Lesson:</strong> Always use () to call a function!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Actual Output: (none)<br>
+                        Expected: Hello!
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 13: EXERCISE WALKTHROUGH 2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise Set 2.1 Walkthrough</h2>
+                        <p>Common bug: Missing return statement</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | int multiply(int a, int b) {
+ 2 |     int product = a * b;
+ 3 |     // BUG: Missing return!
+ 4 | }
+ 5 |
+ 6 | int main() {
+ 7 |     int result = multiply(3, 4);
+ 8 |     printf("%d\n", result);
+ 9 |     return 0;
+10 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box mistake">
+                                <strong>Bug:</strong> Function doesn't return the product (unpredictable value returned)
+                            </div>
+
+                            <div class="info-box correct" style="margin-top: 8px;">
+                                <strong>Fix:</strong> Add return statement
+                                <pre style="background: #263238; padding: 8px; border-radius: 3px; font-size: 0.9em; margin-top: 5px;"><code class="language-c" style="color: #AED581;">return product;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Actual Output: (random garbage value)<br>
+                        Expected: 12
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 14: EXERCISE WALKTHROUGH 3 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Exercise Set 3.2 Walkthrough</h2>
+                        <p>Common bug: Type mismatch in return value</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c" style="font-size: 1em;"> 1 | int divide(int a, int b) {
+ 2 |     int result = a / b;
+ 3 |     return result;
+ 4 | }
+ 5 |
+ 6 | int main() {
+ 7 |     int ans = divide(5, 2);
+ 8 |     // ans = 2 (not 2.5!)
+ 9 |     printf("%d\n", ans);
+10 |     return 0;
+11 | }</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="info-box mistake">
+                                <strong>Bug:</strong> Integer division truncates 5/2 to 2 (loses decimal)
+                            </div>
+
+                            <div class="info-box correct" style="margin-top: 8px;">
+                                <strong>Fix:</strong> Use double for decimal result
+                                <pre style="background: #263238; padding: 8px; border-radius: 3px; font-size: 0.9em; margin-top: 5px;"><code class="language-c" style="color: #AED581;">double divide(int a, int b) {
+    return (double)a / b;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        Actual Output: 2<br>
+                        Expected: 2.5
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 15: COMMON MISTAKES - PART 1 -->
+            <section>
+                <h2>Common Function Mistakes</h2>
+
+                <div style="margin-top: 20px; font-size: 0.75em;">
+                    <div class="info-box mistake">
+                        <strong>Mistake 1: Forgetting void for functions with no return</strong>
+                        <pre style="background: #263238; padding: 8px; border-radius: 3px; margin-top: 8px; font-size: 0.9em; line-height: 1.3; white-space: pre;"><code class="language-c" style="color: #AED581;"> 1 | // WRONG:
+ 2 | int printMsg() {  // Says int but
+ 3 |     printf("Hi");
+ 4 |     // No return!
+ 5 | }
+ 6 |
+ 7 | // RIGHT:
+ 8 | void printMsg() {
+ 9 |     printf("Hi");
+10 | }</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 16: COMMON MISTAKES - PART 2 -->
+            <section>
+                <h2>Common Function Mistakes (continued)</h2>
+
+                <div style="margin-top: 20px; font-size: 0.75em;">
+                    <div class="info-box mistake">
+                        <strong>Mistake 2: Returning from void function</strong>
+                        <pre style="background: #263238; padding: 8px; border-radius: 3px; margin-top: 8px; font-size: 0.9em; line-height: 1.3; white-space: pre;"><code class="language-c" style="color: #AED581;"> 1 | // WRONG:
+ 2 | void greet(char name[]) {
+ 3 |     printf("Hello %s\n", name);
+ 4 |     return name;
+ 5 | }
+ 6 |
+ 7 | // RIGHT:
+ 8 | void greet(char name[]) {
+ 9 |     printf("Hello %s\n", name);
+10 | }</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 17: COMMON MISTAKES - PART 3 -->
+            <section>
+                <h2>Common Function Mistakes (continued)</h2>
+
+                <div style="margin-top: 20px; font-size: 0.75em;">
+                    <div class="info-box mistake">
+                        <strong>Mistake 3: Wrong number or type of arguments</strong>
+                        <pre style="background: #263238; padding: 8px; border-radius: 3px; margin-top: 8px; font-size: 0.9em; line-height: 1.3; white-space: pre;"><code class="language-c" style="color: #AED581;"> 1 | int add(int a, int b)
+ 2 |     { return a + b; }
+ 3 |
+ 4 | // WRONG CALLS:
+ 5 | int r1 = add(5);
+ 6 | int r2 = add(5, 10, 15);
+ 7 | int r3 = add(5, "10");
+ 8 |
+ 9 | // RIGHT CALL:
+10 | int r = add(5, 10);</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 18: FUNCTION SIGNATURE REFERENCE -->
+            <section>
+                <h2>Understanding Function Signatures</h2>
+
+                <div style="margin-top: 30px; font-size: 0.75em; text-align: left;">
+                    <pre style="background: #263238; padding: 12px; border-radius: 5px; line-height: 1.4; white-space: pre;"><code class="language-c" style="color: #AED581;"> 1 | int add(int a, int b) {
+ 2 | ↑   ↑      ↑  ↑
+ 3 | │   │      │  └─ Parameters
+ 4 | │   │      └───── Types
+ 5 | │   └──────────── Name
+ 6 | └──────────────── Return type
+ 7 |
+ 8 | int result = add(3, 5);
+ 9 |              ↑  ↑
+10 |              └─ Arguments</code></pre>
+                </div>
+
+                <div class="tip-box" style="margin-top: 20px;">
+                    ⚠️ Return type must match what the function returns!
+                </div>
+            </section>
+
+            <!-- SLIDE 19: FUNCTION DESIGN CHECKLIST -->
+            <section>
+                <h2>Function Design Checklist</h2>
+
+                <div class="step-list" style="margin-top: 20px; font-size: 0.8em;">
+                    <ol style="margin: 0; padding-left: 20px; line-height: 1.7;">
+                        <li><strong>Choose return type:</strong> void or int/double</li>
+                        <li><strong>Pick function name:</strong> Descriptive name</li>
+                        <li><strong>Decide parameters:</strong> What data needed?</li>
+                        <li><strong>Write the body:</strong> Implement the task</li>
+                        <li><strong>Add return:</strong> If not void, return value</li>
+                        <li><strong>Test function:</strong> Call with different arguments</li>
+                        <li><strong>Verify behavior:</strong> Check output matches expected</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- SLIDE 20: SUMMARY TABLE -->
+            <section>
+                <h2>Function Types Summary</h2>
+
+                <table class="variables-table" style="margin-top: 30px; font-size: 0.75em;">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Return Type</th>
+                            <th>Has Parameters</th>
+                            <th>Example</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Void (no params)</td>
+                            <td>void</td>
+                            <td>No</td>
+                            <td>void printLine()</td>
+                            <td>printLine()</td>
+                        </tr>
+                        <tr>
+                            <td>Void (with params)</td>
+                            <td>void</td>
+                            <td>Yes</td>
+                            <td>void greet(char n[])</td>
+                            <td>greet("Alice")</td>
+                        </tr>
+                        <tr>
+                            <td>Returning (no params)</td>
+                            <td>int/double/etc</td>
+                            <td>No</td>
+                            <td>int getRandom()</td>
+                            <td>int x = getRandom()</td>
+                        </tr>
+                        <tr>
+                            <td>Returning (with params)</td>
+                            <td>int/double/etc</td>
+                            <td>Yes</td>
+                            <td>int add(int a, b)</td>
+                            <td>int s = add(3, 5)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- SLIDE 21: KEY TAKEAWAYS -->
+            <section>
+                <h2>Key Takeaways</h2>
+
+                <div style="margin-top: 30px; font-size: 0.85em; text-align: left;">
+                    <div class="info-box concept" style="margin: 12px 0;">
+                        <strong>✓ Always use () to call functions</strong>
+                        <div style="font-size: 0.95em; margin-top: 5px;">greet() calls the function; greet just references it</div>
+                    </div>
+
+                    <div class="info-box concept" style="margin: 12px 0;">
+                        <strong>✓ Match return type to what you return</strong>
+                        <div style="font-size: 0.95em; margin-top: 5px;">If function is int, must return an int value</div>
+                    </div>
+
+                    <div class="info-box concept" style="margin: 12px 0;">
+                        <strong>✓ Parameters are copies (pass-by-value)</strong>
+                        <div style="font-size: 0.95em; margin-top: 5px;">Changes inside function don't affect original variables</div>
+                    </div>
+
+                    <div class="info-box concept" style="margin: 12px 0;">
+                        <strong>✓ Trace through function execution carefully</strong>
+                        <div style="font-size: 0.95em; margin-top: 5px;">Follow parameter values and return values step-by-step</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 22: DEBUGGING FUNCTIONS CHECKLIST -->
+            <section>
+                <h2>Debugging Functions Checklist</h2>
+
+                <div style="margin-top: 15px; font-size: 0.72em; text-align: left;">
+                    <div class="step-list">
+                        <ul style="margin: 0; padding-left: 20px; line-height: 1.5;">
+                            <li>[ ] Function called with () ?</li>
+                            <li>[ ] Return type matches what returns?</li>
+                            <li>[ ] Correct number of arguments?</li>
+                            <li>[ ] Argument types correct?</li>
+                            <li>[ ] Non-void has return?</li>
+                            <li>[ ] Void has NO return?</li>
+                            <li>[ ] Parameters in order?</li>
+                            <li>[ ] Traced with values?</li>
+                            <li>[ ] Output correct?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tip-box" style="margin-top: 10px; font-size: 0.8em;">
+                    Use these checks when debugging!
+                </div>
+            </section>
+
+            <!-- SLIDE 23: FINAL MOTIVATION -->
+            <section style="background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%);">
+                <h2 style="color: white;">Congratulations!</h2>
+                <p style="color: white; font-size: 1.2em; margin-top: 40px;">You now understand:</p>
+                <ul style="color: white; margin-top: 30px; font-size: 1em;">
+                    <li>How void functions perform tasks</li>
+                    <li>How value-returning functions compute results</li>
+                    <li>How parameters work (pass-by-value)</li>
+                    <li>How to trace function execution</li>
+                    <li>Common function mistakes and how to fix them</li>
+                </ul>
+                <p style="color: white; margin-top: 60px; font-size: 1.1em;">
+                    <strong>Next Step:</strong> Complete the Day 5 exercises to practice these concepts!
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Reveal.js and Highlight.js scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            width: '100%',
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0,
+            plugins: [ RevealHighlight ]
+        });
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 4: Advanced Debugging</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            color: #64B5F6;
+            text-transform: none;
+        }
+        .reveal pre {
+            width: 90%;
+            background: #1e1e1e;
+            border: 2px solid #64B5F6;
+            border-radius: 8px;
+        }
+        .reveal code {
+            color: #FFD54F;
+            padding: 2px 6px;
+            background: rgba(255, 213, 79, 0.1);
+            border-radius: 3px;
+        }
+        .bug-box {
+            background: rgba(255, 59, 48, 0.1);
+            border-left: 4px solid #FF3B30;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .fix-box {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .info-box {
+            background: rgba(100, 181, 246, 0.1);
+            border-left: 4px solid #64B5F6;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .trace-table {
+            font-size: 0.8em;
+            margin: 15px auto;
+        }
+        .trace-table th, .trace-table td {
+            border: 1px solid #64B5F6;
+            padding: 8px;
+            text-align: left;
+        }
+        .trace-table th {
+            background: #1a1a1a;
+            color: #64B5F6;
+        }
+        .highlight-bug {
+            color: #FF3B30;
+            font-weight: bold;
+        }
+        .highlight-fix {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .reveal section {
+            text-align: left;
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-align: center;
+        }
+        .back-to-master {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        .back-to-master:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-to-master">← Master Index</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Title Slide -->
+            <section style="text-align: center;">
+                <h1 style="font-size: 2.5em;">PROG2: Day 4</h1>
+                <h2 style="color: #FFD54F;">Advanced Debugging Exercises</h2>
+                <p style="margin-top: 40px; font-size: 1.2em;">Mastering Bug Identification and Tracing</p>
+                <p style="margin-top: 60px; font-size: 0.9em; color: #999;">This presentation covers 6 bug categories with 11 practice exercises</p>
+            </section>
+
+            <!-- Learning Objectives -->
+            <section>
+                <h2>Today's Goals</h2>
+                <div style="margin-top: 30px;">
+                    <p style="margin: 15px 0;">By the end of Day 4, you will be able to:</p>
+                    <ul style="font-size: 0.95em; line-height: 1.8;">
+                        <li>Identify logic operator mistakes</li>
+                        <li>Spot counter and accumulator errors</li>
+                        <li>Find loop boundary bugs</li>
+                        <li>Understand boundary conditions</li>
+                        <li>Fix variable initialization issues</li>
+                        <li><strong>Explain bugs clearly and verify fixes</strong></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- The Debugging Process -->
+            <section>
+                <h2>The Debugging Process</h2>
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <table style="width: 100%; font-size: 0.9em;">
+                        <tr style="border-bottom: 1px solid #64B5F6;">
+                            <td style="padding: 10px; width: 15%;">1. READ</td>
+                            <td>Understand what the code SHOULD do</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #64B5F6;">
+                            <td style="padding: 10px;">2. PREDICT</td>
+                            <td>What will it ACTUALLY do?</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #64B5F6;">
+                            <td style="padding: 10px;">3. TRACE</td>
+                            <td>Follow variables step-by-step</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #64B5F6;">
+                            <td style="padding: 10px;">4. FIND</td>
+                            <td>Which line is buggy?</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #64B5F6;">
+                            <td style="padding: 10px;">5. FIX</td>
+                            <td>Write the correct version</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">6. VERIFY</td>
+                            <td>Trace the fixed code</td>
+                        </tr>
+                    </table>
+                </div>
+                <p style="margin-top: 30px; font-size: 0.9em; color: #FFD54F;"><strong>ALWAYS TRACE BEFORE GUESSING!</strong></p>
+            </section>
+
+            <!-- SET 1: Logic Operators Part 1 -->
+            <section>
+                <h2>Exercise Set 1: Logic Operator Bugs</h2>
+                <div class="info-box">
+                    <strong>Category:</strong> || vs && confusion<br>
+                    <strong>Difficulty:</strong> Medium<br>
+                    <strong>Count:</strong> 2 exercises
+                </div>
+                <p style="margin-top: 20px;">These exercises focus on:</p>
+                <ul style="font-size: 0.95em;">
+                    <li>Using correct logical operators</li>
+                    <li>Understanding range checking</li>
+                    <li>AND (&& ) for multiple conditions</li>
+                    <li>OR (||) for alternative conditions</li>
+                </ul>
+            </section>
+
+            <!-- Exercise 1.1 Setup -->
+            <section>
+                <h2>Exercise 1.1: Range Check Bug</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;"><strong>Goal:</strong> Count numbers between 5 and 15 (inclusive)</p>
+
+                <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 0.85em; margin: 0; color: #999;">Expected: 11 numbers (5, 6, 7, ..., 15)</p>
+                    <p style="font-size: 0.85em; margin: 10px 0 0 0; color: #FF3B30;"><strong>Actual: 19 numbers</strong></p>
+                </div>
+
+                <pre style="font-size: 0.75em;"><code class="language-c">for (int i = 1; i <= 20; i++) {
+    if (i > 5 <span class="highlight-bug">||</span> i < 15) {
+        count++;
+    }
+}</code></pre>
+            </section>
+
+            <!-- Exercise 1.1 Analysis -->
+            <section>
+                <h2>Exercise 1.1: Finding the Bug</h2>
+                <p style="margin-bottom: 20px;"><strong>Step 1: Trace a few values</strong></p>
+
+                <table class="trace-table" style="font-size: 0.85em;">
+                    <tr>
+                        <th>i</th>
+                        <th>i > 5</th>
+                        <th>i < 15</th>
+                        <th>i > 5 || i < 15</th>
+                        <th>Counted?</th>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>FALSE</td>
+                        <td>TRUE</td>
+                        <td style="color: #FF3B30;">TRUE</td>
+                        <td>Yes (WRONG!)</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>FALSE</td>
+                        <td>TRUE</td>
+                        <td style="color: #4CAF50;">TRUE</td>
+                        <td>Yes (correct)</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>TRUE</td>
+                        <td>TRUE</td>
+                        <td style="color: #4CAF50;">TRUE</td>
+                        <td>Yes (correct)</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>TRUE</td>
+                        <td>FALSE</td>
+                        <td style="color: #FF3B30;">TRUE</td>
+                        <td>Yes (WRONG!)</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 20px;"><strong style="color: #FFD54F;">Problem:</strong> OR means "if EITHER condition is true". We need AND!</p>
+            </section>
+
+            <!-- Exercise 1.1 Fix -->
+            <section>
+                <h2>Exercise 1.1: The Fix</h2>
+
+                <div class="bug-box">
+                    <strong>Buggy Code:</strong>
+                    <pre style="margin: 10px 0 0 0; font-size: 0.7em;"><code class="language-c">if (i > 5 || i < 15) {</code></pre>
+                </div>
+
+                <div class="fix-box">
+                    <strong>Fixed Code:</strong>
+                    <pre style="margin: 10px 0 0 0; font-size: 0.7em;"><code class="language-c">if (i >= 5 && i <= 15) {</code></pre>
+                </div>
+
+                <p style="margin-top: 20px;"><strong>Why this works:</strong></p>
+                <ul style="font-size: 0.9em;">
+                    <li>Both conditions must be true (AND)</li>
+                    <li>Only numbers 5-15 satisfy BOTH i >= 5 AND i <= 15</li>
+                    <li>Numbers like 3 fail the first condition</li>
+                    <li>Numbers like 16 fail the second condition</li>
+                </ul>
+            </section>
+
+            <!-- SET 2: Counters & Accumulators -->
+            <section>
+                <h2>Exercise Set 2: Counter & Accumulator Bugs</h2>
+                <div class="info-box">
+                    <strong>Category:</strong> Wrong variables, double operations<br>
+                    <strong>Difficulty:</strong> Medium<br>
+                    <strong>Count:</strong> 2 exercises
+                </div>
+                <p style="margin-top: 20px;">Common mistakes:</p>
+                <ul style="font-size: 0.95em;">
+                    <li>Incrementing counter twice</li>
+                    <li>Using wrong variable for accumulation</li>
+                    <li>Forgetting to initialize variables</li>
+                </ul>
+            </section>
+
+            <!-- Exercise 2.1 -->
+            <section>
+                <h2>Exercise 2.1: Double Counting Bug</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;"><strong>Goal:</strong> Count numbers divisible by 3 (1-20)</p>
+
+                <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 0.85em; margin: 0; color: #999;">Expected: 6 numbers (3, 6, 9, 12, 15, 18)</p>
+                    <p style="font-size: 0.85em; margin: 10px 0 0 0; color: #FF3B30;"><strong>Actual: 12</strong></p>
+                </div>
+
+                <pre style="font-size: 0.75em;"><code class="language-c">if (i % 3 == 0) {
+    count++;
+    <span class="highlight-bug">count++;</span>     // ← BUG: Increments twice!
+}</code></pre>
+
+                <p style="margin-top: 15px; font-size: 0.9em;"><strong>The Fix:</strong> Remove one of the <code>count++;</code> statements</p>
+            </section>
+
+            <!-- Exercise 2.2 -->
+            <section>
+                <h2>Exercise 2.2: Wrong Accumulator</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;"><strong>Goal:</strong> Sum multiples of 5 (1-50)</p>
+
+                <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 0.85em; margin: 0; color: #999;">Expected: 275 (5+10+15+...+50)</p>
+                    <p style="font-size: 0.85em; margin: 10px 0 0 0; color: #FFD54F;"><strong>Actual: Works, but uses WRONG variable</strong></p>
+                </div>
+
+                <pre style="font-size: 0.75em;"><code class="language-c">int sum = 0;
+int count = 0;
+if (i % 5 == 0) {
+    <span class="highlight-bug">count = count + i;</span>  // ← Should be sum!
+}</code></pre>
+
+                <p style="margin-top: 15px; font-size: 0.9em;"><strong style="color: #FFD54F;">Subtle Bug:</strong> Output is correct by accident, but sum is never updated!</p>
+            </section>
+
+            <!-- SET 3: Loop Control -->
+            <section>
+                <h2>Exercise Set 3: Loop Control Bugs</h2>
+                <div class="info-box">
+                    <strong>Category:</strong> Iteration issues<br>
+                    <strong>Difficulty:</strong> Medium-Hard<br>
+                    <strong>Count:</strong> 2 exercises
+                </div>
+                <p style="margin-top: 20px;">Focus areas:</p>
+                <ul style="font-size: 0.95em;">
+                    <li>Wrong increment values</li>
+                    <li>Nested loop off-by-one errors</li>
+                    <li>Loop bounds not matching intent</li>
+                </ul>
+            </section>
+
+            <!-- Exercise 3.1 -->
+            <section>
+                <h2>Exercise 3.1: Wrong Increment</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;"><strong>Goal:</strong> Print numbers 1 to 5</p>
+
+                <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 0.85em; margin: 0; color: #999;">Expected: 1 2 3 4 5</p>
+                    <p style="font-size: 0.85em; margin: 10px 0 0 0; color: #FF3B30;"><strong>Actual: 1 3 5</strong></p>
+                </div>
+
+                <pre style="font-size: 0.75em;"><code class="language-c">while (i <= 5) {
+    printf("%d ", i);
+    <span class="highlight-bug">i = i + 2;</span>    // ← BUG: Skips even numbers!
+}</code></pre>
+
+                <p style="margin-top: 15px; font-size: 0.9em;"><strong>The Fix:</strong> Change to <code style="color: #4CAF50;">i = i + 1;</code> or <code style="color: #4CAF50;">i++;</code></p>
+            </section>
+
+            <!-- Exercise 3.2 -->
+            <section>
+                <h2>Exercise 3.2: Nested Loop Off-by-One</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;"><strong>Goal:</strong> Print 3x3 grid of asterisks</p>
+
+                <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 0.85em; margin: 0; color: #999;">Expected:</p>
+                    <p style="font-size: 0.8em; margin: 5px 0; font-family: monospace;">* * *<br/>* * *<br/>* * *</p>
+                    <p style="font-size: 0.85em; margin: 10px 0 0 0; color: #FF3B30;"><strong>Actual: 3 rows, 2 columns</strong></p>
+                </div>
+
+                <pre style="font-size: 0.75em;"><code class="language-c">for (int col = 0; col <span class="highlight-bug">< 2</span>; col++) {
+    printf("* ");
+}</code></pre>
+
+                <p style="margin-top: 15px; font-size: 0.9em;"><strong>The Fix:</strong> Change to <code style="color: #4CAF50;">col < 3</code></p>
+            </section>
+
+            <!-- SET 4: Boundary Conditions -->
+            <section>
+                <h2>Exercise Set 4: Boundary Condition Bugs</h2>
+                <div class="info-box">
+                    <strong>Category:</strong> Operator direction, edge cases<br>
+                    <strong>Difficulty:</strong> Hard<br>
+                    <strong>Count:</strong> 2 exercises
+                </div>
+                <p style="margin-top: 20px;">These test understanding of:</p>
+                <ul style="font-size: 0.95em;">
+                    <li>< vs <= (does 10 count?)</li>
+                    <li>> vs >= (edge case handling)</li>
+                    <li>Sentinel values</li>
+                </ul>
+            </section>
+
+            <!-- Exercise 4.1 -->
+            <section>
+                <h2>Exercise 4.1: Reversed Operator</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;"><strong>Goal:</strong> Count numbers <= 10</p>
+
+                <div style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 0.85em; margin: 0; color: #999;">Expected: 10 (numbers 1-10)</p>
+                    <p style="font-size: 0.85em; margin: 10px 0 0 0; color: #FF3B30;"><strong>Actual: 11 (numbers 10-20)</strong></p>
+                </div>
+
+                <pre style="font-size: 0.75em;"><code class="language-c">if (i <span class="highlight-bug">>=</span> 10) {  // ← BUG: > instead of <
+    count++;
+}</code></pre>
+
+                <p style="margin-top: 15px; font-size: 0.9em;"><strong>Key Lesson:</strong> Pay attention to < vs > vs <= vs >=</p>
+            </section>
+
+            <!-- SET 5: Complex Logic -->
+            <section>
+                <h2>Exercise Set 5: Complex Logic Bugs</h2>
+                <div class="info-box">
+                    <strong>Category:</strong> Multi-condition confusion<br>
+                    <strong>Difficulty:</strong> Hard<br>
+                    <strong>Count:</strong> 1 exercise (comparison)
+                </div>
+                <p style="margin-top: 20px;">Understanding:</p>
+                <ul style="font-size: 0.95em;">
+                    <li>AND (&& ) = Both must be true (restrictive)</li>
+                    <li>OR (||) = Either can be true (permissive)</li>
+                    <li>Truth tables for complex conditions</li>
+                </ul>
+            </section>
+
+            <!-- AND vs OR Truth Table -->
+            <section>
+                <h2>Exercise 5.1: AND vs OR</h2>
+                <p style="margin-bottom: 20px;"><strong>Find: Numbers that are (even AND > 10)</strong></p>
+
+                <table class="trace-table" style="font-size: 0.8em;">
+                    <tr>
+                        <th>n</th>
+                        <th>Even</th>
+                        <th>> 10</th>
+                        <th>AND</th>
+                        <th>OR</th>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>YES</td>
+                        <td>NO</td>
+                        <td style="color: #FF3B30;">NO</td>
+                        <td style="color: #4CAF50;">YES</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>NO</td>
+                        <td>YES</td>
+                        <td style="color: #FF3B30;">NO</td>
+                        <td style="color: #4CAF50;">YES</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>YES</td>
+                        <td>YES</td>
+                        <td style="color: #4CAF50;">YES</td>
+                        <td style="color: #4CAF50;">YES</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>NO</td>
+                        <td>NO</td>
+                        <td style="color: #FF3B30;">NO</td>
+                        <td style="color: #FF3B30;">NO</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 20px; font-size: 0.9em;"><strong style="color: #4CAF50;">AND:</strong> Only 12, 14, 16, 18, 20 match (5 numbers)</p>
+                <p style="font-size: 0.9em;"><strong style="color: #FFD54F;">OR:</strong> 2, 4, 6, 8, 10, 11, 12, 13... (15 numbers)</p>
+            </section>
+
+            <!-- SET 6: Variable State -->
+            <section>
+                <h2>Exercise Set 6: Variable State Bugs</h2>
+                <div class="info-box">
+                    <strong>Category:</strong> Initialization, scope<br>
+                    <strong>Difficulty:</strong> Medium<br>
+                    <strong>Count:</strong> 1 exercise
+                </div>
+                <p style="margin-top: 20px;">Common issues:</p>
+                <ul style="font-size: 0.95em;">
+                    <li>Variables used without initialization</li>
+                    <li>Forgetting to reset variables between uses</li>
+                    <li>Wrong variable scope</li>
+                </ul>
+            </section>
+
+            <!-- Exercise 6.1 -->
+            <section>
+                <h2>Exercise 6.1: Forgotten Reset</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;"><strong>Goal:</strong> Sum 3 separate lists independently</p>
+
+                <pre style="font-size: 0.7em;"><code class="language-c">// List 1: sum = 6
+sum = 0;
+for (int i = 1; i <= 3; i++) sum += i;
+printf("List 1: %d\n", sum);
+
+// List 2: sum should be 15, but...
+<span class="highlight-bug">// Missing: sum = 0;</span>
+for (int i = 4; i <= 6; i++) sum += i;
+printf("List 2: %d\n", sum);  // Prints 21!
+</code></pre>
+
+                <p style="margin-top: 15px; font-size: 0.9em;"><strong style="color: #FF3B30;">Problem:</strong> sum still has value 6 from List 1</p>
+                <p style="font-size: 0.9em;"><strong style="color: #FFD54F;">Result:</strong> 6 + 4 + 5 + 6 = 21 instead of 15</p>
+            </section>
+
+            <!-- Summary -->
+            <section>
+                <h2>Summary: 6 Bug Categories</h2>
+                <table style="font-size: 0.85em; width: 100%; margin-top: 20px;">
+                    <tr style="border-bottom: 1px solid #64B5F6;">
+                        <td style="padding: 10px;"><strong>Set 1</strong></td>
+                        <td>Logic Operators</td>
+                        <td style="color: #FFD54F;">|| vs &&</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #64B5F6;">
+                        <td style="padding: 10px;"><strong>Set 2</strong></td>
+                        <td>Counters/Accumulators</td>
+                        <td style="color: #FFD54F;">Wrong variables</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #64B5F6;">
+                        <td style="padding: 10px;"><strong>Set 3</strong></td>
+                        <td>Loop Control</td>
+                        <td style="color: #FFD54F;">Increment, bounds</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #64B5F6;">
+                        <td style="padding: 10px;"><strong>Set 4</strong></td>
+                        <td>Boundary Conditions</td>
+                        <td style="color: #FFD54F;">< vs >, <= vs >=</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #64B5F6;">
+                        <td style="padding: 10px;"><strong>Set 5</strong></td>
+                        <td>Complex Logic</td>
+                        <td style="color: #FFD54F;">Multi-conditions</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;"><strong>Set 6</strong></td>
+                        <td>Variable State</td>
+                        <td style="color: #FFD54F;">Initialize, reset</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Tips for Success -->
+            <section>
+                <h2>Tips for Finding Bugs</h2>
+                <div style="margin-top: 30px;">
+                    <div class="info-box" style="margin-bottom: 15px;">
+                        <strong>DO:</strong> Trace with actual values
+                    </div>
+                    <div class="info-box" style="margin-bottom: 15px;">
+                        <strong>DO:</strong> Check boundary cases (first, last, edge values)
+                    </div>
+                    <div class="info-box" style="margin-bottom: 15px;">
+                        <strong>DO:</strong> Verify your fix works
+                    </div>
+                    <div class="bug-box" style="margin-bottom: 15px;">
+                        <strong>DON'T:</strong> Just look at output and guess
+                    </div>
+                    <div class="bug-box" style="margin-bottom: 15px;">
+                        <strong>DON'T:</strong> Skip the tracing step
+                    </div>
+                    <div class="bug-box">
+                        <strong>DON'T:</strong> Modify code randomly hoping it works
+                    </div>
+                </div>
+            </section>
+
+            <!-- Debugging Checklist -->
+            <section>
+                <h2>Your Debugging Checklist</h2>
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Read: Understand what it SHOULD do</p>
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Predict: What will it ACTUALLY do?</p>
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Trace: Step through with values</p>
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Find: Which line is wrong?</p>
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Understand: WHY is it wrong?</p>
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Fix: Write the correct version</p>
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Verify: Trace the fixed code</p>
+                    <p style="font-size: 0.9em; margin: 10px 0;"><strong>[ ]</strong> Explain: Write your explanation</p>
+                </div>
+            </section>
+
+            <!-- Next Steps -->
+            <section>
+                <h2>Next Steps</h2>
+                <div style="margin-top: 30px;">
+                    <p style="font-size: 1.1em; margin-bottom: 20px;"><strong>Now:</strong></p>
+                    <ul style="font-size: 1em; line-height: 1.8;">
+                        <li>Open DAY4_EXERCISES.md</li>
+                        <li>Work through exercises in order</li>
+                        <li>Use the checklist for each one</li>
+                        <li>Don't rush - trace carefully</li>
+                    </ul>
+
+                    <p style="font-size: 1.1em; margin-top: 30px; margin-bottom: 20px;"><strong>Later:</strong></p>
+                    <ul style="font-size: 1em; line-height: 1.8;">
+                        <li>Review your answers</li>
+                        <li>Compare to the answer key</li>
+                        <li>Ask questions about bugs you don't understand</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Final Slide -->
+            <section style="text-align: center;">
+                <h2 style="font-size: 2em;">Ready to Debug?</h2>
+                <p style="margin-top: 40px; font-size: 1.2em;">Remember:</p>
+                <p style="font-size: 1.1em; color: #FFD54F;"><strong>Debugging is a SKILL that improves with PRACTICE</strong></p>
+                <p style="margin-top: 50px; font-size: 0.95em; color: #999;">Good luck with Day 4!</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [RevealHighlight],
+            width: '100%',
+            height: '100%',
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+    </script>
+</body>
+</html>

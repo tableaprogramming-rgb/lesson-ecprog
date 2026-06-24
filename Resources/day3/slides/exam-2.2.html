@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 3 - Exam Question 2.2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { margin: 20px 0; font-size: 0.55em; }
+        .reveal code { padding: 2px 6px; }
+        .reveal table { margin: 20px auto; font-size: 0.8em; }
+        .reveal table th, .reveal table td { padding: 8px; border: 1px solid #666; }
+        .reveal table th { background: rgba(100, 200, 255, 0.3); }
+        .slide-container { display: flex; flex-direction: column; gap: 15px; height: 100%; }
+        .slide-header { text-align: center; flex-shrink: 0; }
+        .slide-header h3 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.85em; }
+        .slide-header p { margin: 0; font-size: 0.6em; line-height: 1.2; }
+        .slide-content { display: flex; gap: 20px; align-items: flex-start; justify-content: center; flex: 1; }
+        .slide-footer { text-align: center; flex-shrink: 0; font-size: 0.7em; }
+        .code-column { width: 50%; text-align: left; flex-shrink: 0; }
+        .code-column pre { margin: 0 !important; padding: 12px !important; width: 100%; line-height: 1.0 !important; font-size: 0.5em !important; }
+        .code-column code { line-height: 1.0 !important; }
+        .info-column { width: 50%; text-align: left; font-size: 0.75em; flex-shrink: 0; }
+        .output-section { background: rgba(0, 0, 0, 0.5); border: 1px solid #ff6666; padding: 8px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        .output-section h4 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.8em; }
+        .output-section pre { margin: 0; color: #ff6666; font-size: 0.75em; line-height: 1.3; }
+        .task-box { background: rgba(100, 150, 255, 0.2); border: 2px solid #66aaff; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .task-box h4 { color: #66aaff; margin: 0 0 10px 0; font-size: 0.9em; }
+        .task-box ol { margin-left: 20px; color: #ddd; font-size: 0.85em; line-height: 1.6; }
+        .info-box { margin-bottom: 12px; padding: 10px; background: rgba(100, 100, 100, 0.2); border-left: 3px solid #888; border-radius: 3px; }
+        .info-box h4 { margin: 0 0 6px 0; color: #ffaa00; font-size: 0.85em; }
+        .info-box p { margin: 0; font-size: 0.75em; line-height: 1.3; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 1em; cursor: pointer; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
+        .home-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); }
+        .home-button:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">🏠 Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1>Exam Question 2.2</h1>
+                <h3>Multiple Bugs: Find Them All!</h3>
+                <p style="margin-top: 60px; font-size: 0.9em;">25 Points - Challenge (2+ bugs)</p>
+            </section>
+
+            <!-- SLIDE 2: CONTEXT -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">The Context</h2>
+                <div style="text-align: left; max-width: 800px; margin: 0 auto; font-size: 0.95em; line-height: 1.8;">
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">Goal:</strong></p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #ffaa00;">
+                        Sum all EVEN numbers from 10 to 15
+                    </p>
+                    <p style="margin: 20px 0;"><strong style="color: #ffdd00;">Calculation:</strong></p>
+                    <p style="margin: 20px 0; font-size: 1.05em;">
+                        Even numbers: 10, 12, 14<br>
+                        Sum = 10 + 12 + 14 = <span style="color: #66ff66; font-weight: bold;">36</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: BUGGY CODE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">The Buggy Code</h2>
+                        <h3>This code won't even compile!</h3>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int sum = 0;
+
+    for (int i = 10; i <= 15; i++) {
+        if (i % 2 = 0) {
+            sum = sum + i;
+        }
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="info-column">
+                            <div class="output-section">
+                                <h4>Compilation Error</h4>
+                                <pre>error: lvalue required
+as left operand
+of assignment
+(Line 7)</pre>
+                            </div>
+                            <div class="info-box" style="background: rgba(255, 100, 100, 0.2); border-left-color: #ff6666; margin-top: 15px;">
+                                <h4 style="color: #ff8888;">Problem:</h4>
+                                <p>Code does NOT compile</p>
+                                <p style="margin-top: 8px; font-size: 0.85em; color: #aaa;">Find at least 1-2 bugs</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <p style="font-size: 0.75em; color: #aaa;">Careful! Read line by line.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: YOUR TASK -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 20px;">Your Task (25 Points)</h2>
+                <div class="task-box">
+                    <h4>Complete the following:</h4>
+                    <ol>
+                        <li><strong>Find ALL bugs:</strong> There are 1-2 bugs. Find them all and list the line numbers</li>
+                        <li><strong>Explain each:</strong> What's wrong with each bug?</li>
+                        <li><strong>Write the fixes:</strong> Show the corrected lines of code</li>
+                        <li><strong>Trace:</strong> Show what the fixed code does for each iteration (i=10 to 15)</li>
+                        <li><strong>Verify:</strong> Show the corrected code produces Sum: 36</li>
+                    </ol>
+                </div>
+                <div style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #aaa;">
+                    <p><strong>Remember:</strong> Show all your work on your exam answer sheet</p>
+                    <p>Include line numbers for each bug found</p>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: HINT -->
+            <section>
+                <h2 style="color: #ffaa00; margin-bottom: 30px;">Think About:</h2>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 1em; line-height: 2;">
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 1:</strong> Look at line 7. Is the symbol <code>=</code> or <code>==</code>? What do they mean?
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 2:</strong> The error message says "lvalue required as left operand of assignment". What causes this?
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 150, 255, 0.2); border-left: 3px solid #66aaff;">
+                        <strong>Question 3:</strong> After fixing the syntax error, will the logic be correct? Check if the loop correctly identifies even numbers.
+                    </p>
+                    <p style="margin: 20px 0; padding: 15px; background: rgba(100, 200, 100, 0.2); border-left: 3px solid #66ff66;">
+                        <strong>Fix Hint:</strong> Primary bug is on line 7 (= vs ==). After fixing, check if the rest works correctly.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

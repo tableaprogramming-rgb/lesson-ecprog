@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Week 1 - Exercise 1.3 Code Tracing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+        }
+        .reveal pre {
+            margin: 20px 0;
+            font-size: 0.55em;
+        }
+        .reveal code {
+            padding: 2px 6px;
+        }
+        .reveal table {
+            margin: 20px auto;
+            font-size: 0.8em;
+        }
+        .reveal table th,
+        .reveal table td {
+            padding: 8px;
+            border: 1px solid #666;
+        }
+        .reveal table th {
+            background: rgba(100, 200, 255, 0.3);
+        }
+
+        /* Slide layout */
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+        .slide-header {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .slide-header h3 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 0.9em;
+        }
+        .slide-header p {
+            margin: 0;
+            font-size: 0.65em;
+            line-height: 1.3;
+        }
+        .slide-content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            justify-content: center;
+            flex: 1;
+        }
+        .slide-footer {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .code-column {
+            width: 50%;
+            text-align: left;
+            flex-shrink: 0;
+        }
+        .code-column pre {
+            margin: 0 !important;
+            padding: 15px !important;
+            width: 100%;
+            line-height: 1.1 !important;
+        }
+        .code-column code {
+            line-height: 1.1 !important;
+        }
+        .variables-column {
+            width: 50%;
+            text-align: left;
+            font-size: 0.85em;
+            flex-shrink: 0;
+        }
+        .variables-section {
+            margin-bottom: 20px;
+        }
+        .variables-section h4 {
+            margin: 0 0 10px 0;
+            color: #ffaa00;
+            font-size: 1em;
+        }
+        .variables-section table {
+            width: 100%;
+            font-size: 0.85em;
+            border-collapse: collapse;
+        }
+        .variables-section table th,
+        .variables-section table td {
+            border: 1px solid #666;
+            padding: 6px;
+            text-align: left;
+        }
+        .variables-section table th {
+            background: rgba(100, 200, 255, 0.3);
+        }
+        .output-section {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #4CAF50;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .output-section h4 {
+            margin: 0 0 8px 0;
+            color: #ffaa00;
+            font-size: 1em;
+        }
+        .output-section pre {
+            margin: 0;
+            color: #4CAF50;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .home-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">🏠 Home</a>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1>Exercise 1.3: Code Tracing</h1>
+                <h3>Simple Loop (Sum Calculator)</h3>
+            </section>
+
+            <!-- SLIDE 2: Complete Code -->
+            <section>
+                <h2>Exercise 1.3: Complete Code</h2>
+                <div style="width: 50%; margin: 0 auto;">
+                    <pre style="font-size: 0.45em; margin: 10px 0; padding: 10px;"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {
+        sum = sum + i;
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: Initialize Variables -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 1: Initialize Variables</h2>
+                        <h3>Declare i and sum</h3>
+                        <p>We create two integer variables: <code>i</code> (for loop counter) and <code>sum</code> (starting at 0).</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;                      // ← WE ARE HERE
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {
+        sum = sum + i;
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td><strong>i</strong></td><td>int</td><td>(uninitialized)</td></tr>
+                                    <tr><td><strong>sum</strong></td><td>int</td><td><strong>0</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: Loop Iteration 1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 2: Loop Iteration 1</h2>
+                        <h3>i = 1, sum = sum + 1</h3>
+                        <p>The loop starts: <code>i</code> is set to 1. Condition <code>1 <= 4</code> is TRUE. Execute: <code>sum = 0 + 1 = 1</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {
+        sum = sum + i;          // ← WE ARE HERE (i=1)
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>1</td></tr>
+                                    <tr><td>sum</td><td>int</td><td><strong>1</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: Loop Iteration 2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 3: Loop Iteration 2</h2>
+                        <h3>i = 2, sum = sum + 2</h3>
+                        <p><code>i++</code> increments i to 2. Condition <code>2 <= 4</code> is TRUE. Execute: <code>sum = 1 + 2 = 3</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {
+        sum = sum + i;          // ← WE ARE HERE (i=2)
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>2</td></tr>
+                                    <tr><td>sum</td><td>int</td><td><strong>3</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: Loop Iteration 3 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 4: Loop Iteration 3</h2>
+                        <h3>i = 3, sum = sum + 3</h3>
+                        <p><code>i++</code> increments i to 3. Condition <code>3 <= 4</code> is TRUE. Execute: <code>sum = 3 + 3 = 6</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {
+        sum = sum + i;          // ← WE ARE HERE (i=3)
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>3</td></tr>
+                                    <tr><td>sum</td><td>int</td><td><strong>6</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: Loop Iteration 4 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 5: Loop Iteration 4</h2>
+                        <h3>i = 4, sum = sum + 4</h3>
+                        <p><code>i++</code> increments i to 4. Condition <code>4 <= 4</code> is TRUE. Execute: <code>sum = 6 + 4 = 10</code></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {
+        sum = sum + i;          // ← WE ARE HERE (i=4)
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>4</td></tr>
+                                    <tr><td>sum</td><td>int</td><td><strong>10</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: Loop Exit -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 6: Loop Exits</h2>
+                        <h3>Condition Becomes FALSE</h3>
+                        <p><code>i++</code> increments i to 5. Condition <code>5 <= 4</code> is FALSE. <span style="color: #ff6b6b;">Loop ends.</span></p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {  // ← LOOP EXITS HERE
+        sum = sum + i;
+    }
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>5</td></tr>
+                                    <tr><td>sum</td><td>int</td><td><strong>10</strong></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>(no output yet)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: Print Output -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2 style="margin: 0 0 10px 0;">Step 7: Print the Sum</h2>
+                        <h3>Display Result</h3>
+                        <p>The <code>printf()</code> function outputs the final value of sum.</p>
+                    </div>
+
+                    <div class="slide-content">
+                        <div class="code-column">
+                            <pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i;
+    int sum = 0;
+
+    for (i = 1; i <= 4; i++) {
+        sum = sum + i;
+    }
+
+    printf("Sum: %d\n", sum);   // ← WE ARE HERE
+
+    return 0;
+}</code></pre>
+                        </div>
+                        <div class="variables-column">
+                            <div class="variables-section">
+                                <h4>Variables</h4>
+                                <table>
+                                    <tr><th>Variable</th><th>Type</th><th>Value</th></tr>
+                                    <tr><td>i</td><td>int</td><td>5</td></tr>
+                                    <tr><td>sum</td><td>int</td><td>10</td></tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <div class="output-section" style="max-width: 600px; margin: 0 auto;">
+                            <h4>Console Output</h4>
+                            <pre>Sum: 10</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: EXECUTION SUMMARY -->
+            <section>
+                <h2>Loop Iterations Summary</h2>
+                <table style="font-size: 0.7em;">
+                    <tr>
+                        <th>Iteration</th>
+                        <th>i Value</th>
+                        <th>Condition (i <= 4)</th>
+                        <th>sum = sum + i</th>
+                        <th>New sum</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>TRUE</td>
+                        <td>0 + 1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>TRUE</td>
+                        <td>1 + 2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>TRUE</td>
+                        <td>3 + 3</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>TRUE</td>
+                        <td>6 + 4</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>—</td>
+                        <td>5</td>
+                        <td><span style="color: #ff6b6b;"><strong>FALSE</strong></span></td>
+                        <td colspan="2">Loop exits</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- SLIDE 11: KEY CONCEPTS -->
+            <section>
+                <h2>Key Concepts to Remember</h2>
+                <ul style="font-size: 0.85em; line-height: 1.8;">
+                    <li><strong>For Loop Structure:</strong> <code>for (init; condition; increment) { body }</code></li>
+                    <li><strong>Loop Execution:</strong> Runs while condition is TRUE, stops when FALSE</li>
+                    <li><strong>Loop Counter:</strong> Updated with <code>i++</code> after each iteration</li>
+                    <li><strong>Accumulation:</strong> <code>sum = sum + i</code> adds current i value to previous sum</li>
+                    <li><strong>Trace Every Iteration:</strong> Don't skip steps—update variables each time</li>
+                </ul>
+            </section>
+
+            <!-- SLIDE 12: CHALLENGE -->
+            <section>
+                <h2>Challenge: What If?</h2>
+                <p style="font-size: 0.9em; margin-bottom: 20px;">What would happen with this changed code?</p>
+                <pre style="font-size: 0.7em;"><code class="language-c">    for (i = 1; i <= 5; i++) {  // Changed from i <= 4
+        sum = sum + i;
+    }</code></pre>
+                <p style="font-size: 0.85em; margin-top: 20px;"><strong>Questions:</strong></p>
+                <ul style="font-size: 0.75em;">
+                    <li>How many iterations would run?</li>
+                    <li>What would be the final sum? (1+2+3+4+5=?)</li>
+                    <li>What would the output be?</li>
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [ RevealHighlight ],
+            width: '100%',
+            height: '100%',
+            margin: 0.1,
+            transition: 'fade',
+        });
+    </script>
+</body>
+</html>

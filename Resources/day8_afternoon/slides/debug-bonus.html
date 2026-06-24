@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROG2 Day 8 - Bonus Challenge: Find All 5 Bugs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <style>
+        .reveal { width: 100% !important; height: 100% !important; }
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; color: #FFD700; font-weight: bold; }
+        .reveal h2 { font-size: 0.9em; }
+        .reveal h3 { font-size: 0.6em; margin-top: 20px; }
+        .reveal section { padding: 10px !important; width: 100% !important; height: 100% !important; left: 0 !important; right: 0 !important; }
+        .slide-container { display: flex; flex-direction: column; height: 100%; width: 100%; justify-content: flex-start; gap: 5px; }
+        .slide-header { text-align: center; margin-bottom: 5px; flex-shrink: 0; }
+        .slide-header h2 { margin: 0 0 5px 0; color: #FFD700; }
+        .slide-header p { margin: 2px 0; font-size: 0.45em; color: #B0BEC5; }
+        .slide-content { display: flex; gap: 12px; margin: 0; justify-content: flex-start; flex: 1; min-height: 0; overflow: visible; }
+        .code-column { width: 100%; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+        .code-column pre { margin: 0; padding: 0; font-size: 0.18em; line-height: 1.2; width: 100%; overflow: visible; max-height: 400px; white-space: pre; flex-shrink: 0; }
+        .code-column code { padding: 8px; border-radius: 3px; background: #263238 !important; color: #AED581 !important; display: block; font-family: 'Courier New', monospace !important; }
+        .bug-highlight { background: #FF5252; color: white; padding: 2px 4px; border-radius: 2px; }
+        .fix-highlight { background: #66BB6A; color: #000; padding: 2px 4px; border-radius: 2px; }
+        .bug-box { background: rgba(255, 107, 53, 0.1); padding: 10px; margin: 8px 0; border-radius: 3px; border-left: 3px solid #FFD700; }
+        .bug-box h4 { color: #FFD700; margin: 0 0 5px 0; font-size: 0.75em; }
+        .bug-box p { margin: 0; font-size: 0.55em; }
+        .context-box { background: rgba(255, 215, 0, 0.1); border: 2px solid #FFD700; padding: 15px; border-radius: 5px; margin: 15px 0; text-align: left; }
+        .context-box h4 { color: #FFD700; margin: 0 0 10px 0; font-size: 0.75em; font-weight: bold; }
+        .context-box p { margin: 5px 0; font-size: 0.55em; line-height: 1.5; }
+        .task-box { background: rgba(100, 150, 255, 0.2); border: 2px solid #66AAFF; padding: 15px; border-radius: 5px; margin: 10px 0; text-align: left; }
+        .task-box h4 { color: #66AAFF; margin: 0 0 10px 0; font-size: 0.75em; font-weight: bold; }
+        .task-box ol { margin: 5px 0 0 20px; color: #ddd; font-size: 0.65em; line-height: 1.6; }
+        .task-box li { margin: 5px 0; }
+        .home-button { position: fixed; top: 20px; left: 20px; z-index: 1000; background: #FFD700; color: #333; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 0.9em; font-weight: bold; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .home-button:hover { background: #FFC400; box-shadow: 0 4px 8px rgba(255, 215, 0, 0.4); }
+        .slide-number { position: fixed; bottom: 20px; right: 20px; font-size: 0.75em; color: #FFD700; background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 3px; z-index: 500; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">← Home</a>
+    <div class="reveal">
+        <div class="slides">
+            <!-- SLIDE 1: TITLE -->
+            <section>
+                <h1 style="font-size: 1.8em; margin-bottom: 30px;">BONUS CHALLENGE</h1>
+                <h2 style="color: #FFC400; font-size: 1.1em;">Find and Fix All 5 Bugs in This Program!</h2>
+                <p style="margin-top: 60px; font-size: 0.85em; color: #B0BEC5;">Advanced Level — Combines All Debug Types</p>
+                <div class="slide-number">1 / 10</div>
+            </section>
+
+            <!-- SLIDE 2: CONTEXT -->
+            <section>
+                <h2 style="color: #FFD700; margin-bottom: 30px;">The Context</h2>
+                <div style="text-align: left; max-width: 900px; margin: 0 auto; font-size: 0.8em; line-height: 1.8;">
+                    <p style="margin: 15px 0;"><strong style="color: #FFC400;">Goal:</strong></p>
+                    <div class="context-box">
+                        <p>Write a function <strong>processMatrix</strong> that accepts a 3×4 matrix, sums all elements, and returns the floating-point average</p>
+                        <p style="margin-top: 10px;">Matrix: [[1-4],[5-8],[9-12]] — Sum = 78, Average = 6.5</p>
+                    </div>
+                    <p style="margin: 15px 0;"><strong style="color: #FFC400;">Expected Output:</strong></p>
+                    <p style="margin: 15px 0; padding: 12px; background: rgba(102, 187, 106, 0.2); border-left: 3px solid #66BB6A; font-family: 'Courier New', monospace;">
+                        Result: <span style="color: #66BB6A; font-weight: bold;">6.5</span> (but there are 5 bugs hiding in the code!)
+                    </p>
+                </div>
+                <div class="slide-number">2 / 10</div>
+            </section>
+
+            <!-- SLIDE 3: BUGGY CODE -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>The Buggy Code — Can You Spot All 5?</h2>
+                        <h3 style="color: #FFD700;">Look carefully... there are 5 bugs numbered in the comments</h3>
+                    </div>
+                    <div class="slide-content" style="justify-content: center; align-items: flex-start;">
+                        <div style="width: 100%; text-align: center;">
+                            <pre style="font-size: 0.4em; overflow: visible;"><code>#include &lt;stdio.h&gt;
+
+int processMatrix(int matrix[3]) {  // BUG 1
+    int sum;  // BUG 2
+    for (int i = 0; i &lt;= 3; i++) {  // BUG 3
+        for (int j = 0; j &lt; 4; j++) {
+            if (i &lt; 3) {
+                sum += matrix[i][j];  // BUG 5
+            }
+        }
+    }
+    return sum / 12;  // BUG 4
+}
+
+int main() {
+    int arr[3][4] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12}
+    };
+
+    int result = processMatrix(arr);
+    printf("Result: %d\n", result);
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">3 / 10</div>
+            </section>
+
+            <!-- SLIDE 4: YOUR TASK -->
+            <section>
+                <h2 style="color: #FFD700; margin-bottom: 25px;">Your Task</h2>
+                <div class="task-box" style="max-width: 900px; margin: 0 auto;">
+                    <h4>Complete the following:</h4>
+                    <ol>
+                        <li><strong>Find all 5 bugs:</strong> Identify each line with a BUG comment and what's wrong</li>
+                        <li><strong>Explain why:</strong> For each bug, explain the type (parameter, init, bounds, type, logic)</li>
+                        <li><strong>Trace execution:</strong> Show what the buggy code does vs what we want</li>
+                        <li><strong>Write all fixes:</strong> Provide the corrected version of each buggy line</li>
+                        <li><strong>Verify:</strong> Show the fully corrected code produces: Result: 6 (or 6.5 with double)</li>
+                    </ol>
+                </div>
+                <div class="slide-number">4 / 10</div>
+            </section>
+
+            <!-- SLIDE 5: BUG 1 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Bug #1: Function Parameter</h2>
+                        <p>Missing column dimension</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div class="bug-box">
+                            <h4>❌ Buggy Code</h4>
+                            <p><span class="bug-highlight">int processMatrix(int matrix[3])</span></p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>Why It's Wrong</h4>
+                            <p>Looks like 1D array. Compiler can't calculate 2D offsets. Need both dimensions!</p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>✓ The Fix</h4>
+                            <p><span class="fix-highlight">int processMatrix(int matrix[3][4])</span> or <span class="fix-highlight">int processMatrix(int matrix[][4])</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">5 / 10</div>
+            </section>
+
+            <!-- SLIDE 6: BUG 2 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Bug #2: Uninitialized Variable</h2>
+                        <p>Garbage value accumulation</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div class="bug-box">
+                            <h4>❌ Buggy Code</h4>
+                            <p><span class="bug-highlight">int sum;</span> (no initialization)</p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>Why It's Wrong</h4>
+                            <p>Variable contains garbage value. Adding to it produces unpredictable results!</p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>✓ The Fix</h4>
+                            <p><span class="fix-highlight">int sum = 0;</span> (initialize to 0)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">6 / 10</div>
+            </section>
+
+            <!-- SLIDE 7: BUG 3 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Bug #3: Off-by-One Error</h2>
+                        <p>Loop condition exceeds bounds</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div class="bug-box">
+                            <h4>❌ Buggy Code</h4>
+                            <p><span class="bug-highlight">for (int i = 0; i &lt;= 3; i++)</span></p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>Why It's Wrong</h4>
+                            <p>Loop tries i=3, but valid indices are 0-2. matrix[3][j] is out of bounds!</p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>✓ The Fix</h4>
+                            <p><span class="fix-highlight">for (int i = 0; i &lt; 3; i++)</span> (use &lt; not &lt;=)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">7 / 10</div>
+            </section>
+
+            <!-- SLIDE 8: BUG 4 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Bug #4: Integer Division</h2>
+                        <p>Type conversion loses decimal</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div class="bug-box">
+                            <h4>❌ Buggy Code</h4>
+                            <p><span class="bug-highlight">return sum / 12;</span> (int / int = int)</p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>Why It's Wrong</h4>
+                            <p>Integer division truncates decimal part. 78 / 12 = 6 (not 6.5)</p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>✓ The Fix</h4>
+                            <p><span class="fix-highlight">return sum / 12.0;</span> (force floating-point)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">8 / 10</div>
+            </section>
+
+            <!-- SLIDE 9: BUG 5 -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Bug #5: Logic Error</h2>
+                        <p>Protection condition is inefficient</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div class="bug-box">
+                            <h4>❌ Buggy Code</h4>
+                            <p>Inside loops: <span class="bug-highlight">if (i &lt; 3) { sum += ... }</span></p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>Why It's Wrong</h4>
+                            <p>Protection should be in loop condition! Checking inside is inefficient and a bandaid for Bug #3.</p>
+                        </div>
+                        <div class="bug-box">
+                            <h4>✓ The Fix</h4>
+                            <p><span class="fix-highlight">for (int i = 0; i &lt; 3; i++)</span> (fix Bug #3 properly — no if needed)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">9 / 10</div>
+            </section>
+
+            <!-- SLIDE 10: CORRECTED CODE + LESSONS -->
+            <section>
+                <div class="slide-container">
+                    <div class="slide-header">
+                        <h2>Lessons Learned</h2>
+                        <p>Complete debugging mastery</p>
+                    </div>
+                    <div class="slide-content" style="flex-direction: column; padding: 10px 40px;">
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD700; font-size: 0.6em;">Multiple Bugs Compound</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                One bug can hide others<br>
+                                Fix systematically, check each fix independently
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD700; font-size: 0.6em;">Test Thoroughly</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Don't assume one fix solved everything<br>
+                                Recompile and test after each change
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD700; font-size: 0.6em;">All 5 Bug Types Combined</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Parameter error + uninitialized + off-by-one + type + logic<br>
+                                Real-world code has similar patterns
+                            </p>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <h3 style="color: #FFD700; font-size: 0.6em;">You're Now A Debugger!</h3>
+                            <p style="margin: 5px 0; font-size: 0.55em;">
+                                Congratulations! You've mastered 2D array debugging
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-number">10 / 10</div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>

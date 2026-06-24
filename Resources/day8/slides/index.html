@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 8: 2D Arrays - Interactive Presentations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+        header h2 {
+            font-size: 1.5em;
+            color: #ffaa00;
+            margin-bottom: 20px;
+        }
+        header p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .exercises {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .exercise-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        .exercise-card:hover {
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        .exercise-card h3 {
+            font-size: 1.5em;
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+        .exercise-card .number {
+            font-size: 0.9em;
+            color: #ffaa00;
+            margin-bottom: 15px;
+        }
+        .exercise-card p {
+            color: #d0d0d0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .exercise-card .code-example {
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            text-align: left;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            color: #00ff00;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+            color: #000;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+        .info-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #ffaa00;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        .info-section h3 {
+            color: #ffaa00;
+            margin-bottom: 10px;
+        }
+        .info-section ul {
+            list-style-position: inside;
+            color: #d0d0d0;
+            line-height: 2;
+        }
+        .keyboard-shortcuts {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #666;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .keyboard-shortcuts h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+        }
+        .shortcut {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            color: #d0d0d0;
+        }
+        .shortcut code {
+            background: #1a1a1a;
+            padding: 2px 8px;
+            border-radius: 3px;
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            .exercises {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .back-to-master {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-to-master:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .top-nav {
+            text-align: center;
+            padding-top: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-nav">
+            <a href="../../index.html" class="back-to-master">← Back to Master Index</a>
+        </div>
+        <header>
+            <h1>🎓 Day 8 Presentations</h1>
+            <h2>Multi-Dimensional Arrays (2D Arrays)</h2>
+            <p>Interactive code tracing presentations to understand 2D arrays step-by-step</p>
+        </header>
+
+        <div class="info-section">
+            <h3>📋 What You'll Learn</h3>
+            <ul>
+                <li><strong>8.1:</strong> How to declare and initialize 2D arrays</li>
+                <li><strong>8.2:</strong> How to traverse 2D arrays with nested loops</li>
+                <li><strong>8.3:</strong> How to work with rows and columns</li>
+                <li><strong>8.4:</strong> How to pass 2D arrays to functions</li>
+                <li><strong>8.5:</strong> How to search in 2D arrays</li>
+                <li><strong>8.6:</strong> How to transpose a matrix</li>
+                <li><strong>8.7:</strong> How to apply 2D arrays in real-world scenarios</li>
+            </ul>
+        </div>
+
+        <div class="exercises">
+            <!-- Exercise 8.1 -->
+            <div class="exercise-card">
+                <h3>Exercise 8.1</h3>
+                <div class="number">Declaration & Initialization</div>
+                <p>Learn how to declare and initialize 2D arrays</p>
+                <div class="code-example">int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};</div>
+                <a href="exercise-8.1.html" class="btn">View Presentation</a>
+            </div>
+
+            <!-- Exercise 8.2 -->
+            <div class="exercise-card">
+                <h3>Exercise 8.2</h3>
+                <div class="number">Nested Loops & Traversal</div>
+                <p>Learn how to traverse 2D arrays</p>
+                <div class="code-example">for (int i = 0; i < 2; i++)
+    for (int j = 0; j < 3; j++)
+        sum += arr[i][j];</div>
+                <a href="exercise-8.2.html" class="btn">View Presentation</a>
+            </div>
+
+            <!-- Exercise 8.3 -->
+            <div class="exercise-card">
+                <h3>Exercise 8.3</h3>
+                <div class="number">Row & Column Operations</div>
+                <p>Learn to work with specific rows/columns</p>
+                <div class="code-example">for (int j = 0; j < 3; j++)
+    rowSum += matrix[1][j];
+// Sum of row 1</div>
+                <a href="exercise-8.3.html" class="btn">View Presentation</a>
+            </div>
+
+            <!-- Exercise 8.4 -->
+            <div class="exercise-card">
+                <h3>Exercise 8.4</h3>
+                <div class="number">Functions with 2D Arrays</div>
+                <p>Learn to pass 2D arrays to functions</p>
+                <div class="code-example">int sumMatrix(int matrix[3][3]) {
+    // Process 2D array
+    return sum;
+}</div>
+                <a href="exercise-8.4.html" class="btn">View Presentation</a>
+            </div>
+
+            <!-- Exercise 8.5 -->
+            <div class="exercise-card">
+                <h3>Exercise 8.5</h3>
+                <div class="number">Searching in 2D Arrays</div>
+                <p>Learn to find elements in 2D arrays</p>
+                <div class="code-example">if (matrix[i][j] == target) {
+    found = 1;
+    row = i; col = j;
+}</div>
+                <a href="exercise-8.5.html" class="btn">View Presentation</a>
+            </div>
+
+            <!-- Exercise 8.6 -->
+            <div class="exercise-card">
+                <h3>Exercise 8.6</h3>
+                <div class="number">Matrix Transpose</div>
+                <p>Learn matrix transformation operations</p>
+                <div class="code-example">transpose[j][i] = matrix[i][j];
+// Swap indices for transpose</div>
+                <a href="exercise-8.6.html" class="btn">View Presentation</a>
+            </div>
+
+            <!-- Exercise 8.7 -->
+            <div class="exercise-card">
+                <h3>Exercise 8.7</h3>
+                <div class="number">Practical Application</div>
+                <p>Apply 2D arrays to real-world problems</p>
+                <div class="code-example">// Grade matrix: students x subjects
+int grades[4][3] = {
+    {85, 90, 78}, ...
+};</div>
+                <a href="exercise-8.7.html" class="btn">View Presentation</a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>💡 Tips for Using These Presentations</h3>
+            <ul>
+                <li>Press <strong>Spacebar</strong> or <strong>Right Arrow</strong> to go to the next slide</li>
+                <li>Press <strong>Left Arrow</strong> to go to the previous slide</li>
+                <li>Press <strong>F</strong> for fullscreen mode (recommended for classroom)</li>
+                <li>Press <strong>ESC</strong> to exit fullscreen</li>
+                <li>Press <strong>?</strong> to see all keyboard shortcuts</li>
+            </ul>
+        </div>
+
+        <div class="keyboard-shortcuts">
+            <h3>⌨️ Keyboard Shortcuts</h3>
+            <div class="shortcut"><code>Spacebar</code> or <code>→</code> = Next slide</div>
+            <div class="shortcut"><code>←</code> = Previous slide</div>
+            <div class="shortcut"><code>F</code> = Fullscreen</div>
+            <div class="shortcut"><code>ESC</code> = Exit fullscreen</div>
+            <div class="shortcut"><code>?</code> = Show help</div>
+        </div>
+
+        <footer>
+            <p>💻 PROG2: Computer Programming 2 | Day 8: 2D Arrays</p>
+            <p>Interactive presentations for mastering multi-dimensional arrays in C</p>
+        </footer>
+    </div>
+</body>
+</html>
